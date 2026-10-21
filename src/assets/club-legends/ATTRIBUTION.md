@@ -1,0 +1,99 @@
+# Club record portrait credits
+
+- **Wayne Rooney:** [image file and license details](https://cdn-img.staticzz.com/img/planteis/new/96/29/719629_wayne_rooney_20240909104521.jpg); [source page](https://www.ogol.com.br/jogador/wayne-rooney/1380).
+- **Ryan Giggs:** [image file and license details](https://commons.wikimedia.org/wiki/File:Ryan_Giggs_2015_(cropped).jpg); [source page](https://en.wikipedia.org/wiki/Ryan_Giggs).
+- **Ian Rush:** [image file and license details](https://commons.wikimedia.org/wiki/File:Ian_Rush_in_Singapore.jpg); [source page](https://en.wikipedia.org/wiki/Ian_Rush).
+- **Ian Callaghan:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-LFC_Legends_-_FA_Cup_Final_1974_(25633138964).jpg); [source page](https://en.wikipedia.org/wiki/Ian_Callaghan).
+- **Thierry Henry:** [image file and license details](https://i.pinimg.com/originals/29/a6/a4/29a6a4b3c458900bd5a9aeeb9b614a2c.jpg); [source page](https://www.arsenal.com/historic/players/thierry-henry).
+- **Frank Lampard:** [image file and license details](https://3.bp.blogspot.com/-GUtsteeGqWg/T-WyhZVdcYI/AAAAAAAAAC8/LAWByy4hSWw/s1600/frank-lampard-x-98060.jpg); [source page](https://www.chelseafc.com/en/teams/profile/frank-lampard).
+- **Sergio Agüero:** [image file and license details](https://www.mancity.com/meta/media/ekcdk54z/2019-sergio-aguero_1947.png); [source page](https://www.mancity.com/players/sergio-aguero).
+- **Jimmy Greaves:** local portrait file; exact original source metadata was unavailable for this previously saved file.
+- **Steve Perryman:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-Steve_Perryman_(1981).jpg); [source page](https://en.wikipedia.org/wiki/Steve_Perryman).
+- **Dixie Dean:** [image file and license details](https://commons.wikimedia.org/wiki/File:Dixie_Dean_(1931).jpg); [source page](https://en.wikipedia.org/wiki/Dixie_Dean).
+- **Alan Shearer:** [image file and license details](https://commons.wikimedia.org/wiki/File:Alan_Shearer_2008.jpg); [source page](https://en.wikipedia.org/wiki/Alan_Shearer).
+- **Jimmy Lawrence:** local portrait file; exact original source metadata was unavailable for this previously saved file.
+- **Billy Walker:** local portrait file; exact original source metadata was unavailable for this previously saved file.
+- **Bob McKinlay:** [image file and license details](https://commons.wikimedia.org/wiki/File:Bob_Mckinlay.jpg); [source page](https://en.wikipedia.org/wiki/Bob_McKinlay).
+- **Billy Bonds:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-BillyBonds.JPG); [source page](https://en.wikipedia.org/wiki/Billy_Bonds).
+- **Cristiano Ronaldo:** [image file and license details](https://publish.realmadrid.com/content/dam/portals/realmadrid-com/es-es/sports/football/legendary-players/cristiano-ronaldo-dos-santos-aveiro/assets/1330603286208.jpg); [source page](https://www.realmadrid.com/en-US/the-club/history/football-legends/cristiano-ronaldo-dos-santos-aveiro).
+- **Raúl:** local portrait file; exact original source metadata was unavailable for this previously saved file.
+- **Lionel Messi:** [image file and license details](https://www.ogol.com.br/img/planteis/new/73/83/1157383_lionel_messi_20240503153854.jpg); [source page](https://www.ogol.com.br/jogador/lionel-messi?epoca_id=141).
+- **Xavi:** local portrait file; exact original source metadata was unavailable for this previously saved file.
+- **Antoine Griezmann:** local portrait file; exact original source metadata was unavailable for this previously saved file.
+- **Koke:** [image file and license details](https://assets.laliga.com/squad/2022/t175/p77390/512x556/p77390_t175_2022_1_001_000.png); [source page](https://www.laliga.com/en-GB/player/koke).
+- **José Ángel Iribar:** local portrait file; exact original source metadata was unavailable for this previously saved file.
+- **Fernando:** local portrait file; exact original source metadata was unavailable for this previously saved file.
+- **Jesús Navas:** [image file and license details](https://commons.wikimedia.org/wiki/File:Jes%C3%BAs_Navas.jpg); [source page](https://en.wikipedia.org/wiki/Jes%C3%BAs_Navas).
+- **Gerd Müller:** [image file and license details](https://commons.wikimedia.org/wiki/File:Gerd_M%C3%BCller_c1973_(cropped).jpg); [source page](https://en.wikipedia.org/wiki/Gerd_M%C3%BCller).
+- **Sepp Maier:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-6137Sepp_Maier_Torwart-Legende.JPG); [source page](https://en.wikipedia.org/wiki/Sepp_Maier).
+- **Michael Zorc:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-Michael_Zorc_2014_(cropped).jpg); [source page](https://en.wikipedia.org/wiki/Michael_Zorc).
+- **Rolfes:** local portrait file; exact original source metadata was unavailable for this previously saved file.
+- **Karl Allgöwer:** [image file and license details](https://commons.wikimedia.org/wiki/File:Karl_Allg%C3%B6wer.jpg); [source page](https://en.wikipedia.org/wiki/Karl_Allg%C3%B6wer).
+- **Alessandro Del Piero:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-25th_Laureus_World_Sports_Awards_-_Alessandro_Del_Piero_-_240421_155220_(cropped)_(cropped).jpg); [source page](https://en.wikipedia.org/wiki/Alessandro_Del_Piero).
+- **Gianluigi Buffon:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-Norway_Italy_-_June_2025_A_44_(Gianluigi_Buffon).jpg); [source page](https://en.wikipedia.org/wiki/Gianluigi_Buffon).
+- **Gunnar Nordahl:** [image file and license details](https://commons.wikimedia.org/wiki/File:Gunnar_Nordahl_-_AC_Milan.jpg); [source page](https://en.wikipedia.org/wiki/Gunnar_Nordahl).
+- **Paolo Maldini:** [image file and license details](https://www.soccerzz.com/img/planteis/new/72/03/27203_paolo_maldini_20250423084320.jpg); [source page](https://www.soccerzz.com/player/paolo-maldini?epoca_id=129).
+- **Giuseppe Meazza:** [image file and license details](https://commons.wikimedia.org/wiki/File:Giuseppe_Meazza_1935.jpg); [source page](https://en.wikipedia.org/wiki/Giuseppe_Meazza).
+- **Javier Zanetti:** local portrait file; exact original source metadata was unavailable for this previously saved file.
+- **Dries Mertens:** local portrait file; exact original source metadata was unavailable for this previously saved file.
+- **Marek Hamšík:** [image file and license details](https://commons.wikimedia.org/wiki/File:Hamsik_2016.jpg); [source page](https://en.wikipedia.org/wiki/Marek_Ham%C5%A1%C3%ADk).
+- **Francesco Totti:** [image file and license details](https://commons.wikimedia.org/wiki/File:KL-2018_(4).jpg); [source page](https://en.wikipedia.org/wiki/Francesco_Totti).
+- **Jean-Pierre Papin:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-PapinJP1997_(cropped).jpg); [source page](https://en.wikipedia.org/wiki/Jean-Pierre_Papin).
+- **Kylian Mbappé:** [image file and license details](https://cdn-img.staticzz.com/img/planteis/new/76/88/5037688_kylian_mbappe_20250925203508.jpg); [source page](https://www.ogol.com.br/jogador/kylian-mbappe/394508?epoca_id=149).
+- **Eusébio:** [image file and license details](https://img.chelseafc.com/image/upload/f_auto%2Cw_1400%2Cdpr_2.0%2Cq_90/editorial/news/2025/09/04/eusebio-1970.jpg); [source page](https://www.chelseafc.com/en/news/article/champions-league-logbook-benfica).
+- **Salem Al-Dawsari:** [image file and license details](https://contentfulproxy.stadion.io/eyc25wndlima/5vnkdADwRaBoloY06H2tn6/302259719a80a21bfb2aa947e607b258/Salem_Al-Dawsari.png?f=face&fit=fill&fm=webp&h=3053&w=2016); [source page](https://alhilal.com/ar/teams/mens-team/salem-aldawsari-profile).
+- **Mohammed Al-Shalhoub:** [image file and license details](https://cloudfront-eu-central-1.images.arcpublishing.com/thenational/AHPX55SGM2W7EZFULM7QJUJMBA.jpg); [source page](https://www.thenationalnews.com/sport/football/).
+- **Neville Southall:** [image file and license details](https://commons.wikimedia.org/wiki/File:NevilleSouthall.jpg); [source page](https://en.wikipedia.org/wiki/Neville_Southall).
+- **Alfred Preißler:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-Borusseum%2C_Adi_Prei%C3%9Fler_(cropped).jpg); [source page](https://en.wikipedia.org/wiki/Alfred_Preissler).
+- **Ulf Kirsten:** [image file and license details](https://commons.wikimedia.org/wiki/File:Ulf_Kirsten_2019.jpg); [source page](https://en.wikipedia.org/wiki/Ulf_Kirsten).
+- **Ciro Immobile:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-Ciro_Immobile_20240803_(cropped).jpg); [source page](https://en.wikipedia.org/wiki/Ciro_Immobile).
+- **Marquinhos:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-Marquinhos_Brazil_V_Morocco_13_June_2026-153_(cropped).jpg); [source page](https://en.wikipedia.org/wiki/Marquinhos).
+- **Steve Mandanda:** [image file and license details](https://commons.wikimedia.org/wiki/File:Steve_Mandanda_2018.jpg); [source page](https://en.wikipedia.org/wiki/Steve_Mandanda).
+- **Fleury Di Nallo:** [image file and license details](https://commons.wikimedia.org/wiki/File:Fleury_di_Nallo_en_1970.jpg); [source page](https://en.wikipedia.org/wiki/Fleury_Di_Nallo).
+- **Serge Chiesa:** [image file and license details](https://commons.wikimedia.org/wiki/File:Serge_Chiesa_(1976%2C_Olympique_de_Lyon).jpg); [source page](https://en.wikipedia.org/wiki/Serge_Chiesa).
+- **Loïc Perrin:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-Lo%C3%AFc_Perrin_(03-08-2011).jpg); [source page](https://en.wikipedia.org/wiki/Lo%C3%AFc_Perrin).
+- **Piet van Reenen:** [image file and license details](https://commons.wikimedia.org/wiki/File:Piet_van_Reenen_(1939).jpg); [source page](https://en.wikipedia.org/wiki/Piet_van_Reenen).
+- **Willy van der Kuijlen:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-Willy_van_der_Kuylen%2C_Bestanddeelnr_921-6343.jpg); [source page](https://en.wikipedia.org/wiki/Willy_van_der_Kuijlen).
+- **Cor van der Gijp:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-Cor_van_der_Gijp_1954.jpg); [source page](https://en.wikipedia.org/wiki/Cor_van_der_Gijp).
+- **Coen Moulijn:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-Coen_Moulijn_(1968).jpg); [source page](https://en.wikipedia.org/wiki/Coen_Moulijn).
+- **João Pinto:** [image file and license details](https://commons.wikimedia.org/wiki/File:Joao_Pinto_2012.JPG); [source page](https://en.wikipedia.org/wiki/Jo%C3%A3o_Pinto).
+- **Fernando Peyroteo:** [image file and license details](https://commons.wikimedia.org/wiki/File:FernandoPeyroteo.jpg); [source page](https://en.wikipedia.org/wiki/Fernando_Peyroteo).
+- **Jimmy McGrory:** [image file and license details](https://commons.wikimedia.org/wiki/File:Jimmy_McGrory.jpg); [source page](https://en.wikipedia.org/wiki/Jimmy_McGrory).
+- **Billy McNeill:** [image file and license details](https://commons.wikimedia.org/wiki/File:Billy_Mcneill_1982-09-28.jpg); [source page](https://en.wikipedia.org/wiki/Billy_McNeill).
+- **John Greig:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-Glasgow_Rangers_in_Hiltonhotel_te_Amsterdam._John_Greig%2C_Bestanddeelnr_922-0132.jpg); [source page](https://en.wikipedia.org/wiki/John_Greig).
+- **Martín Palermo:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-Everton_-_Uni%C3%B3n_Espa%C3%B1ola%2C_2018-04-28_-_Mart%C3%ADn_Palermo_-_01_(cropped).jpg); [source page](https://en.wikipedia.org/wiki/Mart%C3%ADn_Palermo).
+- **Roberto Mouzo:** [image file and license details](https://commons.wikimedia.org/wiki/File:Mouzo_en_boca.jpg); [source page](https://en.wikipedia.org/wiki/Roberto_Mouzo).
+- **Ángel Labruna:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-Angel_Labruna_1940.jpg); [source page](https://en.wikipedia.org/wiki/%C3%81ngel_Labruna).
+- **Júnior:** [image file and license details](https://commons.wikimedia.org/wiki/File:Leovegildo_lins_da_gama_j%C3%BAnior.JPG); [source page](https://en.wikipedia.org/wiki/L%C3%A9o_J%C3%BAnior).
+- **Pelé:** [image file and license details](https://commons.wikimedia.org/wiki/File:Pele_con_brasil_(cropped).jpg); [source page](https://en.wikipedia.org/wiki/Pel%C3%A9).
+- **Lima:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-Bas%C3%ADlica_Catedral_Metropolitana_de_Lima_(cropped).jpg); [source page](https://en.wikipedia.org/wiki/Lima).
+- **Rogério Ceni:** [image file and license details](https://commons.wikimedia.org/wiki/File:960px-Rogerio-Ceni-Sao-Paulo-Juventude-jun-2022_(cropped).jpg); [source page](https://en.wikipedia.org/wiki/Rog%C3%A9rio_Ceni).
+- **Hakan Şükür:** [image file and license details](https://commons.wikimedia.org/wiki/File:Hakan.jpg); [source page](https://en.wikipedia.org/wiki/Hakan_%C5%9E%C3%BCk%C3%BCr).
+- **Bülent Korkmaz:** [image file and license details](https://commons.wikimedia.org/wiki/File:Y%C4%B1l%C4%B1n_Futbol_Oscarlar%C4%B1_%C3%96d%C3%BCl_T%C3%B6reni_B%C3%BClent_Korkmaz.jpg); [source page](https://en.wikipedia.org/wiki/B%C3%BClent_Korkmaz).
+- **Telmo Zarra:** [image file and license details](https://cdn.resfu.com/media/img_news/telmo-zarra--twitter.jpg?lossy=1&size=1200); [source page](https://es.besoccer.com/noticia/telmo-zarra-el-cuarto-mejor-jugador-de-la-liga).
+- **Alan Oakes:** [image file and license details](https://shop.memorylane.co.uk/sq/767/alan-oakes-manchester-city-football-player-21583192.jpg.webp); [source page](https://shop.memorylane.co.uk/mirror/0200to0299-00242/alan-oakes-manchester-city-football-player-maine-21583228.html).
+- **Zico:** [image file and license details](https://cdn-img.staticzz.com/img/planteis/new/27/97/12797_zico_20240519215736.jpg); [source page](https://www.ogol.com.br/jogador/zico?epoca_id=111).
+- **Fernando Gomes:** [image file and license details](https://www.ligaportugal.pt/backoffice/assets/bibota_11_c1c91b06a1.jpg); [source page](https://www.ligaportugal.pt/news/10377/nota-de-pesar-pelo-falecimento-de-fernando-gomes).
+- **Hilário:** [image file and license details](https://4.bp.blogspot.com/-lz5CiNPZvSM/Ud9QeHztnCI/AAAAAAAAu2U/xJzZ6gI9DmA/s1600/sporting%2Bhilario%2B3.jpg); [source page](https://anotandofutbol.blogspot.com/2013/07/sporting-lisboa-parte-7.html).
+- **Ron Harris:** [image file and license details](https://img.chelseafc.com/image/upload/f_auto%2Cw_1400%2Cdpr_2.0%2Cq_90/editorial/news/2019/2/ron_harris_1963.jpg); [source page](https://www.chelseafc.com/en/news/article/once-a-blue-ron-harris).
+- **Charlie Aitken:** [image file and license details](https://cdn1.astonvilla.news/uploads/9/2023/07/GettyImages-667606415-scaled.jpg); [source page](https://www.astonvilla.news/club/legends/).
+- **Mundo:** [image file and license details](https://pbs.twimg.com/media/Gh4mWurWMAAyaUk.jpg); [source page](https://x.com/search?q=edmundo+suarez+trabanco).
+- **Stefan Radu:** [image file and license details](https://s.hs-data.com/gfx/person/cropped/400x400/17384.png?fallback=male); [source page](https://www.sport.de/fussball/pe17384/stefan-radu/).
+- **Delio Onnis:** [image file and license details](https://www.iffhs.com/storage/img/posts/IMG_5357.jpg); [source page](https://www.iffhs.com/posts/3827).
+- **Ally McCoist:** [image file and license details](https://i.pinimg.com/736x/d9/96/d1/d996d13ffc1ec763dfde7ca4772aab14.jpg); [source page](https://uk.pinterest.com/pin/ally-mccoist-of-rangers-in-1993--33284484733159311/).
+- **Vic Watson:** [image file and license details](https://images.ctfassets.net/zl2jjr3puakk/3NoGlQCvb5xcXEpatncy8m/c9ce13f158d37078ef1f26587e90595e/on-this-day-six-goal-vic-watson-lays-out-leeds-image.jpg?f=face&fit=crop&h=630&w=1200); [source page](https://www.whufc.com/en/news/day-six-goal-vic-watson-lays-out-leeds).
+- **Nené:** [image file and license details](https://i.ebayimg.com/images/g/NhEAAOSwMThjFiA6/s-l1200.jpg); [source page](https://www.ebay.com.sg/itm/160309980286).
+- **David O’Leary:** [image file and license details](https://static.wixstatic.com/media/a6402e_a9bddfc3ee844808b9743d34727d6fcd~mv2.jpg/v1/fill/w_620%2Ch_430%2Cal_c%2Cq_80%2Cenc_avif%2Cquality_auto/a6402e_a9bddfc3ee844808b9743d34727d6fcd~mv2.jpg); [source page](https://itsagoal.wixsite.com/home/post/os-60-anos-de-david-o-leary-recordista-em-partidas-pelo-arsenal).
+- **Sjaak Swart:** [image file and license details](https://i.pinimg.com/564x/56/19/20/5619208521a89e05d649cc3f75b3ec19.jpg); [source page](https://www.pinterest.com/pin/132363676531016452/).
+- **Guillermo Campanal:** [image file and license details](https://4.bp.blogspot.com/-FY1Vetvfwew/TzLzke2WyUI/AAAAAAAAFVQ/CmFT1InDUzE/s640/campanal.jpg); [source page](https://voladizodegolsur.blogspot.com/2012/02/centenario-del-nacimiento-de-campanal-i.html).
+- **Şeref Has:** [image file and license details](https://footiehound.com/wp-content/uploads/2024/09/Seref-Has.jpg); [source page](https://footiehound.com/10-best-fenerbahce-players-of-all-time/).
+- **Majed Abdullah:** [image file and license details](https://cdn.arageek.com/magazine/2020/01/word-image-7.jpeg); [source page](https://www.arageek.com/bio/maged-abdullah).
+- **Reinaldo Merlo:** [image file and license details](https://upload.wikimedia.org/wikipedia/commons/5/57/Merlo_river.jpg); [source page](https://commons.wikimedia.org/wiki/File:Merlo_river.jpg).
+- **Hervé Revelli:** [image file and license details](https://www.asse.fr/img/content/2020/07/herve-revelli-qla-mentalite-drune-equipe-gagnanteq-1837262101.jpg); [source page](https://www.asse.fr/fr/actualites/herve-revelli-la-mentalite-d-une-equipe-gagnante--ac28526).
+- **Heitor:** [image file and license details](https://upload.wikimedia.org/wikipedia/commons/7/7f/Heitor_%28cropped%29.jpg); [source page](https://commons.wikimedia.org/wiki/File:Heitor_(cropped).jpg).
+- **Jean-Luc Ettori:** [image file and license details](https://i.pinimg.com/736x/6a/c8/36/6ac836c7e4dd96bda289f2835bfed5cc.jpg); [source page](https://uk.pinterest.com/pin/as-monaco-goalkeeper-jean-luc-ettori-in-1982--132363676536529621/).
+- **Serginho Chulapa:** [image file and license details](https://lncimg.lance.com.br/uploads/2019/02/27/5c769b547d60f.jpeg); [source page](https://www.lance.com.br/sao-paulo/sao-paulo-parabeniza-serginho-chulapa-maior-artilheiro-da-historia-do-clube.html).
+- **Grenville Morris:** [image file and license details](https://images.nypl.org/index.php?id=460461&t=w); [source page](https://digitalcollections.nypl.org/items/8e60f1d0-c534-012f-3ba5-58d385a7bc34).
+- **Zeki Rıza Sporel:** [image file and license details](https://upload.wikimedia.org/wikipedia/commons/7/72/Zekirizasporel.jpg); [source page](https://commons.wikimedia.org/wiki/File:Zekirizasporel.jpg).
+- **Ademir da Guia:** [image file and license details](https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/Ademir_da_Guia_no_jogo_Fluminense_X_Palmeiras%2C_no_campeonato_nacional_de_1972.tif/lossy-page1-960px-Ademir_da_Guia_no_jogo_Fluminense_X_Palmeiras%2C_no_campeonato_nacional_de_1972.tif.jpg); [source page](https://commons.wikimedia.org/wiki/File:Ademir_da_Guia_no_jogo_Fluminense_X_Palmeiras,_no_campeonato_nacional_de_1972.tif).
+

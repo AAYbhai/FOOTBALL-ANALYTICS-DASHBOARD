@@ -1,0 +1,438 @@
+{
+  "Wayne Rooney": {
+    "file": "./wayne-rooney.jpg",
+    "source": "https://www.ogol.com.br/jogador/wayne-rooney/1380",
+    "image": "https://cdn-img.staticzz.com/img/planteis/new/96/29/719629_wayne_rooney_20240909104521.jpg"
+  },
+  "Ryan Giggs": {
+    "file": "./ryan-giggs.jpg",
+    "source": "https://en.wikipedia.org/wiki/Ryan_Giggs",
+    "image": "https://commons.wikimedia.org/wiki/File:Ryan_Giggs_2015_(cropped).jpg"
+  },
+  "Ian Rush": {
+    "file": "./ian-rush.jpg",
+    "source": "https://en.wikipedia.org/wiki/Ian_Rush",
+    "image": "https://commons.wikimedia.org/wiki/File:Ian_Rush_in_Singapore.jpg"
+  },
+  "Ian Callaghan": {
+    "file": "./ian-callaghan.jpg",
+    "source": "https://en.wikipedia.org/wiki/Ian_Callaghan",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-LFC_Legends_-_FA_Cup_Final_1974_(25633138964).jpg"
+  },
+  "Thierry Henry": {
+    "file": "./thierry-henry.jpg",
+    "source": "https://www.arsenal.com/historic/players/thierry-henry",
+    "image": "https://i.pinimg.com/originals/29/a6/a4/29a6a4b3c458900bd5a9aeeb9b614a2c.jpg"
+  },
+  "Frank Lampard": {
+    "file": "./frank-lampard.jpg",
+    "source": "https://www.chelseafc.com/en/teams/profile/frank-lampard",
+    "image": "https://3.bp.blogspot.com/-GUtsteeGqWg/T-WyhZVdcYI/AAAAAAAAAC8/LAWByy4hSWw/s1600/frank-lampard-x-98060.jpg"
+  },
+  "Sergio Agüero": {
+    "file": "./sergio-aguero.png",
+    "source": "https://www.mancity.com/players/sergio-aguero",
+    "image": "https://www.mancity.com/meta/media/ekcdk54z/2019-sergio-aguero_1947.png"
+  },
+  "Jimmy Greaves": "./jimmy-greaves.jpg",
+  "Steve Perryman": {
+    "file": "./steve-perryman.jpg",
+    "source": "https://en.wikipedia.org/wiki/Steve_Perryman",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-Steve_Perryman_(1981).jpg"
+  },
+  "Dixie Dean": {
+    "file": "./dixie-dean.jpg",
+    "source": "https://en.wikipedia.org/wiki/Dixie_Dean",
+    "image": "https://commons.wikimedia.org/wiki/File:Dixie_Dean_(1931).jpg"
+  },
+  "Alan Shearer": {
+    "file": "./alan-shearer.jpg",
+    "source": "https://en.wikipedia.org/wiki/Alan_Shearer",
+    "image": "https://commons.wikimedia.org/wiki/File:Alan_Shearer_2008.jpg"
+  },
+  "Jimmy Lawrence": "./jimmy-lawrence.jpg",
+  "Billy Walker": "./billy-walker.png",
+  "Bob McKinlay": {
+    "file": "./bob-mckinlay.jpg",
+    "source": "https://en.wikipedia.org/wiki/Bob_McKinlay",
+    "image": "https://commons.wikimedia.org/wiki/File:Bob_Mckinlay.jpg"
+  },
+  "Billy Bonds": {
+    "file": "./billy-bonds.jpg",
+    "source": "https://en.wikipedia.org/wiki/Billy_Bonds",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-BillyBonds.JPG"
+  },
+  "Cristiano Ronaldo": {
+    "file": "./cristiano-ronaldo.jpg",
+    "source": "https://www.realmadrid.com/en-US/the-club/history/football-legends/cristiano-ronaldo-dos-santos-aveiro",
+    "image": "https://publish.realmadrid.com/content/dam/portals/realmadrid-com/es-es/sports/football/legendary-players/cristiano-ronaldo-dos-santos-aveiro/assets/1330603286208.jpg"
+  },
+  "Raúl": "./raul.jpg",
+  "Lionel Messi": {
+    "file": "./lionel-messi.jpg",
+    "source": "https://www.ogol.com.br/jogador/lionel-messi?epoca_id=141",
+    "image": "https://www.ogol.com.br/img/planteis/new/73/83/1157383_lionel_messi_20240503153854.jpg"
+  },
+  "Xavi": "./xavi.jpg",
+  "Antoine Griezmann": "./antoine-griezmann.jpg",
+  "Koke": {
+    "file": "./koke.png",
+    "source": "https://www.laliga.com/en-GB/player/koke",
+    "image": "https://assets.laliga.com/squad/2022/t175/p77390/512x556/p77390_t175_2022_1_001_000.png"
+  },
+  "José Ángel Iribar": "./jose-angel-iribar.jpg",
+  "Fernando": "./fernando.jpg",
+  "Jesús Navas": {
+    "file": "./jesus-navas.jpg",
+    "source": "https://en.wikipedia.org/wiki/Jes%C3%BAs_Navas",
+    "image": "https://commons.wikimedia.org/wiki/File:Jes%C3%BAs_Navas.jpg"
+  },
+  "Gerd Müller": {
+    "file": "./gerd-muller.jpg",
+    "source": "https://en.wikipedia.org/wiki/Gerd_M%C3%BCller",
+    "image": "https://commons.wikimedia.org/wiki/File:Gerd_M%C3%BCller_c1973_(cropped).jpg"
+  },
+  "Sepp Maier": {
+    "file": "./sepp-maier.jpg",
+    "source": "https://en.wikipedia.org/wiki/Sepp_Maier",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-6137Sepp_Maier_Torwart-Legende.JPG"
+  },
+  "Michael Zorc": {
+    "file": "./michael-zorc.jpg",
+    "source": "https://en.wikipedia.org/wiki/Michael_Zorc",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-Michael_Zorc_2014_(cropped).jpg"
+  },
+  "Rolfes": "./rolfes.jpg",
+  "Karl Allgöwer": {
+    "file": "./karl-allgower.jpg",
+    "source": "https://en.wikipedia.org/wiki/Karl_Allg%C3%B6wer",
+    "image": "https://commons.wikimedia.org/wiki/File:Karl_Allg%C3%B6wer.jpg"
+  },
+  "Alessandro Del Piero": {
+    "file": "./alessandro-del-piero.jpg",
+    "source": "https://en.wikipedia.org/wiki/Alessandro_Del_Piero",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-25th_Laureus_World_Sports_Awards_-_Alessandro_Del_Piero_-_240421_155220_(cropped)_(cropped).jpg"
+  },
+  "Gianluigi Buffon": {
+    "file": "./gianluigi-buffon.jpg",
+    "source": "https://en.wikipedia.org/wiki/Gianluigi_Buffon",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-Norway_Italy_-_June_2025_A_44_(Gianluigi_Buffon).jpg"
+  },
+  "Gunnar Nordahl": {
+    "file": "./gunnar-nordahl.jpg",
+    "source": "https://en.wikipedia.org/wiki/Gunnar_Nordahl",
+    "image": "https://commons.wikimedia.org/wiki/File:Gunnar_Nordahl_-_AC_Milan.jpg"
+  },
+  "Paolo Maldini": {
+    "file": "./paolo-maldini.jpg",
+    "source": "https://www.soccerzz.com/player/paolo-maldini?epoca_id=129",
+    "image": "https://www.soccerzz.com/img/planteis/new/72/03/27203_paolo_maldini_20250423084320.jpg"
+  },
+  "Giuseppe Meazza": {
+    "file": "./giuseppe-meazza.jpg",
+    "source": "https://en.wikipedia.org/wiki/Giuseppe_Meazza",
+    "image": "https://commons.wikimedia.org/wiki/File:Giuseppe_Meazza_1935.jpg"
+  },
+  "Javier Zanetti": "./javier-zanetti.jpg",
+  "Dries Mertens": "./dries-mertens.jpg",
+  "Marek Hamšík": {
+    "file": "./marek-hamsik.jpg",
+    "source": "https://en.wikipedia.org/wiki/Marek_Ham%C5%A1%C3%ADk",
+    "image": "https://commons.wikimedia.org/wiki/File:Hamsik_2016.jpg"
+  },
+  "Francesco Totti": {
+    "file": "./francesco-totti.jpg",
+    "source": "https://en.wikipedia.org/wiki/Francesco_Totti",
+    "image": "https://commons.wikimedia.org/wiki/File:KL-2018_(4).jpg"
+  },
+  "Jean-Pierre Papin": {
+    "file": "./jean-pierre-papin.jpg",
+    "source": "https://en.wikipedia.org/wiki/Jean-Pierre_Papin",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-PapinJP1997_(cropped).jpg"
+  },
+  "Kylian Mbappé": {
+    "file": "./kylian-mbappe.jpg",
+    "source": "https://www.ogol.com.br/jogador/kylian-mbappe/394508?epoca_id=149",
+    "image": "https://cdn-img.staticzz.com/img/planteis/new/76/88/5037688_kylian_mbappe_20250925203508.jpg"
+  },
+  "Eusébio": {
+    "file": "./eusebio.jpg",
+    "source": "https://www.chelseafc.com/en/news/article/champions-league-logbook-benfica",
+    "image": "https://img.chelseafc.com/image/upload/f_auto%2Cw_1400%2Cdpr_2.0%2Cq_90/editorial/news/2025/09/04/eusebio-1970.jpg"
+  },
+  "Salem Al-Dawsari": {
+    "file": "./salem-al-dawsari.webp",
+    "source": "https://alhilal.com/ar/teams/mens-team/salem-aldawsari-profile",
+    "image": "https://contentfulproxy.stadion.io/eyc25wndlima/5vnkdADwRaBoloY06H2tn6/302259719a80a21bfb2aa947e607b258/Salem_Al-Dawsari.png?f=face&fit=fill&fm=webp&h=3053&w=2016"
+  },
+  "Mohammed Al-Shalhoub": {
+    "file": "./mohammed-al-shalhoub.jpg",
+    "source": "https://www.thenationalnews.com/sport/football/",
+    "image": "https://cloudfront-eu-central-1.images.arcpublishing.com/thenational/AHPX55SGM2W7EZFULM7QJUJMBA.jpg"
+  },
+  "Neville Southall": {
+    "file": "./neville-southall.jpg",
+    "source": "https://en.wikipedia.org/wiki/Neville_Southall",
+    "image": "https://commons.wikimedia.org/wiki/File:NevilleSouthall.jpg"
+  },
+  "Alfred Preißler": {
+    "file": "./alfred-prei-ler.jpg",
+    "source": "https://en.wikipedia.org/wiki/Alfred_Preissler",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-Borusseum%2C_Adi_Prei%C3%9Fler_(cropped).jpg"
+  },
+  "Ulf Kirsten": {
+    "file": "./ulf-kirsten.jpg",
+    "source": "https://en.wikipedia.org/wiki/Ulf_Kirsten",
+    "image": "https://commons.wikimedia.org/wiki/File:Ulf_Kirsten_2019.jpg"
+  },
+  "Ciro Immobile": {
+    "file": "./ciro-immobile.jpg",
+    "source": "https://en.wikipedia.org/wiki/Ciro_Immobile",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-Ciro_Immobile_20240803_(cropped).jpg"
+  },
+  "Marquinhos": {
+    "file": "./marquinhos.jpg",
+    "source": "https://en.wikipedia.org/wiki/Marquinhos",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-Marquinhos_Brazil_V_Morocco_13_June_2026-153_(cropped).jpg"
+  },
+  "Steve Mandanda": {
+    "file": "./steve-mandanda.jpg",
+    "source": "https://en.wikipedia.org/wiki/Steve_Mandanda",
+    "image": "https://commons.wikimedia.org/wiki/File:Steve_Mandanda_2018.jpg"
+  },
+  "Fleury Di Nallo": {
+    "file": "./fleury-di-nallo.jpg",
+    "source": "https://en.wikipedia.org/wiki/Fleury_Di_Nallo",
+    "image": "https://commons.wikimedia.org/wiki/File:Fleury_di_Nallo_en_1970.jpg"
+  },
+  "Serge Chiesa": {
+    "file": "./serge-chiesa.jpg",
+    "source": "https://en.wikipedia.org/wiki/Serge_Chiesa",
+    "image": "https://commons.wikimedia.org/wiki/File:Serge_Chiesa_(1976%2C_Olympique_de_Lyon).jpg"
+  },
+  "Loïc Perrin": {
+    "file": "./loic-perrin.jpg",
+    "source": "https://en.wikipedia.org/wiki/Lo%C3%AFc_Perrin",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-Lo%C3%AFc_Perrin_(03-08-2011).jpg"
+  },
+  "Piet van Reenen": {
+    "file": "./piet-van-reenen.jpg",
+    "source": "https://en.wikipedia.org/wiki/Piet_van_Reenen",
+    "image": "https://commons.wikimedia.org/wiki/File:Piet_van_Reenen_(1939).jpg"
+  },
+  "Willy van der Kuijlen": {
+    "file": "./willy-van-der-kuijlen.jpg",
+    "source": "https://en.wikipedia.org/wiki/Willy_van_der_Kuijlen",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-Willy_van_der_Kuylen%2C_Bestanddeelnr_921-6343.jpg"
+  },
+  "Cor van der Gijp": {
+    "file": "./cor-van-der-gijp.jpg",
+    "source": "https://en.wikipedia.org/wiki/Cor_van_der_Gijp",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-Cor_van_der_Gijp_1954.jpg"
+  },
+  "Coen Moulijn": {
+    "file": "./coen-moulijn.jpg",
+    "source": "https://en.wikipedia.org/wiki/Coen_Moulijn",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-Coen_Moulijn_(1968).jpg"
+  },
+  "João Pinto": {
+    "file": "./joao-pinto.jpg",
+    "source": "https://en.wikipedia.org/wiki/Jo%C3%A3o_Pinto",
+    "image": "https://commons.wikimedia.org/wiki/File:Joao_Pinto_2012.JPG"
+  },
+  "Fernando Peyroteo": {
+    "file": "./fernando-peyroteo.jpg",
+    "source": "https://en.wikipedia.org/wiki/Fernando_Peyroteo",
+    "image": "https://commons.wikimedia.org/wiki/File:FernandoPeyroteo.jpg"
+  },
+  "Jimmy McGrory": {
+    "file": "./jimmy-mcgrory.jpg",
+    "source": "https://en.wikipedia.org/wiki/Jimmy_McGrory",
+    "image": "https://commons.wikimedia.org/wiki/File:Jimmy_McGrory.jpg"
+  },
+  "Billy McNeill": {
+    "file": "./billy-mcneill.jpg",
+    "source": "https://en.wikipedia.org/wiki/Billy_McNeill",
+    "image": "https://commons.wikimedia.org/wiki/File:Billy_Mcneill_1982-09-28.jpg"
+  },
+  "John Greig": {
+    "file": "./john-greig.jpg",
+    "source": "https://en.wikipedia.org/wiki/John_Greig",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-Glasgow_Rangers_in_Hiltonhotel_te_Amsterdam._John_Greig%2C_Bestanddeelnr_922-0132.jpg"
+  },
+  "Martín Palermo": {
+    "file": "./martin-palermo.jpg",
+    "source": "https://en.wikipedia.org/wiki/Mart%C3%ADn_Palermo",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-Everton_-_Uni%C3%B3n_Espa%C3%B1ola%2C_2018-04-28_-_Mart%C3%ADn_Palermo_-_01_(cropped).jpg"
+  },
+  "Roberto Mouzo": {
+    "file": "./roberto-mouzo.jpg",
+    "source": "https://en.wikipedia.org/wiki/Roberto_Mouzo",
+    "image": "https://commons.wikimedia.org/wiki/File:Mouzo_en_boca.jpg"
+  },
+  "Ángel Labruna": {
+    "file": "./angel-labruna.jpg",
+    "source": "https://en.wikipedia.org/wiki/%C3%81ngel_Labruna",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-Angel_Labruna_1940.jpg"
+  },
+  "Júnior": {
+    "file": "./junior.jpg",
+    "source": "https://en.wikipedia.org/wiki/L%C3%A9o_J%C3%BAnior",
+    "image": "https://commons.wikimedia.org/wiki/File:Leovegildo_lins_da_gama_j%C3%BAnior.JPG"
+  },
+  "Pelé": {
+    "file": "./pele.jpg",
+    "source": "https://en.wikipedia.org/wiki/Pel%C3%A9",
+    "image": "https://commons.wikimedia.org/wiki/File:Pele_con_brasil_(cropped).jpg"
+  },
+  "Lima": {
+    "file": "./lima.jpg",
+    "source": "https://en.wikipedia.org/wiki/Lima",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-Bas%C3%ADlica_Catedral_Metropolitana_de_Lima_(cropped).jpg"
+  },
+  "Rogério Ceni": {
+    "file": "./rogerio-ceni.jpg",
+    "source": "https://en.wikipedia.org/wiki/Rog%C3%A9rio_Ceni",
+    "image": "https://commons.wikimedia.org/wiki/File:960px-Rogerio-Ceni-Sao-Paulo-Juventude-jun-2022_(cropped).jpg"
+  },
+  "Hakan Şükür": {
+    "file": "./hakan-sukur.jpg",
+    "source": "https://en.wikipedia.org/wiki/Hakan_%C5%9E%C3%BCk%C3%BCr",
+    "image": "https://commons.wikimedia.org/wiki/File:Hakan.jpg"
+  },
+  "Bülent Korkmaz": {
+    "file": "./bulent-korkmaz.jpg",
+    "source": "https://en.wikipedia.org/wiki/B%C3%BClent_Korkmaz",
+    "image": "https://commons.wikimedia.org/wiki/File:Y%C4%B1l%C4%B1n_Futbol_Oscarlar%C4%B1_%C3%96d%C3%BCl_T%C3%B6reni_B%C3%BClent_Korkmaz.jpg"
+  },
+  "Telmo Zarra": {
+    "file": "./telmo-zarra.jpg",
+    "source": "https://es.besoccer.com/noticia/telmo-zarra-el-cuarto-mejor-jugador-de-la-liga",
+    "image": "https://cdn.resfu.com/media/img_news/telmo-zarra--twitter.jpg?lossy=1&size=1200"
+  },
+  "Alan Oakes": {
+    "file": "./alan-oakes.webp",
+    "source": "https://shop.memorylane.co.uk/mirror/0200to0299-00242/alan-oakes-manchester-city-football-player-maine-21583228.html",
+    "image": "https://shop.memorylane.co.uk/sq/767/alan-oakes-manchester-city-football-player-21583192.jpg.webp"
+  },
+  "Zico": {
+    "file": "./zico.jpg",
+    "source": "https://www.ogol.com.br/jogador/zico?epoca_id=111",
+    "image": "https://cdn-img.staticzz.com/img/planteis/new/27/97/12797_zico_20240519215736.jpg"
+  },
+  "Fernando Gomes": {
+    "file": "./fernando-gomes.jpg",
+    "source": "https://www.ligaportugal.pt/news/10377/nota-de-pesar-pelo-falecimento-de-fernando-gomes",
+    "image": "https://www.ligaportugal.pt/backoffice/assets/bibota_11_c1c91b06a1.jpg"
+  },
+  "Hilário": {
+    "file": "./hilario.jpg",
+    "source": "https://anotandofutbol.blogspot.com/2013/07/sporting-lisboa-parte-7.html",
+    "image": "https://4.bp.blogspot.com/-lz5CiNPZvSM/Ud9QeHztnCI/AAAAAAAAu2U/xJzZ6gI9DmA/s1600/sporting%2Bhilario%2B3.jpg"
+  },
+  "Ron Harris": {
+    "file": "./ron-harris.jpg",
+    "source": "https://www.chelseafc.com/en/news/article/once-a-blue-ron-harris",
+    "image": "https://img.chelseafc.com/image/upload/f_auto%2Cw_1400%2Cdpr_2.0%2Cq_90/editorial/news/2019/2/ron_harris_1963.jpg"
+  },
+  "Charlie Aitken": {
+    "file": "./charlie-aitken.jpg",
+    "source": "https://www.astonvilla.news/club/legends/",
+    "image": "https://cdn1.astonvilla.news/uploads/9/2023/07/GettyImages-667606415-scaled.jpg"
+  },
+  "Mundo": {
+    "file": "./mundo.jpg",
+    "source": "https://x.com/search?q=edmundo+suarez+trabanco",
+    "image": "https://pbs.twimg.com/media/Gh4mWurWMAAyaUk.jpg"
+  },
+  "Stefan Radu": {
+    "file": "./stefan-radu.png",
+    "source": "https://www.sport.de/fussball/pe17384/stefan-radu/",
+    "image": "https://s.hs-data.com/gfx/person/cropped/400x400/17384.png?fallback=male"
+  },
+  "Delio Onnis": {
+    "file": "./delio-onnis.jpg",
+    "source": "https://www.iffhs.com/posts/3827",
+    "image": "https://www.iffhs.com/storage/img/posts/IMG_5357.jpg"
+  },
+  "Ally McCoist": {
+    "file": "./ally-mccoist.jpg",
+    "source": "https://uk.pinterest.com/pin/ally-mccoist-of-rangers-in-1993--33284484733159311/",
+    "image": "https://i.pinimg.com/736x/d9/96/d1/d996d13ffc1ec763dfde7ca4772aab14.jpg"
+  },
+  "Vic Watson": {
+    "file": "./vic-watson.jpg",
+    "source": "https://www.whufc.com/en/news/day-six-goal-vic-watson-lays-out-leeds",
+    "image": "https://images.ctfassets.net/zl2jjr3puakk/3NoGlQCvb5xcXEpatncy8m/c9ce13f158d37078ef1f26587e90595e/on-this-day-six-goal-vic-watson-lays-out-leeds-image.jpg?f=face&fit=crop&h=630&w=1200"
+  },
+  "Nené": {
+    "file": "./nene.jpg",
+    "source": "https://www.ebay.com.sg/itm/160309980286",
+    "image": "https://i.ebayimg.com/images/g/NhEAAOSwMThjFiA6/s-l1200.jpg"
+  },
+  "David O’Leary": {
+    "file": "./david-o-leary.jpg",
+    "source": "https://itsagoal.wixsite.com/home/post/os-60-anos-de-david-o-leary-recordista-em-partidas-pelo-arsenal",
+    "image": "https://static.wixstatic.com/media/a6402e_a9bddfc3ee844808b9743d34727d6fcd~mv2.jpg/v1/fill/w_620%2Ch_430%2Cal_c%2Cq_80%2Cenc_avif%2Cquality_auto/a6402e_a9bddfc3ee844808b9743d34727d6fcd~mv2.jpg"
+  },
+  "Sjaak Swart": {
+    "file": "./sjaak-swart.jpg",
+    "source": "https://www.pinterest.com/pin/132363676531016452/",
+    "image": "https://i.pinimg.com/564x/56/19/20/5619208521a89e05d649cc3f75b3ec19.jpg"
+  },
+  "Guillermo Campanal": {
+    "file": "./guillermo-campanal.jpg",
+    "source": "https://voladizodegolsur.blogspot.com/2012/02/centenario-del-nacimiento-de-campanal-i.html",
+    "image": "https://4.bp.blogspot.com/-FY1Vetvfwew/TzLzke2WyUI/AAAAAAAAFVQ/CmFT1InDUzE/s640/campanal.jpg"
+  },
+  "Şeref Has": {
+    "file": "./seref-has.jpg",
+    "source": "https://footiehound.com/10-best-fenerbahce-players-of-all-time/",
+    "image": "https://footiehound.com/wp-content/uploads/2024/09/Seref-Has.jpg"
+  },
+  "Majed Abdullah": {
+    "file": "./majed-abdullah.jpg",
+    "source": "https://www.arageek.com/bio/maged-abdullah",
+    "image": "https://cdn.arageek.com/magazine/2020/01/word-image-7.jpeg"
+  },
+  "Reinaldo Merlo": {
+    "file": "./reinaldo-merlo.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Merlo_river.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/57/Merlo_river.jpg"
+  },
+  "Hervé Revelli": {
+    "file": "./herve-revelli.jpg",
+    "source": "https://www.asse.fr/fr/actualites/herve-revelli-la-mentalite-d-une-equipe-gagnante--ac28526",
+    "image": "https://www.asse.fr/img/content/2020/07/herve-revelli-qla-mentalite-drune-equipe-gagnanteq-1837262101.jpg"
+  },
+  "Heitor": {
+    "file": "./heitor.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Heitor_(cropped).jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Heitor_%28cropped%29.jpg"
+  },
+  "Jean-Luc Ettori": {
+    "file": "./jean-luc-ettori.jpg",
+    "source": "https://uk.pinterest.com/pin/as-monaco-goalkeeper-jean-luc-ettori-in-1982--132363676536529621/",
+    "image": "https://i.pinimg.com/736x/6a/c8/36/6ac836c7e4dd96bda289f2835bfed5cc.jpg"
+  },
+  "Serginho Chulapa": {
+    "file": "./serginho-chulapa.jpg",
+    "source": "https://www.lance.com.br/sao-paulo/sao-paulo-parabeniza-serginho-chulapa-maior-artilheiro-da-historia-do-clube.html",
+    "image": "https://lncimg.lance.com.br/uploads/2019/02/27/5c769b547d60f.jpeg"
+  },
+  "Grenville Morris": {
+    "file": "./grenville-morris.jpg",
+    "source": "https://digitalcollections.nypl.org/items/8e60f1d0-c534-012f-3ba5-58d385a7bc34",
+    "image": "https://images.nypl.org/index.php?id=460461&t=w"
+  },
+  "Zeki Rıza Sporel": {
+    "file": "./zeki-r-za-sporel.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Zekirizasporel.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/72/Zekirizasporel.jpg"
+  },
+  "Ademir da Guia": {
+    "file": "./ademir-da-guia.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Ademir_da_Guia_no_jogo_Fluminense_X_Palmeiras,_no_campeonato_nacional_de_1972.tif",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/Ademir_da_Guia_no_jogo_Fluminense_X_Palmeiras%2C_no_campeonato_nacional_de_1972.tif/lossy-page1-960px-Ademir_da_Guia_no_jogo_Fluminense_X_Palmeiras%2C_no_campeonato_nacional_de_1972.tif.jpg"
+  }
+}

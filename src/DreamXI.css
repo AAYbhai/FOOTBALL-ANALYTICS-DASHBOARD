@@ -1,0 +1,636 @@
+
+.xi-page {
+  width: 100%;
+  min-width: 0;
+  color: #f3f7fb;
+  padding-bottom: 32px;
+}
+
+.xi-header,
+.xi-team-heading,
+.xi-picker-heading,
+.xi-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.xi-header {
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.xi-eyebrow {
+  color: #65e6a5;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+.xi-header h1 {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 40px);
+  letter-spacing: -1px;
+}
+
+.xi-subtitle {
+  color: #9aabbd;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.xi-badge {
+  display: inline-block;
+  padding: 10px 13px;
+  border: 1px solid #315846;
+  border-radius: 10px;
+  background: #142b22;
+  color: #83efb7;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.xi-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
+  margin-bottom: 22px;
+  padding: 16px;
+  border: 1px solid #283a4b;
+  border-radius: 14px;
+  background: #101c28;
+}
+
+.xi-controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 1 1 135px;
+  color: #a8b7c7;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.xi-controls input,
+.xi-controls select,
+.xi-search {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 11px 12px;
+  border: 1px solid #34485b;
+  border-radius: 9px;
+  outline: none;
+  background: #0a1520;
+  color: #f3f7fb;
+  font-size: 12px;
+}
+
+.xi-controls input:focus,
+.xi-controls select:focus,
+.xi-search:focus {
+  border-color: #65e6a5;
+}
+
+.xi-controls button,
+.xi-pitch-footer button,
+.xi-section-heading button,
+.xi-picker-heading button {
+  padding: 10px 13px;
+  border: 1px solid #34485b;
+  border-radius: 9px;
+  background: #1a2a38;
+  color: #eaf2fa;
+  font-size: 12px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.xi-controls button:hover,
+.xi-pitch-footer button:hover,
+.xi-section-heading button:hover,
+.xi-picker-heading button:hover {
+  border-color: #65e6a5;
+}
+
+.xi-pitch-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 20px;
+}
+
+.xi-team-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #2c4050;
+  border-radius: 16px;
+  background: #101c28;
+}
+
+.xi-team-heading {
+  padding: 17px;
+  border-bottom: 1px solid #2c4050;
+}
+
+.xi-team-heading h2 {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: 18px;
+}
+
+.xi-player-count {
+  flex-shrink: 0;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: #1c3027;
+  color: #82efb5;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.xi-blue .xi-player-count {
+  background: #292342;
+  color: #c3a9ff;
+}
+
+.xi-pitch {
+  position: relative;
+  isolation: isolate;
+  width: calc(100% - 28px);
+  height: 590px;
+  margin: 14px;
+  overflow: hidden;
+  border: 1px solid #91e7b6;
+  border-radius: 5px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #176b47 0px,
+    #176b47 74px,
+    #1b754d 74px,
+    #1b754d 148px
+  );
+}
+
+.xi-pitch-lines {
+  position: absolute;
+  z-index: 0;
+  inset: 10px;
+  border: 1px solid #ffffff8a;
+  pointer-events: none;
+}
+
+.xi-halfway {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid #ffffff8a;
+}
+
+.xi-centre-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ffffff8a;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.xi-penalty {
+  position: absolute;
+  left: 23%;
+  width: 54%;
+  height: 68px;
+  border: 1px solid #ffffff8a;
+}
+
+.xi-penalty.top {
+  top: 0;
+  border-top: 0;
+}
+
+.xi-penalty.bottom {
+  bottom: 0;
+  border-bottom: 0;
+}
+
+.xi-small-box {
+  position: absolute;
+  left: 36%;
+  width: 28%;
+  height: 28px;
+  border: 1px solid #ffffff8a;
+}
+
+.xi-small-box.top {
+  top: 0;
+  border-top: 0;
+}
+
+.xi-small-box.bottom {
+  bottom: 0;
+  border-bottom: 0;
+}
+
+/* The formation is a full-pitch positioning layer. */
+.xi-formation {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Every player occupies an independently calculated pitch position. */
+.xi-position {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+  width: 76px;
+  min-height: 65px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+
+.xi-position:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.xi-shirt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 39px;
+  height: 39px;
+  padding: 0 3px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 2px solid #d8ffe9;
+  border-radius: 50%;
+  background: #0c3927;
+  box-shadow: 0 3px 9px #00190f80;
+  color: white;
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+  transition: transform 0.18s ease;
+}
+
+.xi-blue .xi-shirt {
+  border-color: #e0d5ff;
+  background: #302456;
+}
+
+.xi-position:hover .xi-shirt {
+  transform: scale(1.12);
+}
+
+.xi-position.empty .xi-shirt {
+  border: 2px dashed #d6ffe7;
+  background: #092c1cdd;
+  color: #d6ffe7;
+  font-size: 23px;
+}
+
+.xi-blue .xi-position.empty .xi-shirt {
+  border-color: #e0d5ff;
+  color: #e0d5ff;
+  background: #211b3bdd;
+}
+
+.xi-position-name {
+  display: block;
+  width: 100%;
+  padding: 3px 4px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #062817c9;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.xi-blue .xi-position-name {
+  background: #211938d9;
+}
+
+.xi-pitch-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 17px 17px;
+  color: #9eafc0;
+  font-size: 12px;
+}
+
+.xi-comparison {
+  margin-top: 22px;
+  padding: 20px;
+  border: 1px solid #293b4c;
+  border-radius: 16px;
+  background: #101c28;
+}
+
+.xi-section-heading {
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.xi-section-heading h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.xi-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.xi-metric-card {
+  min-width: 0;
+  padding: 17px;
+  border: 1px solid #2c4050;
+  border-radius: 12px;
+  background: #142230;
+}
+
+.xi-metric-card h3 {
+  margin: 0 0 15px;
+  font-size: 16px;
+}
+
+.xi-metric-grid span {
+  color: #95a7b9;
+  font-size: 11px;
+}
+
+.xi-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.xi-metric-grid div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.xi-metric-grid strong {
+  font-size: 17px;
+}
+
+.xi-metric-grid small {
+  color: #91a2b4;
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+.xi-footnote {
+  margin: 18px 0 0;
+  color: #91a2b4;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+/* Player selection dialog */
+.xi-modal-backdrop {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  box-sizing: border-box;
+  background: #02070dcc;
+  backdrop-filter: blur(6px);
+}
+
+.xi-picker {
+  display: flex;
+  flex-direction: column;
+  width: min(580px, 100%);
+  max-height: 85vh;
+  overflow: hidden;
+  border: 1px solid #34485b;
+  border-radius: 16px;
+  background: #111e2b;
+  box-shadow: 0 20px 70px #0008;
+}
+
+.xi-picker-heading {
+  flex-shrink: 0;
+  padding: 18px;
+  border-bottom: 1px solid #2b3c4d;
+}
+
+.xi-picker-heading h2 {
+  margin: 0;
+  font-size: 19px;
+}
+
+.xi-picker-heading button {
+  flex-shrink: 0;
+  font-size: 16px;
+}
+
+.xi-search {
+  flex-shrink: 0;
+  width: calc(100% - 32px);
+  margin: 16px;
+}
+
+.xi-source-message {
+  margin: 0 16px 12px;
+  color: #91a4b7;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.xi-player-list {
+  overflow-y: auto;
+  padding: 0 12px 14px;
+}
+
+.xi-player-option-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+}
+
+.xi-player-option-card:hover {
+  border-color: #34485b;
+  background: #1b2b39;
+}
+
+.xi-player-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  padding: 6px;
+  border: 0;
+  background: transparent;
+  color: #f3f7fb;
+  text-align: left;
+  cursor: pointer;
+}
+
+.xi-option-trophies {
+  flex-shrink: 0;
+  padding: 8px 9px;
+  border: 1px solid #3a5949;
+  border-radius: 8px;
+  background: #172b22;
+  color: #91f2bd;
+  font-size: 10px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.xi-option-trophies:hover {
+  border-color: #65e6a5;
+  background: #1c382b;
+}
+
+.xi-player-avatar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #1b3d30;
+  color: #7aefb5;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.xi-option-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.xi-option-copy strong {
+  font-size: 13px;
+}
+
+.xi-option-copy small,
+.xi-option-stats small {
+  color: #91a2b4;
+  font-size: 11px;
+}
+
+.xi-option-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.xi-option-stats span {
+  color: #b9c8d4;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.xi-empty {
+  padding: 24px 12px;
+  color: #91a2b4;
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* Responsive layout */
+@media (max-width: 1100px) {
+  .xi-pitch-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .xi-pitch {
+    height: 620px;
+  }
+}
+
+@media (max-width: 600px) {
+  .xi-header {
+    flex-direction: column;
+  }
+
+  .xi-badge {
+    white-space: normal;
+  }
+
+  .xi-controls {
+    align-items: stretch;
+  }
+
+  .xi-pitch {
+    width: calc(100% - 16px);
+    height: 540px;
+    margin: 8px;
+  }
+
+  .xi-position {
+    width: 61px;
+  }
+
+  .xi-shirt {
+    width: 33px;
+    height: 33px;
+    font-size: 9px;
+  }
+
+  .xi-position-name {
+    font-size: 9px;
+  }
+
+  .xi-metrics-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .xi-comparison {
+    padding: 14px;
+  }
+
+  .xi-section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+

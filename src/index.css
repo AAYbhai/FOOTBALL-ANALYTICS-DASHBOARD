@@ -1,0 +1,248 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  font-family: 'DM Sans', sans-serif;
+  color: #e8edf6;
+  background: #080d16;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+  font-weight: 400;
+
+  --bg: #080d16;
+  --sidebar: #0b121e;
+  --panel: #101a28;
+  --panel-hover: #142235;
+  --border: #233247;
+  --muted: #8494aa;
+  --green: #5bf0a7;
+  --cyan: #60d9ff;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  background: var(--bg);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 85% 0%, rgba(24, 86, 80, 0.12), transparent 38%),
+    var(--bg);
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p {
+  overflow-wrap: anywhere;
+}
+
+p {
+  margin-top: 0;
+}
+
+::selection {
+  color: #07120e;
+  background: var(--green);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Player portraits */
+.xi-portrait {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 39px;
+  height: 39px;
+  overflow: hidden;
+  border: 2px solid #d8ffe9;
+  border-radius: 50%;
+  background: #0c3927;
+  box-shadow: 0 3px 9px #00190f80;
+}
+
+.xi-blue .xi-portrait {
+  border-color: #e0d5ff;
+  background: #302456;
+}
+
+.xi-portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.xi-portrait-fallback {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: #effff5;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.xi-portrait-small {
+  width: 40px;
+  height: 40px;
+  box-shadow: none;
+}
+
+.xi-position .xi-portrait {
+  transition: transform 0.18s ease;
+}
+
+.xi-position:hover .xi-portrait {
+  transform: scale(1.1);
+}
+
+/* Career trophy details */
+.xi-trophy-details-button {
+  width: 100%;
+  margin-top: 18px;
+  padding: 11px 12px;
+  border: 1px solid #3a5949;
+  border-radius: 9px;
+  background: #172b22;
+  color: #91f2bd;
+  font-size: 12px;
+  font-weight: 800;
+  text-align: left;
+  cursor: pointer;
+}
+
+.xi-trophy-details-button:hover {
+  border-color: #65e6a5;
+  background: #1c382b;
+}
+
+.xi-trophy-modal {
+  max-width: 650px;
+}
+
+.xi-trophy-list {
+  overflow-y: auto;
+  padding: 14px;
+}
+
+.xi-trophy-player {
+  margin-bottom: 12px;
+  padding: 14px;
+  border: 1px solid #2c4050;
+  border-radius: 12px;
+  background: #142230;
+}
+
+.xi-trophy-player-heading {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 12px;
+}
+
+.xi-trophy-player-heading > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.xi-trophy-player-heading strong {
+  color: #f3f7fb;
+  font-size: 13px;
+}
+
+.xi-trophy-player-heading small,
+.xi-trophy-player li small {
+  color: #91a2b4;
+  font-size: 11px;
+}
+
+.xi-trophy-player ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.xi-trophy-player li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #0c1823;
+}
+
+.xi-trophy-player li span {
+  color: #e8f1fa;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.xi-trophy-player li em {
+  color: #d7c1ff;
+  font-size: 10px;
+  font-style: normal;
+}
+
+.xi-unavailable {
+  margin: 0;
+  color: #a0afbf;
+  font-size: 12px;
+  line-height: 1.6;
+}
