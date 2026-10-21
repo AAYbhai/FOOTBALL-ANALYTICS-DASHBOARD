@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react'
-import './MatchCentre.css'
+import './matchcentre.css'
 
 const API = 'http://localhost:5000'
 
