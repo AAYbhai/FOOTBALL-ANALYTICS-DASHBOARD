@@ -15,7 +15,7 @@ import homeHenry from './assets/home-legends/henry-world-cup.jpg'
 import homeRonaldinho from './assets/home-legends/ronaldinho-free-kick.jpg'
 import homeCruyff from './assets/home-legends/cruyff-1974.jpg'
 
-const API_URL = 'http://localhost:5000'
+const API_URL = (import.meta.env.VITE_API_URL || 'https://football-analytics-backend-s3ke.onrender.com').replace(/\/+$/, '')
 
 const DEFAULT_LEAGUES = [
   { id: 39, name: 'Premier League', category: 'club' },

@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import './matchcentre.css'
 
-const API = 'http://localhost:5000'
+const API = (import.meta.env.VITE_API_URL || 'https://football-analytics-backend-s3ke.onrender.com').replace(/\/+$/, '')
 
 const sectionNames = ['Timeline', 'Lineups', 'Statistics', 'Player ratings']
 
