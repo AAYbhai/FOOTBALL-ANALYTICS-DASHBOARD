@@ -29,19 +29,17 @@ first and today's fixtures when no games are live. Match Centre also offers
 live matches and today's fixtures. Selecting a match from the overview opens its details in
 Match Centre.
 
-The Match Centre's **Next day** view reads a scheduled snapshot for tomorrow's
-fixtures. The GitHub Actions workflow `.github/workflows/refresh-next-day-fixtures.yml`
-runs at 1:00 p.m. India time. It fetches all available pages from the configured
-match provider, saves progress and the completed snapshot in MongoDB, and lets
-the Match Centre filter that saved list without requesting fixtures again. When
-Highlightly pagination is needed, scheduled page requests are spaced at least 13
-seconds apart (at most five requests in a rolling minute); a rate-limit response is retried
-after the provider's retry delay or one minute.
+The Match Centre's **Next-day fixtures** view reads tomorrow's saved fixtures
+from MongoDB. The backend refreshes this snapshot daily at 1:00 p.m. India time
+from football-data.org using `FOOTBALL_DATA_TOKEN`; the page only reads the saved
+snapshot and does not make provider calls. If the backend was asleep or restarted
+at the scheduled time, it catches up on startup. Live matches and today's
+fixtures continue to use Highlightly (with the existing API-Football fallback)
+and are not affected by this schedule. The next-day feed covers the
+football-data.org competitions configured in `server/server.js`.
 
-To enable the scheduled workflow, set `SCHEDULE_SECRET` in the backend's
-environment, and add repository Actions secrets `FAD_BACKEND_URL` (the backend
-base URL) and `FAD_SCHEDULE_SECRET` (the same secret). The workflow can also be
-run manually from GitHub Actions to preload the next-day snapshot immediately.
+No extra scheduler secret or GitHub Actions configuration is required. The
+backend needs the existing `FOOTBALL_DATA_TOKEN` and MongoDB configuration.
 Competition standings are unchanged: they refresh on the first request of the
 India-time day and then use the existing saved cache.
 

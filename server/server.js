@@ -3,7 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const axios = require('axios')
-const { randomUUID, timingSafeEqual } = require('crypto')
+const { randomUUID } = require('crypto')
 const fs = require('fs/promises')
 const path = require('path')
 require('dotenv').config()
@@ -63,7 +63,6 @@ const cache = new Map()
 const pendingApiRequests = new Map()
 const pendingStandingsRequests = new Map()
 const scheduledFixtureJobs = new Map()
-let lastScheduledHighlightlyRequestAt = 0
 const STANDINGS_FILE = path.join(__dirname, 'data', 'standings-cache.json')
 const SCHEDULED_DATA_COLLECTION = 'fad_scheduled_data'
 const NEXT_DAY_SNAPSHOT_ID = 'next-day-fixtures'
@@ -72,6 +71,12 @@ const STANDINGS_FEED_CODES = {
   '39': 'PL', '140': 'PD', '78': 'BL1', '135': 'SA', '61': 'FL1', '5': 'UNL',
   '2': 'CL', '1': 'WC', '4': 'EC',
 }
+const NEXT_DAY_FEED_CODES = Object.entries(STANDINGS_FEED_CODES)
+  .filter(([league]) => league !== '5')
+  .map(([, code]) => code)
+const NEXT_DAY_COMPETITION_IDS = Object.fromEntries(
+  Object.entries(STANDINGS_FEED_CODES).map(([league, code]) => [code, league]),
+)
 const NO_CURRENT_STANDINGS = new Set(['9'])
 
 const TTL = {
@@ -672,19 +677,23 @@ function mapHighlightlyPlayers(payload) {
   }))
 }
 
-function todayInIndia() {
+function dateInIndia(date = new Date()) {
   const parts = new Intl.DateTimeFormat('en-CA', {
     timeZone: 'Asia/Kolkata',
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
-  }).formatToParts(new Date())
+  }).formatToParts(date)
 
   const values = Object.fromEntries(
     parts.map((part) => [part.type, part.value]),
   )
 
   return `${values.year}-${values.month}-${values.day}`
+}
+
+function todayInIndia() {
+  return dateInIndia()
 }
 
 function shiftDate(dateString, days) {
@@ -694,21 +703,6 @@ function shiftDate(dateString, days) {
 
 function nextDayInIndia() {
   return shiftDate(todayInIndia(), 1)
-}
-
-function requireScheduleSecret(req, res, next) {
-  const expected = process.env.SCHEDULE_SECRET || ''
-  const provided = req.get('x-schedule-secret') || ''
-  const expectedBytes = Buffer.from(expected)
-  const providedBytes = Buffer.from(provided)
-
-  if (!expectedBytes.length) {
-    return res.status(503).json({ error: 'SCHEDULE_SECRET is not configured on the backend.' })
-  }
-  if (expectedBytes.length !== providedBytes.length || !timingSafeEqual(expectedBytes, providedBytes)) {
-    return res.status(401).json({ error: 'Invalid schedule secret.' })
-  }
-  return next()
 }
 
 async function fetchApi(path, params) {
@@ -774,70 +768,29 @@ async function fetchHighlightly(path, params = {}, { includePagination = false }
   }
 }
 
-async function fetchScheduledHighlightlyPage(date, limit, offset) {
-  const minIntervalMs = 13_000
-  const retryDelayMs = 60_000
-  let attempts = 0
-
-  while (attempts < 5) {
-    const waitMs = Math.max(0, minIntervalMs - (Date.now() - lastScheduledHighlightlyRequestAt))
-    if (waitMs) await new Promise((resolve) => setTimeout(resolve, waitMs))
-    lastScheduledHighlightlyRequestAt = Date.now()
-    try {
-      return await fetchHighlightly('/matches', {
-        date,
-        timezone: 'Asia/Kolkata',
-        limit,
-        offset,
-      }, { includePagination: true })
-    } catch (error) {
-      attempts += 1
-      if (error.response?.status !== 429 || attempts >= 5) throw error
-      const retryAfter = Number(error.response.headers?.['retry-after'])
-      const delay = Number.isFinite(retryAfter) && retryAfter > 0
-        ? Math.max(retryDelayMs, retryAfter * 1000)
-        : retryDelayMs
-      await new Promise((resolve) => setTimeout(resolve, delay))
-    }
-  }
-
-  throw new Error('Highlightly fixture refresh stopped after repeated rate limits.')
-}
-
-async function getHighlightlyFixtures(date, { scheduled = false, onPage } = {}) {
+async function getHighlightlyFixtures(date) {
   const limit = 100
   const maxPages = 20
   const matches = []
   let offset = 0
 
   for (let page = 0; page < maxPages; page += 1) {
-    const payload = scheduled
-      ? await fetchScheduledHighlightlyPage(date, limit, offset)
-      : await fetchHighlightly('/matches', {
-        date,
-        timezone: 'Asia/Kolkata',
-        limit,
-        offset,
-      }, { includePagination: true })
+    const payload = await fetchHighlightly('/matches', {
+      date,
+      timezone: 'Asia/Kolkata',
+      limit,
+      offset,
+    }, { includePagination: true })
     const results = Array.isArray(payload.data) ? payload.data : []
     matches.push(...results)
-    if (onPage) await onPage(matches, payload.pagination)
 
     const totalCount = Number(payload.pagination?.totalCount)
     const pageLimit = Number(payload.pagination?.limit) || limit
     const nextOffset = Number(payload.pagination?.offset) + pageLimit
-    if (!results.length) {
-      if (Number.isFinite(totalCount) && matches.length < totalCount) {
-        throw new Error('Highlightly ended pagination before returning all next-day fixtures.')
-      }
+    if (!results.length || !Number.isFinite(totalCount)
+      || matches.length >= totalCount || !Number.isFinite(nextOffset)
+      || nextOffset <= offset) {
       break
-    }
-    if (!Number.isFinite(totalCount) || matches.length >= totalCount) break
-    if (!Number.isFinite(nextOffset) || nextOffset <= offset) {
-      throw new Error('Highlightly returned invalid pagination before all fixtures were loaded.')
-    }
-    if (page === maxPages - 1) {
-      throw new Error('Highlightly fixture refresh reached the page safety limit before completion.')
     }
     offset = nextOffset
   }
@@ -845,27 +798,12 @@ async function getHighlightlyFixtures(date, { scheduled = false, onPage } = {}) 
   return matches
 }
 
-async function fetchFixturesForDate(date, { scheduled = false, onPage } = {}) {
+async function fetchFixturesForDate(date) {
   const provider = matchProvider()
   if (!provider) throw new Error('No match-data provider is configured.')
 
   const data = provider === 'Highlightly'
-    ? await getHighlightlyFixtures(date, {
-      scheduled,
-      onPage: onPage
-        ? async (rawMatches, pagination) => {
-          const results = rawMatches.map(mapHighlightlyFixture).filter(Boolean)
-          await onPage({
-            results,
-            count: results.length,
-            date,
-            source: provider,
-            pagination,
-            updatedAt: new Date().toISOString(),
-          })
-        }
-        : undefined,
-    })
+    ? await getHighlightlyFixtures(date)
     : await fetchApi('/fixtures', { date, timezone: 'Asia/Kolkata' })
   const results = (provider === 'Highlightly'
     ? data.map(mapHighlightlyFixture).filter(Boolean)
@@ -878,6 +816,122 @@ async function fetchFixturesForDate(date, { scheduled = false, onPage } = {}) {
     count: results.length,
     date,
     source: provider,
+    cached: false,
+    updatedAt: new Date().toISOString(),
+  }
+}
+
+function mapFootballDataFixture(item) {
+  const competitionCode = item.competition?.code
+  const competitionId = NEXT_DAY_COMPETITION_IDS[competitionCode]
+  if (!competitionId) return null
+
+  const statusCodes = {
+    SCHEDULED: 'NS', TIMED: 'NS', IN_PLAY: 'LIVE', PAUSED: 'HT',
+    FINISHED: 'FT', POSTPONED: 'PST', SUSPENDED: 'SUSP',
+    CANCELLED: 'CANC', AWARDED: 'AWD', WO: 'FT',
+  }
+  const statusLabels = {
+    SCHEDULED: 'Scheduled', TIMED: 'Scheduled', IN_PLAY: 'In progress',
+    PAUSED: 'Paused', FINISHED: 'Full time', POSTPONED: 'Postponed',
+    SUSPENDED: 'Suspended', CANCELLED: 'Cancelled', AWARDED: 'Awarded',
+    WO: 'Walkover',
+  }
+  const date = item.utcDate || null
+  const score = item.score || {}
+
+  return {
+    id: item.id ?? null,
+    date,
+    timestamp: date ? Math.floor(new Date(date).getTime() / 1000) : null,
+    venue: item.venue ?? null,
+    referee: item.referees?.[0]?.name ?? null,
+    elapsed: item.minute == null || !Number.isFinite(Number(item.minute)) ? null : Number(item.minute),
+    status: statusCodes[item.status] || 'TBD',
+    statusLong: statusLabels[item.status] || item.status || 'Scheduled',
+    league: {
+      id: Number(competitionId),
+      name: item.competition?.name || ALL_LEAGUES[competitionId] || 'Unknown competition',
+      country: item.area?.name ?? null,
+      logo: item.competition?.emblem ?? null,
+      season: item.season?.startDate ? Number(item.season.startDate.slice(0, 4)) : null,
+      round: item.matchday ? `Matchday ${item.matchday}` : item.stage ?? null,
+    },
+    home: {
+      id: item.homeTeam?.id ?? null,
+      name: item.homeTeam?.name || 'Home team',
+      logo: item.homeTeam?.crest ?? null,
+      goals: score.fullTime?.home ?? score.regularTime?.home ?? null,
+      winner: score.winner === 'HOME_TEAM' ? true : score.winner === 'AWAY_TEAM' ? false : null,
+    },
+    away: {
+      id: item.awayTeam?.id ?? null,
+      name: item.awayTeam?.name || 'Away team',
+      logo: item.awayTeam?.crest ?? null,
+      goals: score.fullTime?.away ?? score.regularTime?.away ?? null,
+      winner: score.winner === 'AWAY_TEAM' ? true : score.winner === 'HOME_TEAM' ? false : null,
+    },
+  }
+}
+
+async function fetchFootballDataNextDayFixtures(date, { onPage } = {}) {
+  if (!process.env.FOOTBALL_DATA_TOKEN) {
+    throw new Error('Set FOOTBALL_DATA_TOKEN in the backend environment to enable next-day fixtures.')
+  }
+
+  const limit = 500
+  const maxPages = 5
+  const matches = []
+  let offset = 0
+
+  for (let page = 0; page < maxPages; page += 1) {
+    if (page > 0) await new Promise((resolve) => setTimeout(resolve, 7000))
+    const response = await axios.get('https://api.football-data.org/v4/matches', {
+      params: {
+        // football-data.org filters by UTC calendar date. Include the prior UTC
+        // date, then select the requested Asia/Kolkata day after fetching.
+        dateFrom: shiftDate(date, -1),
+        dateTo: shiftDate(date, 1),
+        competitions: NEXT_DAY_FEED_CODES.join(','),
+        limit,
+        offset,
+      },
+      headers: { 'X-Auth-Token': process.env.FOOTBALL_DATA_TOKEN },
+      timeout: 15000,
+    })
+    const pageMatches = Array.isArray(response.data?.matches) ? response.data.matches : []
+    matches.push(...pageMatches)
+    const results = matches
+      .filter((item) => item.utcDate && dateInIndia(new Date(item.utcDate)) === date)
+      .map(mapFootballDataFixture)
+      .filter(Boolean)
+    if (onPage) {
+      await onPage({
+        results,
+        count: results.length,
+        date,
+        source: 'football-data.org',
+        updatedAt: new Date().toISOString(),
+      })
+    }
+
+    const total = Number(response.data?.resultSet?.count)
+    if (!pageMatches.length || !Number.isFinite(total) || matches.length >= total) break
+    if (page === maxPages - 1) {
+      throw new Error('football-data.org pagination limit reached before all next-day fixtures were loaded.')
+    }
+    offset += pageMatches.length
+  }
+
+  const results = matches
+    .filter((item) => item.utcDate && dateInIndia(new Date(item.utcDate)) === date)
+    .map(mapFootballDataFixture)
+    .filter(Boolean)
+  return {
+    results,
+    count: results.length,
+    date,
+    source: 'football-data.org',
     cached: false,
     updatedAt: new Date().toISOString(),
   }
@@ -958,10 +1012,7 @@ async function runNextDayFixtureRefresh(jobId, targetDate) {
   })
 
   try {
-    const payload = await fetchFixturesForDate(targetDate, {
-      scheduled: true,
-      onPage: saveProgress,
-    })
+    const payload = await fetchFootballDataNextDayFixtures(targetDate, { onPage: saveProgress })
     await saveScheduledSnapshot(NEXT_DAY_SNAPSHOT_ID, {
       _id: NEXT_DAY_SNAPSHOT_ID,
       kind: 'next-day-fixtures',
@@ -984,8 +1035,8 @@ async function runNextDayFixtureRefresh(jobId, targetDate) {
           ...latest,
           status: 'failed',
           error: error.response?.status === 429
-            ? 'The match provider rate limit was reached before all fixture pages were loaded.'
-            : 'The match provider could not complete the scheduled fixture refresh.',
+            ? 'football-data.org rate limit was reached before all fixture pages were loaded.'
+            : 'football-data.org could not complete the scheduled fixture refresh.',
           completedAt: new Date().toISOString(),
         })
       }
@@ -998,6 +1049,86 @@ async function runNextDayFixtureRefresh(jobId, targetDate) {
       scheduledFixtureJobs.delete(targetDate)
     }
   }
+}
+
+async function startNextDayFixtureRefresh(targetDate) {
+  const running = scheduledFixtureJobs.get(targetDate)
+  if (running) return running.task
+
+  const existing = await readScheduledSnapshot(NEXT_DAY_SNAPSHOT_ID)
+  if (existing?.targetDate === targetDate
+    && existing.status === 'complete'
+    && existing.source === 'football-data.org') {
+    return { status: 'complete', targetDate, count: existing.count || 0, source: existing.source }
+  }
+
+  const jobId = randomUUID()
+  await saveScheduledSnapshot(NEXT_DAY_SNAPSHOT_ID, {
+    _id: NEXT_DAY_SNAPSHOT_ID,
+    kind: 'next-day-fixtures',
+    jobId,
+    targetDate,
+    status: 'running',
+    results: [],
+    count: 0,
+    source: 'football-data.org',
+    startedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  })
+
+  const task = runNextDayFixtureRefresh(jobId, targetDate)
+  scheduledFixtureJobs.set(targetDate, { jobId, task })
+  task.catch(() => {})
+  return task
+}
+
+function millisecondsUntilNextIndiaRefresh() {
+  const now = new Date()
+  const indiaNow = new Date(now.getTime() + (5 * 60 + 30) * 60 * 1000)
+  const nextRefreshUtc = Date.UTC(
+    indiaNow.getUTCFullYear(),
+    indiaNow.getUTCMonth(),
+    indiaNow.getUTCDate(),
+    13, 0, 0, 0,
+  )
+  const nextRefresh = nextRefreshUtc - (5 * 60 + 30) * 60 * 1000
+  return nextRefresh > now.getTime()
+    ? nextRefresh - now.getTime()
+    : nextRefresh + 24 * 60 * 60 * 1000 - now.getTime()
+}
+
+function scheduleNextDayFixtureRefresh() {
+  const delay = millisecondsUntilNextIndiaRefresh()
+  const timer = setTimeout(async () => {
+    try {
+      const targetDate = nextDayInIndia()
+      const result = await startNextDayFixtureRefresh(targetDate)
+      console.log(`Next-day fixtures refreshed for ${targetDate}: ${result.count || 0} matches.`)
+    } catch (error) {
+      console.error('Daily next-day fixture refresh failed:', error.response?.status || error.message)
+    } finally {
+      scheduleNextDayFixtureRefresh()
+    }
+  }, delay)
+  timer.unref?.()
+}
+
+async function startNextDayFixtureScheduler() {
+  if (!process.env.FOOTBALL_DATA_TOKEN) {
+    console.warn('Next-day fixture scheduler is idle: FOOTBALL_DATA_TOKEN is not configured.')
+  } else {
+    const targetDate = nextDayInIndia()
+    const snapshot = await readScheduledSnapshot(NEXT_DAY_SNAPSHOT_ID)
+    if (!(snapshot?.targetDate === targetDate
+      && snapshot.status === 'complete'
+      && snapshot.source === 'football-data.org')) {
+      // Catch up after deploys/restarts so today's 1 p.m. refresh is not missed.
+      startNextDayFixtureRefresh(targetDate).catch((error) => {
+        console.error('Could not start next-day fixture catch-up:', error.response?.status || error.message)
+      })
+    }
+  }
+  scheduleNextDayFixtureRefresh()
 }
 
 // Home and health
@@ -1019,72 +1150,6 @@ app.get('/api/health', (_req, res) => {
     footballApiConfigured: Boolean(matchProvider()),
     matchProvider: matchProvider(),
   })
-})
-
-app.post('/api/internal/scheduled/next-day-fixtures', requireScheduleSecret, async (_req, res) => {
-  const targetDate = nextDayInIndia()
-  try {
-    const existing = await readScheduledSnapshot(NEXT_DAY_SNAPSHOT_ID)
-    if (existing?.targetDate === targetDate && existing.status === 'complete') {
-      return res.json({
-        status: 'complete',
-        targetDate,
-        count: existing.count || 0,
-        source: existing.source,
-        alreadyRefreshed: true,
-      })
-    }
-
-    const activeJob = scheduledFixtureJobs.get(targetDate)
-    if (activeJob) {
-      return res.status(202).json({ status: 'running', targetDate })
-    }
-
-    const jobId = randomUUID()
-    await saveScheduledSnapshot(NEXT_DAY_SNAPSHOT_ID, {
-      _id: NEXT_DAY_SNAPSHOT_ID,
-      kind: 'next-day-fixtures',
-      jobId,
-      targetDate,
-      status: 'running',
-      results: [],
-      count: 0,
-      source: matchProvider(),
-      startedAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    })
-    const task = runNextDayFixtureRefresh(jobId, targetDate)
-    scheduledFixtureJobs.set(targetDate, { jobId, task })
-    task.catch(() => {})
-    return res.status(202).json({ status: 'running', targetDate, jobId })
-  } catch (error) {
-    console.error('Could not start scheduled next-day fixture refresh:', error.message)
-    return res.status(503).json({ error: 'Could not start the scheduled fixture refresh.' })
-  }
-})
-
-app.get('/api/internal/scheduled/next-day-fixtures/status', requireScheduleSecret, async (req, res) => {
-  try {
-    const snapshot = await readScheduledSnapshot(NEXT_DAY_SNAPSHOT_ID)
-    if (!snapshot || (req.query.targetDate && snapshot.targetDate !== req.query.targetDate)) {
-      return res.status(404).json({ error: 'No scheduled fixture refresh exists for that date.' })
-    }
-    if (snapshot.status === 'running' && !scheduledFixtureJobs.has(snapshot.targetDate)) {
-      const task = runNextDayFixtureRefresh(snapshot.jobId, snapshot.targetDate)
-      scheduledFixtureJobs.set(snapshot.targetDate, { jobId: snapshot.jobId, task })
-      task.catch(() => {})
-    }
-    return res.json({
-      status: snapshot.status,
-      targetDate: snapshot.targetDate,
-      count: snapshot.count || 0,
-      source: snapshot.source,
-      error: snapshot.error || null,
-    })
-  } catch (error) {
-    console.error('Could not read scheduled fixture refresh status:', error.message)
-    return res.status(503).json({ error: 'Could not read the scheduled fixture refresh status.' })
-  }
 })
 
 // Competitions
@@ -1733,6 +1798,9 @@ async function startServer() {
 
     app.listen(PORT, () => {
       console.log(`⚽ FAD API running at http://localhost:${PORT}`)
+      startNextDayFixtureScheduler().catch((error) => {
+        console.error('Could not initialize next-day fixture scheduler:', error.message)
+      })
     })
   } catch (error) {
     console.error('❌ Startup failed:', error.message)
