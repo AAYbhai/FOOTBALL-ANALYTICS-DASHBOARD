@@ -11,7 +11,7 @@ const SPORTSADDA = 'https://www.sportsadda.asia/football/features-football/most-
 
 export const CAREER_ASSIST_RESEARCH = {
   'Lionel Messi': { assists: 431, source: MESSI_RONALDO_DATABASE, note: 'Senior club and international assists, updated October 2026; counting rules differ across providers.' },
-  'Cristiano Ronaldo': { assists: 260, source: MESSI_RONALDO_DATABASE, note: 'Senior club and international assists, updated October 2026; counting rules differ across providers.' },
+  'Cristiano Ronaldo': { assists: 311, source: 'https://cr7.com.tr/istatistikler', note: '311 assists as reported by the linked CR7.com.tr career-statistics page, whose underlying data is attributed to Transfermarkt; its career total includes youth international records.' },
   'Pelé': { assists: 369, source: IFFHS_HISTORICAL, note: 'Historical reconstruction of top-level official matches; not an official contemporary statistic.' },
   'Johan Cruyff': { assists: 346, source: IFFHS_HISTORICAL, note: 'Historical reconstruction of top-level official matches; not an official contemporary statistic.' },
   'Ferenc Puskás': { assists: 374, source: OPTA_ALL_TIME, note: 'Historical reconstruction of official matches; not an official contemporary statistic.' },
