@@ -1,0 +1,63 @@
+name: Refresh next-day fixtures
+
+on:
+  schedule:
+    - cron: '30 7 * * *' # 13:00 Asia/Kolkata (UTC+05:30)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fad-next-day-fixture-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Start the scheduled fixture refresh
+        id: start
+        env:
+          BACKEND_URL: ${{ secrets.FAD_BACKEND_URL }}
+          SCHEDULE_SECRET: ${{ secrets.FAD_SCHEDULE_SECRET }}
+        run: |
+          : "${BACKEND_URL:?Add the FAD_BACKEND_URL repository secret}"
+          : "${SCHEDULE_SECRET:?Add the FAD_SCHEDULE_SECRET repository secret}"
+          BACKEND_URL="${BACKEND_URL%/}"
+          curl --silent --show-error --fail-with-body --retry 3 --retry-delay 5 \
+            -X POST \
+            -H "x-schedule-secret: ${SCHEDULE_SECRET}" \
+            "${BACKEND_URL}/api/internal/scheduled/next-day-fixtures" \
+            -o start.json
+          echo "status=$(jq -r '.status' start.json)" >> "$GITHUB_OUTPUT"
+          echo "target_date=$(jq -r '.targetDate' start.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Wait for all fixture pages to finish
+        if: steps.start.outputs.status == 'running'
+        env:
+          BACKEND_URL: ${{ secrets.FAD_BACKEND_URL }}
+          SCHEDULE_SECRET: ${{ secrets.FAD_SCHEDULE_SECRET }}
+          TARGET_DATE: ${{ steps.start.outputs.target_date }}
+        run: |
+          BACKEND_URL="${BACKEND_URL%/}"
+          for attempt in $(seq 1 120); do
+            sleep 30
+            curl --silent --show-error --fail-with-body \
+              -H "x-schedule-secret: ${SCHEDULE_SECRET}" \
+              "${BACKEND_URL}/api/internal/scheduled/next-day-fixtures/status?targetDate=${TARGET_DATE}" \
+              -o status.json
+            status=$(jq -r '.status' status.json)
+            echo "Fixture refresh status: ${status}"
+            if [ "$status" = "complete" ]; then
+              cat status.json
+              exit 0
+            fi
+            if [ "$status" = "failed" ]; then
+              cat status.json
+              exit 1
+            fi
+          done
+          echo "Timed out waiting for the fixture refresh to finish."
+          exit 1

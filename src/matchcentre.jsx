@@ -43,6 +43,7 @@ function MatchCentre({ initialMatch = null, competitions = [] }) {
   const [view, setView] = useState('priority')
   const [showingLive, setShowingLive] = useState(false)
   const [matches, setMatches] = useState([])
+  const [nextDayStatus, setNextDayStatus] = useState(null)
   const [selected, setSelected] = useState(initialMatch)
   const [details, setDetails] = useState(null)
   const [activeSection, setActiveSection] = useState('Timeline')
@@ -53,22 +54,34 @@ function MatchCentre({ initialMatch = null, competitions = [] }) {
 
   useEffect(() => {
     const controller = new AbortController()
+    let nextDayPollTimer
 
-    async function loadMatches() {
-      setLoadingMatches(true)
+    async function loadMatches({ silent = false } = {}) {
+      if (!silent) setLoadingMatches(true)
       setError('')
       try {
-        const getResults = async (endpoint) => {
+        const getPayload = async (endpoint) => {
           const response = await fetch(endpoint, { signal: controller.signal })
           const data = await response.json()
           if (!response.ok) throw new Error(data.error || 'Could not load matches.')
           if (!Array.isArray(data.results)) throw new Error('The matches API returned an unexpected response.')
-          return data.results
+          return data
         }
+        const getResults = async (endpoint) => (await getPayload(endpoint)).results
         const liveEndpoint = `${API}/api/matches/live?league=${league}`
         const todayEndpoint = `${API}/api/matches?league=${league}`
         let results
-        if (view === 'priority') {
+        if (view === 'next-day') {
+          const payload = await getPayload(`${API}/api/matches/next-day?league=${league}`)
+          results = payload.results
+          setShowingLive(false)
+          setNextDayStatus(payload)
+          if (payload.status === 'running' || payload.status === 'waiting') {
+            const delay = payload.status === 'running' ? 30_000 : 60_000
+            nextDayPollTimer = window.setTimeout(() => loadMatches({ silent: true }), delay)
+          }
+        } else if (view === 'priority') {
+          setNextDayStatus(null)
           const [liveResponse, todayResponse] = await Promise.allSettled([
             getResults(liveEndpoint),
             getResults(todayEndpoint),
@@ -82,10 +95,13 @@ function MatchCentre({ initialMatch = null, competitions = [] }) {
           results = liveResults.length ? liveResults : todayResults
           setShowingLive(liveResults.length > 0)
         } else if (view === 'live') {
+          setNextDayStatus(null)
           results = await getResults(liveEndpoint)
         } else if (view === 'today') {
+          setNextDayStatus(null)
           results = await getResults(todayEndpoint)
         } else {
+          setNextDayStatus(null)
           results = await getResults(todayEndpoint)
         }
         const sorted = [...results].sort(
@@ -106,7 +122,10 @@ function MatchCentre({ initialMatch = null, competitions = [] }) {
     }
 
     loadMatches()
-    return () => controller.abort()
+    return () => {
+      controller.abort()
+      window.clearTimeout(nextDayPollTimer)
+    }
   }, [league, view])
 
   useEffect(() => {
@@ -564,6 +583,12 @@ function MatchCentre({ initialMatch = null, competitions = [] }) {
           >
             Today's fixtures
           </button>
+          <button
+            className={view === 'next-day' ? 'active' : ''}
+            onClick={() => setView('next-day')}
+          >
+            Next day
+          </button>
         </div>
 
         <select
@@ -587,18 +612,29 @@ function MatchCentre({ initialMatch = null, competitions = [] }) {
       <div className="mc-layout">
         <aside className="mc-match-list">
           <div className="mc-list-heading">
-            <strong>{view === 'live' || (view === 'priority' && showingLive)
-              ? 'Live scoreboard'
-              : "Today's fixtures"}</strong>
+            <strong>{view === 'next-day'
+              ? `Next-day fixtures${nextDayStatus?.targetDate ? ` · ${nextDayStatus.targetDate}` : ''}`
+              : view === 'live' || (view === 'priority' && showingLive)
+                ? 'Live scoreboard'
+                : "Today's fixtures"}</strong>
             <span>{loadingMatches ? 'Loading…' : `${matches.length} matches`}</span>
           </div>
 
           {!loadingMatches && !error && matches.length === 0 && (
             <SectionMessage>
-              {view === 'live' || (view === 'priority' && showingLive)
+              {view === 'next-day'
+                ? nextDayStatus?.message || 'No cached next-day fixtures are available yet.'
+                : view === 'live' || (view === 'priority' && showingLive)
                 ? 'No live matches are currently returned for this competition. Try Today’s fixtures.'
                 : 'No fixtures were returned for this competition today.'}
             </SectionMessage>
+          )}
+
+          {view === 'next-day' && matches.length > 0 && nextDayStatus?.status === 'running' && (
+            <SectionMessage>More fixtures are being loaded. This list will update automatically.</SectionMessage>
+          )}
+          {view === 'next-day' && matches.length > 0 && nextDayStatus?.status === 'failed' && (
+            <SectionMessage>The refresh stopped early; these are the fixtures saved before it stopped.</SectionMessage>
           )}
 
           {matches.map((match) => (

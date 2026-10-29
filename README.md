@@ -29,6 +29,22 @@ first and today's fixtures when no games are live. Match Centre also offers
 live matches and today's fixtures. Selecting a match from the overview opens its details in
 Match Centre.
 
+The Match Centre's **Next day** view reads a scheduled snapshot for tomorrow's
+fixtures. The GitHub Actions workflow `.github/workflows/refresh-next-day-fixtures.yml`
+runs at 1:00 p.m. India time. It fetches all available pages from the configured
+match provider, saves progress and the completed snapshot in MongoDB, and lets
+the Match Centre filter that saved list without requesting fixtures again. When
+Highlightly pagination is needed, scheduled page requests are spaced at least 13
+seconds apart (at most five requests in a rolling minute); a rate-limit response is retried
+after the provider's retry delay or one minute.
+
+To enable the scheduled workflow, set `SCHEDULE_SECRET` in the backend's
+environment, and add repository Actions secrets `FAD_BACKEND_URL` (the backend
+base URL) and `FAD_SCHEDULE_SECRET` (the same secret). The workflow can also be
+run manually from GitHub Actions to preload the next-day snapshot immediately.
+Competition standings are unchanged: they refresh on the first request of the
+India-time day and then use the existing saved cache.
+
 Player statistics are intentionally disconnected from API-Football for now and
 will be added later from the curated player dataset.
 

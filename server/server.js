@@ -3,6 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const axios = require('axios')
+const { randomUUID, timingSafeEqual } = require('crypto')
 const fs = require('fs/promises')
 const path = require('path')
 require('dotenv').config()
@@ -61,7 +62,11 @@ const PLAYER_SEASONS = new Set(['2022', '2023', '2024', '2025', '2026'])
 const cache = new Map()
 const pendingApiRequests = new Map()
 const pendingStandingsRequests = new Map()
+const scheduledFixtureJobs = new Map()
+let lastScheduledHighlightlyRequestAt = 0
 const STANDINGS_FILE = path.join(__dirname, 'data', 'standings-cache.json')
+const SCHEDULED_DATA_COLLECTION = 'fad_scheduled_data'
+const NEXT_DAY_SNAPSHOT_ID = 'next-day-fixtures'
 const NATIONS_LEAGUE_SNAPSHOT = require('./data/nations-league-2026-27.json')
 const STANDINGS_FEED_CODES = {
   '39': 'PL', '140': 'PD', '78': 'BL1', '135': 'SA', '61': 'FL1', '5': 'UNL',
@@ -109,6 +114,25 @@ async function saveStandingsCache(cacheData) {
   const temporaryFile = `${STANDINGS_FILE}.tmp`
   await fs.writeFile(temporaryFile, JSON.stringify(cacheData, null, 2), 'utf8')
   await fs.rename(temporaryFile, STANDINGS_FILE)
+}
+
+async function saveScheduledSnapshot(snapshotId, snapshot) {
+  if (mongoose.connection.readyState !== 1) {
+    throw new Error('MongoDB is unavailable for scheduled snapshot storage.')
+  }
+  const fields = Object.fromEntries(Object.entries(snapshot).filter(([key]) => key !== '_id'))
+  await mongoose.connection.collection(SCHEDULED_DATA_COLLECTION).updateOne(
+    { _id: snapshotId },
+    { $set: fields },
+    { upsert: true },
+  )
+}
+
+async function readScheduledSnapshot(snapshotId) {
+  if (mongoose.connection.readyState !== 1) {
+    throw new Error('MongoDB is unavailable for scheduled snapshot reads.')
+  }
+  return mongoose.connection.collection(SCHEDULED_DATA_COLLECTION).findOne({ _id: snapshotId })
 }
 
 function standingsRows(data) {
@@ -663,6 +687,30 @@ function todayInIndia() {
   return `${values.year}-${values.month}-${values.day}`
 }
 
+function shiftDate(dateString, days) {
+  const [year, month, day] = dateString.split('-').map(Number)
+  return new Date(Date.UTC(year, month - 1, day + days)).toISOString().slice(0, 10)
+}
+
+function nextDayInIndia() {
+  return shiftDate(todayInIndia(), 1)
+}
+
+function requireScheduleSecret(req, res, next) {
+  const expected = process.env.SCHEDULE_SECRET || ''
+  const provided = req.get('x-schedule-secret') || ''
+  const expectedBytes = Buffer.from(expected)
+  const providedBytes = Buffer.from(provided)
+
+  if (!expectedBytes.length) {
+    return res.status(503).json({ error: 'SCHEDULE_SECRET is not configured on the backend.' })
+  }
+  if (expectedBytes.length !== providedBytes.length || !timingSafeEqual(expectedBytes, providedBytes)) {
+    return res.status(401).json({ error: 'Invalid schedule secret.' })
+  }
+  return next()
+}
+
 async function fetchApi(path, params) {
   const requestKey = JSON.stringify([
     path,
@@ -726,34 +774,113 @@ async function fetchHighlightly(path, params = {}, { includePagination = false }
   }
 }
 
-async function getHighlightlyFixtures(date) {
+async function fetchScheduledHighlightlyPage(date, limit, offset) {
+  const minIntervalMs = 13_000
+  const retryDelayMs = 60_000
+  let attempts = 0
+
+  while (attempts < 5) {
+    const waitMs = Math.max(0, minIntervalMs - (Date.now() - lastScheduledHighlightlyRequestAt))
+    if (waitMs) await new Promise((resolve) => setTimeout(resolve, waitMs))
+    lastScheduledHighlightlyRequestAt = Date.now()
+    try {
+      return await fetchHighlightly('/matches', {
+        date,
+        timezone: 'Asia/Kolkata',
+        limit,
+        offset,
+      }, { includePagination: true })
+    } catch (error) {
+      attempts += 1
+      if (error.response?.status !== 429 || attempts >= 5) throw error
+      const retryAfter = Number(error.response.headers?.['retry-after'])
+      const delay = Number.isFinite(retryAfter) && retryAfter > 0
+        ? Math.max(retryDelayMs, retryAfter * 1000)
+        : retryDelayMs
+      await new Promise((resolve) => setTimeout(resolve, delay))
+    }
+  }
+
+  throw new Error('Highlightly fixture refresh stopped after repeated rate limits.')
+}
+
+async function getHighlightlyFixtures(date, { scheduled = false, onPage } = {}) {
   const limit = 100
   const maxPages = 20
   const matches = []
   let offset = 0
 
   for (let page = 0; page < maxPages; page += 1) {
-    const payload = await fetchHighlightly('/matches', {
-      date,
-      timezone: 'Asia/Kolkata',
-      limit,
-      offset,
-    }, { includePagination: true })
+    const payload = scheduled
+      ? await fetchScheduledHighlightlyPage(date, limit, offset)
+      : await fetchHighlightly('/matches', {
+        date,
+        timezone: 'Asia/Kolkata',
+        limit,
+        offset,
+      }, { includePagination: true })
     const results = Array.isArray(payload.data) ? payload.data : []
     matches.push(...results)
+    if (onPage) await onPage(matches, payload.pagination)
 
     const totalCount = Number(payload.pagination?.totalCount)
     const pageLimit = Number(payload.pagination?.limit) || limit
     const nextOffset = Number(payload.pagination?.offset) + pageLimit
-    if (!results.length || !Number.isFinite(totalCount)
-      || matches.length >= totalCount || !Number.isFinite(nextOffset)
-      || nextOffset <= offset) {
+    if (!results.length) {
+      if (Number.isFinite(totalCount) && matches.length < totalCount) {
+        throw new Error('Highlightly ended pagination before returning all next-day fixtures.')
+      }
       break
+    }
+    if (!Number.isFinite(totalCount) || matches.length >= totalCount) break
+    if (!Number.isFinite(nextOffset) || nextOffset <= offset) {
+      throw new Error('Highlightly returned invalid pagination before all fixtures were loaded.')
+    }
+    if (page === maxPages - 1) {
+      throw new Error('Highlightly fixture refresh reached the page safety limit before completion.')
     }
     offset = nextOffset
   }
 
   return matches
+}
+
+async function fetchFixturesForDate(date, { scheduled = false, onPage } = {}) {
+  const provider = matchProvider()
+  if (!provider) throw new Error('No match-data provider is configured.')
+
+  const data = provider === 'Highlightly'
+    ? await getHighlightlyFixtures(date, {
+      scheduled,
+      onPage: onPage
+        ? async (rawMatches, pagination) => {
+          const results = rawMatches.map(mapHighlightlyFixture).filter(Boolean)
+          await onPage({
+            results,
+            count: results.length,
+            date,
+            source: provider,
+            pagination,
+            updatedAt: new Date().toISOString(),
+          })
+        }
+        : undefined,
+    })
+    : await fetchApi('/fixtures', { date, timezone: 'Asia/Kolkata' })
+  const results = (provider === 'Highlightly'
+    ? data.map(mapHighlightlyFixture).filter(Boolean)
+    : data.map(mapFixture).filter((match) =>
+      MATCH_COMPETITION_IDS.has(String(match.league.id)),
+    ))
+
+  return {
+    results,
+    count: results.length,
+    date,
+    source: provider,
+    cached: false,
+    updatedAt: new Date().toISOString(),
+  }
 }
 
 async function getHighlightlyDetails(fixtureId, include) {
@@ -817,6 +944,62 @@ function sendApiError(res, error, fallback) {
   })
 }
 
+async function runNextDayFixtureRefresh(jobId, targetDate) {
+  const saveProgress = async (page) => saveScheduledSnapshot(NEXT_DAY_SNAPSHOT_ID, {
+    _id: NEXT_DAY_SNAPSHOT_ID,
+    kind: 'next-day-fixtures',
+    jobId,
+    targetDate,
+    status: 'running',
+    results: page.results,
+    count: page.count,
+    source: page.source,
+    updatedAt: page.updatedAt,
+  })
+
+  try {
+    const payload = await fetchFixturesForDate(targetDate, {
+      scheduled: true,
+      onPage: saveProgress,
+    })
+    await saveScheduledSnapshot(NEXT_DAY_SNAPSHOT_ID, {
+      _id: NEXT_DAY_SNAPSHOT_ID,
+      kind: 'next-day-fixtures',
+      jobId,
+      targetDate,
+      status: 'complete',
+      results: payload.results,
+      count: payload.count,
+      source: payload.source,
+      updatedAt: payload.updatedAt,
+      completedAt: new Date().toISOString(),
+    })
+    return { status: 'complete', targetDate, count: payload.count, source: payload.source }
+  } catch (error) {
+    console.error('Scheduled next-day fixture refresh failed:', error.response?.status || error.message)
+    try {
+      const latest = await readScheduledSnapshot(NEXT_DAY_SNAPSHOT_ID)
+      if (latest?.jobId === jobId) {
+        await saveScheduledSnapshot(NEXT_DAY_SNAPSHOT_ID, {
+          ...latest,
+          status: 'failed',
+          error: error.response?.status === 429
+            ? 'The match provider rate limit was reached before all fixture pages were loaded.'
+            : 'The match provider could not complete the scheduled fixture refresh.',
+          completedAt: new Date().toISOString(),
+        })
+      }
+    } catch (storageError) {
+      console.error('Could not save scheduled fixture refresh status:', storageError.message)
+    }
+    throw error
+  } finally {
+    if (scheduledFixtureJobs.get(targetDate)?.jobId === jobId) {
+      scheduledFixtureJobs.delete(targetDate)
+    }
+  }
+}
+
 // Home and health
 app.get('/', (_req, res) => {
   res.json({
@@ -836,6 +1019,72 @@ app.get('/api/health', (_req, res) => {
     footballApiConfigured: Boolean(matchProvider()),
     matchProvider: matchProvider(),
   })
+})
+
+app.post('/api/internal/scheduled/next-day-fixtures', requireScheduleSecret, async (_req, res) => {
+  const targetDate = nextDayInIndia()
+  try {
+    const existing = await readScheduledSnapshot(NEXT_DAY_SNAPSHOT_ID)
+    if (existing?.targetDate === targetDate && existing.status === 'complete') {
+      return res.json({
+        status: 'complete',
+        targetDate,
+        count: existing.count || 0,
+        source: existing.source,
+        alreadyRefreshed: true,
+      })
+    }
+
+    const activeJob = scheduledFixtureJobs.get(targetDate)
+    if (activeJob) {
+      return res.status(202).json({ status: 'running', targetDate })
+    }
+
+    const jobId = randomUUID()
+    await saveScheduledSnapshot(NEXT_DAY_SNAPSHOT_ID, {
+      _id: NEXT_DAY_SNAPSHOT_ID,
+      kind: 'next-day-fixtures',
+      jobId,
+      targetDate,
+      status: 'running',
+      results: [],
+      count: 0,
+      source: matchProvider(),
+      startedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    })
+    const task = runNextDayFixtureRefresh(jobId, targetDate)
+    scheduledFixtureJobs.set(targetDate, { jobId, task })
+    task.catch(() => {})
+    return res.status(202).json({ status: 'running', targetDate, jobId })
+  } catch (error) {
+    console.error('Could not start scheduled next-day fixture refresh:', error.message)
+    return res.status(503).json({ error: 'Could not start the scheduled fixture refresh.' })
+  }
+})
+
+app.get('/api/internal/scheduled/next-day-fixtures/status', requireScheduleSecret, async (req, res) => {
+  try {
+    const snapshot = await readScheduledSnapshot(NEXT_DAY_SNAPSHOT_ID)
+    if (!snapshot || (req.query.targetDate && snapshot.targetDate !== req.query.targetDate)) {
+      return res.status(404).json({ error: 'No scheduled fixture refresh exists for that date.' })
+    }
+    if (snapshot.status === 'running' && !scheduledFixtureJobs.has(snapshot.targetDate)) {
+      const task = runNextDayFixtureRefresh(snapshot.jobId, snapshot.targetDate)
+      scheduledFixtureJobs.set(snapshot.targetDate, { jobId: snapshot.jobId, task })
+      task.catch(() => {})
+    }
+    return res.json({
+      status: snapshot.status,
+      targetDate: snapshot.targetDate,
+      count: snapshot.count || 0,
+      source: snapshot.source,
+      error: snapshot.error || null,
+    })
+  } catch (error) {
+    console.error('Could not read scheduled fixture refresh status:', error.message)
+    return res.status(503).json({ error: 'Could not read the scheduled fixture refresh status.' })
+  }
 })
 
 // Competitions
@@ -1087,6 +1336,51 @@ app.get('/api/standings', async (req, res) => {
 })
 
 // Fixtures by date
+app.get('/api/matches/next-day', async (req, res) => {
+  const league = String(req.query.league || 'all')
+  if (!validateMatchCompetition(league)) {
+    return res.status(400).json({ error: 'Unsupported fixture competition.' })
+  }
+
+  const targetDate = nextDayInIndia()
+  try {
+    const snapshot = await readScheduledSnapshot(NEXT_DAY_SNAPSHOT_ID)
+    if (!snapshot || snapshot.targetDate !== targetDate) {
+      return res.json({
+        results: [],
+        count: 0,
+        date: targetDate,
+        targetDate,
+        status: 'waiting',
+        complete: false,
+        source: snapshot?.source || null,
+        updatedAt: null,
+        message: 'Next-day fixtures are preloaded daily at 1:00 p.m. IST.',
+      })
+    }
+
+    const results = filterByLeague(snapshot.results || [], league)
+    return res.json({
+      results,
+      count: results.length,
+      date: targetDate,
+      targetDate,
+      status: snapshot.status,
+      complete: snapshot.status === 'complete',
+      source: snapshot.source,
+      updatedAt: snapshot.updatedAt || snapshot.completedAt || null,
+      message: snapshot.status === 'running'
+        ? 'The scheduled refresh is still loading fixture pages.'
+        : snapshot.status === 'failed'
+          ? 'The scheduled refresh stopped early; showing any fixtures already saved.'
+          : results.length ? '' : 'No next-day fixtures were returned for this competition.',
+    })
+  } catch (error) {
+    console.error('Could not read saved next-day fixtures:', error.message)
+    return res.status(503).json({ error: 'Saved next-day fixtures are temporarily unavailable.' })
+  }
+})
+
 app.get('/api/matches', async (req, res) => {
   if (!requireMatchProvider(res)) return
 
@@ -1111,25 +1405,7 @@ app.get('/api/matches', async (req, res) => {
 
   if (!payload) {
     try {
-      const data = provider === 'Highlightly'
-        ? await getHighlightlyFixtures(date)
-        : await fetchApi('/fixtures', { date, timezone: 'Asia/Kolkata' })
-
-      const results = (provider === 'Highlightly'
-        ? data.map(mapHighlightlyFixture).filter(Boolean)
-        : data.map(mapFixture).filter((match) =>
-          MATCH_COMPETITION_IDS.has(String(match.league.id)),
-        ))
-
-      payload = {
-        results,
-        count: results.length,
-        date,
-        source: provider,
-        cached: false,
-        updatedAt: new Date().toISOString(),
-      }
-
+      payload = await fetchFixturesForDate(date)
       saveCache(key, payload, TTL.fixtures)
     } catch (error) {
       return sendApiError(
