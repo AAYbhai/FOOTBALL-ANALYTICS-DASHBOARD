@@ -424,8 +424,9 @@ const HIGHLIGHTLY_CLUB_LEAGUES = new Map([
     ['ligue 1', '61'], ['french ligue 1', '61'],
   ])],
   ['saudi arabia', new Map([
-    ['saudi pro league', '307'], ['roshn saudi league', '307'],
-    ['ros hn league', '307'],
+    ['saudi league', '307'], ['saudi pro league', '307'],
+    ['roshn saudi league', '307'], ['roshn saudi pro league', '307'],
+    ['ros hn league', '307'], ['ros hn saudi league', '307'],
   ])],
   ['united states', new Map([
     ['major league soccer', '253'], ['mls', '253'],
@@ -458,8 +459,17 @@ function normalizeName(value) {
 }
 
 function highlightlyLeagueId(item) {
-  const name = normalizeName(item.league?.name)
-  const country = normalizeName(item.country?.name)
+  const name = normalizeName(item.league?.name || item.leagueName)
+  const countryInfo = item.country || item.league?.country
+  const countryName = typeof countryInfo === 'string' ? countryInfo : countryInfo?.name
+  const countryCode = String(
+    typeof countryInfo === 'object' ? countryInfo?.code || '' : item.countryCode || '',
+  ).toUpperCase()
+  const normalizedCountry = normalizeName(countryName)
+  const country = ['SA', 'KSA'].includes(countryCode)
+    || ['saudi', 'ksa'].includes(normalizedCountry)
+    ? 'saudi arabia'
+    : normalizedCountry
   const clubLeagueId = HIGHLIGHTLY_CLUB_LEAGUES.get(country)?.get(name)
   if (clubLeagueId) return clubLeagueId
 
@@ -505,7 +515,9 @@ function mapHighlightlyFixture(item) {
     league: {
       id: Number(leagueId),
       name: ALL_LEAGUES[leagueId] || item.league?.name || 'Unknown competition',
-      country: item.country?.name ?? null,
+      country: typeof item.country === 'string'
+        ? item.country
+        : item.country?.name ?? item.league?.country?.name ?? null,
       logo: item.league?.logo ?? null,
       season: item.league?.season ?? null,
       round: item.round ?? null,
