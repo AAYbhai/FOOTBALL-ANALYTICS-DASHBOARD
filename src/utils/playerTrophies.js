@@ -1,8 +1,10 @@
-const INTERNATIONAL_CUP = /world cup|european championship|euros|nations league|copa am[eé]rica|africa cup of nations|asian cup|gold cup|ofc nations cup|confederations cup|finalissima|cup of champions/i
-const UEFA_CLUB = /uefa|european cup|champions league|europa league|cup winners|intertoto/i
-const CONTINENTAL_CLUB = /copa libertadores|recopa|caf champions|afc champions|concacaf champions|intercontinental cup|club world cup/i
+const INTERNATIONAL_CUP = /world cup|european championship|euros|nations league|copa am[eé]rica|africa cup of nations|asian cup|gold cup|ofc nations cup|confederations cup/i
+const UEFA_CLUB = /^(?:uefa )?(?:champions league|european cup|cup winners(?:'|’)? cup|europa league|uefa cup|conference league|super cup|intertoto cup)$/i
+const WORLD_CLUB = /^(?:fifa )?club world cup$|^(?:fifa )?intercontinental cup$/i
+const DOMESTIC_CUP = /^(?:league cup|efl cup|carabao cup|fa cup|copa del rey|coppa italia|copa do brasil|coupe de france|dfb-pokal|dfl-pokal|community shield|supercopa|supercoppa|superta[cç]a|troph[eé]e des champions)$/i
+const LEAGUE = /^(?:premier league|english first division|la liga|serie a|bundesliga|ligue 1|french league|eredivisie|primeira liga|s[aã]o paulo state league|campeonato brasileiro s[eé]rie a|brasileir[aã]o|argentine primera divisi[oó]n|major league soccer|saudi pro league|russian premier league|soviet top league|scottish premiership|scottish football league|turkish super lig|super lig|jupiler pro league|belgian first division|greek super league|liga portugal|championnat de france|division 1|serie a brazil|campeonato carioca|campeonato paulista|campeonato uruguaio|yugoslav first league|primera divisi[oó]n)$/i
 const SUPER_CUP = /super cup|supercopa|supercoppa|superta[cç]a|troph[eé]e des champions|community shield/i
-const LEAGUE = /league|liga|bundesliga|serie a|eredivisie|brasileir[aã]o|championship|campeonato carioca/i
+const CONTINENTAL_CLUB = /copa libertadores|recopa|caf champions|afc champions|concacaf champions|intercontinental cup|club world cup/i
 
 function categoryFor(name) {
   if (INTERNATIONAL_CUP.test(name)) return 'International cups'
@@ -10,6 +12,16 @@ function categoryFor(name) {
   if (UEFA_CLUB.test(name) || CONTINENTAL_CLUB.test(name)) return 'Continental club trophies'
   if (LEAGUE.test(name)) return 'Leagues'
   return 'Domestic cups and other major trophies'
+}
+
+const MAJOR_TROPHY = /^(?:fifa )?world cup$|^(?:uefa )?(?:european championship|european football championship|euros|nations league)$|^copa am[eé]rica$|^africa cup of nations$|^(?:afc )?asian cup$|^(?:concacaf )?gold cup$|^ofc nations cup$|^fifa confederations cup$/i
+
+export function isMajorTrophy(trophy) {
+  if (!trophy) return false
+  const name = typeof trophy === 'string' ? trophy : trophy.name
+  const normalized = name?.trim()
+  if (!normalized || DOMESTIC_CUP.test(normalized)) return false
+  return LEAGUE.test(normalized) || UEFA_CLUB.test(normalized) || WORLD_CLUB.test(normalized) || MAJOR_TROPHY.test(normalized)
 }
 
 function parseEditions(value) {
@@ -34,6 +46,7 @@ export function trophiesFromLegacyHonors(honors = []) {
     const match = honor.match(/^(.+?)\s*\(([^)]+)\)\s*$/)
     if (!match || /olympic gold/i.test(match[1])) return []
     const name = match[1].trim()
+    if (!isMajorTrophy(name)) return []
     return parseEditions(match[2]).map((season) => ({
       name,
       season,

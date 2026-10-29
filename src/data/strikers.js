@@ -2,23 +2,27 @@
 // separate. Assists are null when reliable career-wide records are not available.
 // Public career tables differ for historic football; sources are linked per player.
 import { trophiesFromLegacyHonors } from '../utils/playerTrophies.js'
+import { CAREER_ASSIST_RESEARCH } from './careerAssists.js'
 
 const makePlayer = (player) => {
+  const researchedAssists = CAREER_ASSIST_RESEARCH[player.name]
   const clubs = player.clubs.map((club) => ({ assists: null, ...club }))
   const clubCareer = clubs.reduce((sum, club) => ({
     appearances: sum.appearances + club.appearances,
     goals: sum.goals + club.goals,
   }), { appearances: 0, goals: 0 })
+  const knownClubAssists = clubs.map((club) => club.assists).filter((assists) => Number.isFinite(assists))
   return {
     role: 'Striker',
     ...player,
     trophies: trophiesFromLegacyHonors(player.honors),
     trophyStatus: player.honors?.length ? 'partial' : 'unverified',
     clubs,
-    career: { ...clubCareer, assists: null },
+    career: { ...clubCareer, assists: researchedAssists?.assists ?? (knownClubAssists.length ? knownClubAssists.reduce((sum, assists) => sum + assists, 0) : null) },
     international: { assists: null, ...player.international },
     transferHistory: clubs.map(({ name, years }) => `${name}${years ? ` (${years})` : ''}`),
-    statNote: 'Public senior club appearances and goals are compiled by club and added for the club-career total; national-team figures are separate. Historical source definitions can differ. Assists were not recorded consistently across this player’s career.',
+    secondarySources: [...(player.secondarySources || []), researchedAssists?.source, ...(researchedAssists?.secondarySources || [])].filter(Boolean),
+    statNote: `${player.statNote || 'Public senior club appearances and goals are compiled by club and added for the club-career total; national-team figures are separate. Historical source definitions can differ.'} ${researchedAssists ? `Career assists figure (${researchedAssists.assists}): ${researchedAssists.note}` : 'A dependable full-career assist total is not published for this player; historical assists were not tracked consistently.'}`,
   }
 }
 
@@ -153,14 +157,28 @@ export const STRIKERS = [
     id: 'gary-lineker', name: 'Gary Lineker', country: 'England', detail: 'Lineker built his career on anticipation, clever movement and exceptionally clean finishing. He rarely needed physical duels to get chances; a sharp change of pace and a composed touch made him prolific in England, Spain and Japan.',
     clubs: [{ name: 'Leicester City', years: '1978–1984', appearances: 216, goals: 103 }, { name: 'Everton', years: '1985', appearances: 57, goals: 40 }, { name: 'Barcelona', years: '1986–1988', appearances: 137, goals: 52 }, { name: 'Tottenham Hotspur', years: '1989–1991', appearances: 138, goals: 80 }, { name: 'Nagoya Grampus Eight', years: '1993–1994', appearances: 24, goals: 8 }],
     international: { team: 'England', appearances: 80, goals: 48 },
-    honors: ['Copa del Rey (1988)', 'FA Cup (1991)'],
+    honors: ['Copa del Rey (1988)', 'UEFA Cup Winners’ Cup (1988–89)', 'FA Cup (1991)'],
     source: 'https://www.strikerduel.com/players/gary-lineker', secondarySources: ['https://www.englandfootball.com/england/mens-senior-team/squads/Gary-Lineker'],
   }),
   makePlayer({
     id: 'just-fontaine', name: 'Just Fontaine', country: 'France', detail: 'Fontaine was a direct, opportunistic striker who attacked crosses early and finished quickly with either foot. His 13 goals at the 1958 World Cup remain a tournament record; at Reims he was the focal point of one of France’s great sides.',
     clubs: [{ name: 'USM Casablanca', years: '1950–1953', appearances: 48, goals: 62 }, { name: 'Nice', years: '1953–1956', appearances: 83, goals: 51 }, { name: 'Stade de Reims', years: '1956–1962', appearances: 152, goals: 145 }],
     international: { team: 'France', appearances: 21, goals: 31 },
-    honors: ['French league (1956, 1958, 1960, 1962)', 'FIFA World Cup third place (1958)'],
+    honors: ['French league (1956, 1958, 1960)'],
     source: 'https://www.zerozero.pt/jogador/just-fontaine', secondarySources: ['https://www.fff.fr/equipe-nationale/joueur/9771-fontaine-just/fiche.html', 'https://www.ogcnice.com/fr/fiche/3022/just-fontaine.html'],
+  }),
+  makePlayer({
+    id: 'wayne-rooney', name: 'Wayne Rooney', country: 'England', detail: 'Rooney was more than a goalscorer: he pressed, created, dropped into midfield and carried the ball through contact. His power and imagination made him the central figure of Manchester United’s attack for over a decade and England’s record scorer at retirement.',
+    clubs: [{ name: 'Everton', years: '2002–2004, 2017–2018', appearances: 117, goals: 28, assists: 4 }, { name: 'Manchester United', years: '2004–2017', appearances: 559, goals: 253, assists: 146 }, { name: 'D.C. United', years: '2018–2019', appearances: 52, goals: 25, assists: 14 }, { name: 'Derby County', years: '2020–2021', appearances: 35, goals: 7, assists: 3 }],
+    international: { team: 'England', appearances: 120, goals: 53 },
+    honors: ['Premier League (2007, 2008, 2009, 2011, 2013)', 'UEFA Champions League (2008)', 'UEFA Europa League (2017)', 'FA Cup (2016)', 'Football League Cup (2006, 2009, 2010, 2017)', 'FIFA Club World Cup (2008)'],
+    source: 'https://www.officialwaynerooney.com/stats/', secondarySources: ['https://www.thepfa.com/news/2021/1/15/wayne-rooney-retires', 'https://www.zerozero.pt/jogador/wayne-rooney/equipas?redirm=1'],
+  }),
+  makePlayer({
+    id: 'david-villa', name: 'David Villa', country: 'Spain', detail: 'Villa married clever movement to a fast, accurate finish, thriving both as a lone striker and beside another forward. He became Spain’s leading scorer and delivered goals across La Liga, MLS and Japan while winning the 2010 World Cup and Euro 2008.',
+    clubs: [{ name: 'Sporting Gijón B', years: '2000–2001', appearances: 36, goals: 14 }, { name: 'Sporting Gijón', years: '2001–2003', appearances: 80, goals: 38 }, { name: 'Real Zaragoza', years: '2003–2005', appearances: 73, goals: 32 }, { name: 'Valencia', years: '2005–2010', appearances: 166, goals: 108 }, { name: 'Barcelona', years: '2010–2013', appearances: 77, goals: 33 }, { name: 'Atlético Madrid', years: '2013–2014', appearances: 36, goals: 13 }, { name: 'New York City FC', years: '2014–2018', appearances: 117, goals: 77 }, { name: 'Melbourne City', years: '2014 (loan)', appearances: 4, goals: 2 }, { name: 'Vissel Kobe', years: '2019–2020', appearances: 28, goals: 13 }],
+    international: { team: 'Spain', appearances: 98, goals: 59 },
+    honors: ['FIFA World Cup (2010)', 'UEFA European Championship (2008)', 'UEFA Champions League (2011)', 'La Liga (2011, 2013)', 'FIFA Club World Cup (2011)', 'UEFA Super Cup (2011)', 'Copa del Rey (2004, 2008, 2012)'],
+    source: 'https://en.wikipedia.org/wiki/David_Villa', secondarySources: ['https://rfef.es/es/selecciones/jugadores/david-villa', 'https://www.uefa.com/newsfiles/461350.pdf'],
   }),
 ]
