@@ -758,9 +758,9 @@ async function getHighlightlyFixtures(date) {
 
 async function getHighlightlyDetails(fixtureId, include) {
   const requested = include.filter((section) => section !== 'headtohead')
-  const needsMatchRecord = requested.includes('events') || requested.includes('statistics')
   const tasks = []
-  if (needsMatchRecord) tasks.push(['matchRecord', fetchHighlightly(`/matches/${fixtureId}`)])
+  if (requested.includes('events')) tasks.push(['matchRecord', fetchHighlightly(`/matches/${fixtureId}`)])
+  if (requested.includes('statistics')) tasks.push(['statistics', fetchHighlightly(`/statistics/${fixtureId}`)])
   if (requested.includes('lineups')) tasks.push(['lineups', fetchHighlightly(`/lineups/${fixtureId}`)])
   if (requested.includes('players')) tasks.push(['players', fetchHighlightly(`/box-score/${fixtureId}`)])
   const settled = await Promise.allSettled(tasks.map(([, promise]) => promise))
@@ -770,25 +770,20 @@ async function getHighlightlyDetails(fixtureId, include) {
   settled.forEach((result, index) => {
     const [task] = tasks[index]
     if (result.status !== 'fulfilled') {
-      const failedSections = task === 'matchRecord'
-        ? requested.filter((section) => section === 'events' || section === 'statistics')
-        : [task]
-      for (const section of failedSections) {
-        details[section] = null
-        unavailable.push({ section, message: 'The provider could not supply this section for the selected match.' })
-      }
+      details[task === 'matchRecord' ? 'events' : task] = null
+      unavailable.push({
+        section: task === 'matchRecord' ? 'events' : task,
+        message: 'The provider could not supply this section for the selected match.',
+      })
       return
     }
     const value = result.value
     if (task === 'matchRecord') {
       const record = value?.match || value
-      if (requested.includes('events')) {
-        const list = Array.isArray(record?.events) ? record.events : []
-        details.events = list.map(mapHighlightlyEvent)
-      }
-      if (requested.includes('statistics')) {
-        details.statistics = mapHighlightlyStatistics(record?.statistics)
-      }
+      const list = Array.isArray(record?.events) ? record.events : []
+      details.events = list.map(mapHighlightlyEvent)
+    } else if (task === 'statistics') {
+      details.statistics = mapHighlightlyStatistics(value)
     } else if (task === 'lineups') {
       details.lineups = mapHighlightlyLineups(value)
     } else if (task === 'players') {
