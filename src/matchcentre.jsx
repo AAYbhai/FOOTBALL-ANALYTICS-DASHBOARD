@@ -587,7 +587,7 @@ function MatchCentre({ initialMatch = null, competitions = [] }) {
             className={view === 'next-day' ? 'active' : ''}
             onClick={() => setView('next-day')}
           >
-            Next day
+            Next-day fixtures
           </button>
         </div>
 
