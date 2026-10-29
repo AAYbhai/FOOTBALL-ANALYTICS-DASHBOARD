@@ -125,7 +125,7 @@ function PlayerPortrait({ player, small = false }) {
   )
 }
 
-function TeamPitch({ name, formation, lineup, onSelect, onClear, tone }) {
+function TeamPitch({ name, formation, lineup, onSelect, onClear, onRemove, tone }) {
   const positions = formationPositions(formation)
 
   return (
@@ -186,7 +186,10 @@ function TeamPitch({ name, formation, lineup, onSelect, onClear, tone }) {
 
       <div className="xi-pitch-footer">
         <span>Formation: {formation}</span>
-        <button type="button" onClick={onClear}>Clear team</button>
+        <div className="xi-pitch-actions">
+          <button type="button" onClick={onClear}>Clear lineup</button>
+          {onRemove && <button type="button" onClick={onRemove}>Remove lineup</button>}
+        </div>
       </div>
     </section>
   )
@@ -430,30 +433,30 @@ export default function DreamXI() {
         trophyStatus: player.trophyStatus || 'unverified',
       })),
   ]
-  const [teamA, setTeamA] = useState(emptyTeam)
-  const [teamB, setTeamB] = useState(emptyTeam)
-  const [formationA, setFormationA] = useState('4-3-3')
-  const [formationB, setFormationB] = useState('4-2-3-1')
-  const [nameA, setNameA] = useState('Team A')
-  const [nameB, setNameB] = useState('Team B')
-  const [activeTeam, setActiveTeam] = useState('A')
+  const [lineups, setLineups] = useState(() => [
+    { id: 'lineup-1', name: 'Lineup 1', formation: '4-3-3', players: emptyTeam() },
+  ])
+  const [activeLineupId, setActiveLineupId] = useState('lineup-1')
   const [selectedSlot, setSelectedSlot] = useState(null)
   const [selectedRole, setSelectedRole] = useState('Unknown')
   const [search, setSearch] = useState('')
   const [trophyTeam, setTrophyTeam] = useState(null)
   const sourceMessage = 'Choose from the striker catalogue, all-time position groups and featured examples.'
 
-  const currentLineup = activeTeam === 'A' ? teamA : teamB
+  const activeLineup = lineups.find((lineup) => lineup.id === activeLineupId) || lineups[0]
+  const currentLineup = activeLineup?.players || []
 
   const eligiblePlayers = useMemo(() => {
     const query = search.toLowerCase().trim()
-    const otherTeam = activeTeam === 'A' ? teamB : teamA
+    const otherLineupPlayers = lineups
+      .filter((lineup) => lineup.id !== activeLineupId)
+      .flatMap((lineup) => lineup.players)
 
     return players.filter((player) => {
       const inCurrent = currentLineup.some(
         (selected) => selected && String(selected.id) === String(player.id),
       )
-      const inOther = otherTeam.some(
+      const inOther = otherLineupPlayers.some(
         (selected) => selected && String(selected.id) === String(player.id),
       )
       const matchesSearch =
@@ -464,20 +467,19 @@ export default function DreamXI() {
 
       return !inCurrent && !inOther && matchesSearch && playerFitsRole(player, selectedRole)
     })
-  }, [players, search, activeTeam, currentLineup, teamA, teamB, selectedRole])
+  }, [players, search, activeLineupId, currentLineup, lineups, selectedRole])
 
-  function openPlayerPicker(team, slot, role) {
-    setActiveTeam(team)
+  function openPlayerPicker(lineupId, slot, role) {
+    setActiveLineupId(lineupId)
     setSelectedSlot(slot)
     setSelectedRole(role)
     setSearch('')
   }
 
   function choosePlayer(player) {
-    const setter = activeTeam === 'A' ? setTeamA : setTeamB
-
-    setter((current) => {
-      const next = [...current]
+    setLineups((current) => current.map((lineup) => {
+      if (lineup.id !== activeLineupId) return lineup
+      const next = [...lineup.players]
       next[selectedSlot] = {
         ...player,
         // Explicitly preserve the separate career fields.
@@ -485,34 +487,42 @@ export default function DreamXI() {
         careerAppearances: player.careerAppearances ?? null,
         trophies: player.trophies ?? null,
       }
-      return next
-    })
+      return { ...lineup, players: next }
+    }))
 
     setSelectedSlot(null)
   }
 
-  function clearTeam(team) {
-    if (team === 'A') setTeamA(emptyTeam())
-    else setTeamB(emptyTeam())
+  function addLineup() {
+    if (lineups.length >= 3) return
+    const id = `lineup-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
+    const lineup = {
+      id,
+      name: `Lineup ${lineups.length + 1}`,
+      formation: lineups.length === 1 ? '4-2-3-1' : '4-3-3',
+      players: emptyTeam(),
+    }
+    setLineups((current) => [...current, lineup])
+    setActiveLineupId(id)
   }
 
-  function changeFormation(team, formation) {
-    if (team === 'A') setFormationA(formation)
-    else setFormationB(formation)
+  function updateLineup(lineupId, updates) {
+    setLineups((current) => current.map((lineup) =>
+      lineup.id === lineupId ? { ...lineup, ...updates } : lineup,
+    ))
   }
 
-  function swapTeams() {
-    setTeamA(teamB)
-    setTeamB(teamA)
-    setFormationA(formationB)
-    setFormationB(formationA)
-    setNameA(nameB)
-    setNameB(nameA)
+  function removeLineup(lineupId) {
+    if (lineups.length <= 1) return
+    const remaining = lineups.filter((lineup) => lineup.id !== lineupId)
+    setLineups(remaining)
+    if (activeLineupId === lineupId) setActiveLineupId(remaining[0].id)
+    setSelectedSlot(null)
+    setTrophyTeam(null)
   }
 
-  function resetTeams() {
-    setTeamA(emptyTeam())
-    setTeamB(emptyTeam())
+  function resetLineups() {
+    setLineups((current) => current.map((lineup) => ({ ...lineup, players: emptyTeam() })))
     setSelectedSlot(null)
     setTrophyTeam(null)
   }
@@ -524,64 +534,59 @@ export default function DreamXI() {
           <p className="xi-eyebrow">FAD / SQUAD LAB</p>
           <h1>Dream XI Builder</h1>
           <p className="xi-subtitle">
-            Build two football XIs, choose formations, and compare goals, assists, international records and honours.
+            Build one XI, then add up to two more to compare goals, assists, international records and honours.
           </p>
         </div>
         <span className="xi-badge">⚽ INTERACTIVE BUILDER</span>
       </header>
 
       <div className="xi-controls">
-        <label>
-          Team A name
-          <input value={nameA} onChange={(event) => setNameA(event.target.value)} maxLength={28} />
-        </label>
-
-        <label>
-          Formation
-          <select value={formationA} onChange={(event) => changeFormation('A', event.target.value)}>
-            {Object.keys(FORMATIONS).map((formation) => (
-              <option key={formation}>{formation}</option>
-            ))}
-          </select>
-        </label>
-
-        <button type="button" className="xi-swap" onClick={swapTeams}>
-          ⇄ Swap teams
+        {lineups.map((lineup) => (
+          <div className="xi-lineup-settings" key={lineup.id}>
+            <label>
+              Lineup name
+              <input
+                value={lineup.name}
+                onChange={(event) => updateLineup(lineup.id, { name: event.target.value })}
+                maxLength={28}
+              />
+            </label>
+            <label>
+              Formation
+              <select
+                value={lineup.formation}
+                onChange={(event) => updateLineup(lineup.id, { formation: event.target.value })}
+              >
+                {Object.keys(FORMATIONS).map((formation) => (
+                  <option key={formation}>{formation}</option>
+                ))}
+              </select>
+            </label>
+          </div>
+        ))}
+        <button
+          type="button"
+          className="xi-add-lineup"
+          onClick={addLineup}
+          disabled={lineups.length >= 3}
+        >
+          {lineups.length >= 3 ? 'Maximum 3 lineups' : `＋ Add lineup (${lineups.length}/3)`}
         </button>
-
-        <label>
-          Team B name
-          <input value={nameB} onChange={(event) => setNameB(event.target.value)} maxLength={28} />
-        </label>
-
-        <label>
-          Formation
-          <select value={formationB} onChange={(event) => changeFormation('B', event.target.value)}>
-            {Object.keys(FORMATIONS).map((formation) => (
-              <option key={formation}>{formation}</option>
-            ))}
-          </select>
-        </label>
       </div>
 
       <div className="xi-pitch-grid">
-        <TeamPitch
-          name={nameA}
-          formation={formationA}
-          lineup={teamA}
-          tone="xi-green"
-          onSelect={(slot, role) => openPlayerPicker('A', slot, role)}
-          onClear={() => clearTeam('A')}
-        />
-
-        <TeamPitch
-          name={nameB}
-          formation={formationB}
-          lineup={teamB}
-          tone="xi-blue"
-          onSelect={(slot, role) => openPlayerPicker('B', slot, role)}
-          onClear={() => clearTeam('B')}
-        />
+        {lineups.map((lineup, index) => (
+          <TeamPitch
+            key={lineup.id}
+            name={lineup.name}
+            formation={lineup.formation}
+            lineup={lineup.players}
+            tone={index % 2 ? 'xi-blue' : 'xi-green'}
+            onSelect={(slot, role) => openPlayerPicker(lineup.id, slot, role)}
+            onClear={() => updateLineup(lineup.id, { players: emptyTeam() })}
+            onRemove={lineups.length > 1 ? () => removeLineup(lineup.id) : null}
+          />
+        ))}
       </div>
 
       <section className="xi-comparison">
@@ -590,20 +595,18 @@ export default function DreamXI() {
             <p className="xi-eyebrow">HEAD TO HEAD</p>
             <h2>Team comparison</h2>
           </div>
-          <button type="button" onClick={resetTeams}>Reset both teams</button>
+          <button type="button" onClick={resetLineups}>Clear all lineups</button>
         </div>
 
         <div className="xi-metrics-grid">
-          <TeamMetrics
-            name={nameA}
-            lineup={teamA}
-            onViewTrophies={() => setTrophyTeam({ name: nameA, lineup: teamA })}
-          />
-          <TeamMetrics
-            name={nameB}
-            lineup={teamB}
-            onViewTrophies={() => setTrophyTeam({ name: nameB, lineup: teamB })}
-          />
+          {lineups.map((lineup) => (
+            <TeamMetrics
+              key={lineup.id}
+              name={lineup.name}
+              lineup={lineup.players}
+              onViewTrophies={() => setTrophyTeam({ name: lineup.name, lineup: lineup.players })}
+            />
+          ))}
         </div>
         <p className="xi-footnote">Assists are totaled only where the profile has a sourced career figure. Historical assist records are incomplete, so missing values are excluded rather than counted as zero. Goals per appearance uses each squad’s available career totals.</p>
       </section>
@@ -620,7 +623,7 @@ export default function DreamXI() {
             <div className="xi-picker-heading">
               <div>
                 <p className="xi-eyebrow">SELECT PLAYER</p>
-                <h2>{selectedRole} · {activeTeam === 'A' ? nameA : nameB}</h2>
+                <h2>{selectedRole} · {activeLineup?.name || 'Lineup'}</h2>
               </div>
               <button type="button" onClick={() => setSelectedSlot(null)} aria-label="Close player picker">
                 ✕
@@ -669,7 +672,7 @@ export default function DreamXI() {
                 ))
               ) : (
                 <p className="xi-empty">
-                  No available players found. Search another name or clear one of the teams.
+                  No available players found. Search another name or free a player slot in another lineup.
                 </p>
               )}
             </div>

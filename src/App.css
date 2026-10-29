@@ -1233,6 +1233,7 @@ tbody tr:hover {
 .featured-player-card small,.club-card-copy small { color: #90a3ab; font-size: 8px; letter-spacing: .8px; text-transform: uppercase; }
 .featured-player-card strong { font: 600 16px 'Space Grotesk',sans-serif; }
 .player-card-trophy-count { color: #9de9bd; font-size: 9px; font-style: normal; letter-spacing: .2px; }
+.player-card-assists { color: #c1d1ce; font-size: 9px; font-style: normal; letter-spacing: .2px; }
 .directory-footnote,.directory-empty { color: #8c9ca6; font-size: 10px; margin-top: 22px; }
 .back-link { border: 0; background: none; color: #93dfb5; padding: 0; margin-bottom: 22px; font-size: 10px; }
 .player-profile-hero { display: grid; grid-template-columns: minmax(220px,.8fr) 1.2fr; align-items: center; gap: clamp(25px,6vw,85px); padding: 30px 6%; border: 1px solid #ffffff24; border-radius: 20px; background: linear-gradient(120deg,#101d29eb,#0b1219d9); }

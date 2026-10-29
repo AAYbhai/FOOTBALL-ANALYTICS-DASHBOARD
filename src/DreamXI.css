@@ -76,6 +76,18 @@
   font-weight: 750;
 }
 
+.xi-lineup-settings {
+  display: flex;
+  flex: 1 1 320px;
+  align-items: end;
+  gap: 12px;
+  min-width: 0;
+}
+
+.xi-lineup-settings label {
+  min-width: 0;
+}
+
 .xi-controls input,
 .xi-controls select,
 .xi-search {
@@ -109,6 +121,25 @@
   font-size: 12px;
   font-weight: 750;
   cursor: pointer;
+}
+
+.xi-controls .xi-add-lineup {
+  flex: 0 0 auto;
+  min-height: 39px;
+  border-color: #39785a;
+  background: #173528;
+  color: #91f2bd;
+}
+
+.xi-controls .xi-add-lineup:hover:not(:disabled) {
+  border-color: #65e6a5;
+  background: #1d4934;
+}
+
+.xi-controls .xi-add-lineup:disabled {
+  color: #91a2b4;
+  cursor: default;
+  opacity: .75;
 }
 
 .xi-controls button:hover,
@@ -346,6 +377,13 @@
   padding: 0 17px 17px;
   color: #9eafc0;
   font-size: 12px;
+}
+
+.xi-pitch-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
 }
 
 .xi-comparison {
@@ -598,6 +636,18 @@
 
   .xi-controls {
     align-items: stretch;
+  }
+
+  .xi-lineup-settings {
+    flex: 1 1 100%;
+  }
+
+  .xi-lineup-settings label {
+    flex: 1 1 50%;
+  }
+
+  .xi-controls .xi-add-lineup {
+    width: 100%;
   }
 
   .xi-pitch {
