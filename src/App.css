@@ -1241,7 +1241,7 @@ tbody tr:hover {
 .profile-identity h1 { font-size: clamp(36px,6vw,70px); letter-spacing: -3px; }
 .profile-identity > p:last-child { color: #b3c1c6; font-size: 13px; }
 .profile-identity > p span { color: #8fe5b5; padding: 0 8px; }
-.profile-data-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 12px; margin: 16px 0; }
+.profile-data-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(145px,1fr)); gap: 12px; margin: 16px 0; }
 .profile-data-grid article { display: flex; flex-direction: column; gap: 8px; padding: 17px; border: 1px solid #ffffff20; border-radius: 11px; background: #0c1724d9; }
 .profile-data-grid small,.profile-story .eyebrow { color: #91dfb3; font-size: 8px; letter-spacing: 1.2px; }
 .profile-data-grid strong { font-size: 12px; }
