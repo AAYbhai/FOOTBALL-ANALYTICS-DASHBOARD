@@ -207,7 +207,10 @@ function teamTotals(lineup) {
   }
 
   const goalTotals = sumKnown('careerGoals')
+  const assistTotals = sumKnown('careerAssists')
   const appearanceTotals = sumKnown('careerAppearances')
+  const internationalGoalTotals = sumKnown('internationalGoals')
+  const internationalAppearanceTotals = sumKnown('internationalAppearances')
   const trophyPlayers = chosen.filter(hasTrophyHistory)
   const trophyCount = trophyPlayers.reduce(
     (sum, player) => sum + player.trophies.filter((trophy) => trophy.type !== 'individual').length,
@@ -218,8 +221,15 @@ function teamTotals(lineup) {
     chosen,
     goals: goalTotals.total,
     goalsKnown: goalTotals.known,
+    assists: assistTotals.total,
+    assistsKnown: assistTotals.known,
     appearances: appearanceTotals.total,
     appearancesKnown: appearanceTotals.known,
+    internationalGoals: internationalGoalTotals.total,
+    internationalGoalsKnown: internationalGoalTotals.known,
+    internationalAppearances: internationalAppearanceTotals.total,
+    internationalAppearancesKnown: internationalAppearanceTotals.known,
+    goalsPerAppearance: goalTotals.total != null && appearanceTotals.total ? goalTotals.total / appearanceTotals.total : null,
     trophies: trophyPlayers.length ? trophyCount : null,
     trophiesKnown: trophyPlayers.length,
   }
@@ -255,11 +265,31 @@ function TeamMetrics({ name, lineup, onViewTrophies }) {
           )}
         </div>
         <div>
+          <span>Career assists</span>
+          <strong>{displayNumber(totals.assists)}</strong>
+          <small>{totals.assistsKnown}/{totals.chosen.length} player records</small>
+        </div>
+        <div>
           <span>Career appearances</span>
           <strong>{displayNumber(totals.appearances)}</strong>
           {totals.appearancesKnown > 0 && totals.appearancesKnown < totals.chosen.length && (
             <small>{totals.appearancesKnown}/{totals.chosen.length} player records</small>
           )}
+        </div>
+        <div>
+          <span>International goals</span>
+          <strong>{displayNumber(totals.internationalGoals)}</strong>
+          {totals.internationalGoalsKnown < totals.chosen.length && <small>{totals.internationalGoalsKnown}/{totals.chosen.length} player records</small>}
+        </div>
+        <div>
+          <span>International appearances</span>
+          <strong>{displayNumber(totals.internationalAppearances)}</strong>
+          {totals.internationalAppearancesKnown < totals.chosen.length && <small>{totals.internationalAppearancesKnown}/{totals.chosen.length} player records</small>}
+        </div>
+        <div>
+          <span>Goals per appearance</span>
+          <strong>{totals.goalsPerAppearance == null ? 'Unavailable' : totals.goalsPerAppearance.toFixed(2)}</strong>
+          <small>Combined goals ÷ appearances</small>
         </div>
         <div>
           <span>Listed team trophies</span>
@@ -370,7 +400,10 @@ export default function DreamXI() {
         ...profile,
         ...example,
         careerGoals: profile?.career?.goals ?? null,
+        careerAssists: profile?.career?.assists ?? null,
         careerAppearances: profile?.career?.appearances ?? null,
+        internationalGoals: profile?.international?.goals ?? null,
+        internationalAppearances: profile?.international?.appearances ?? null,
         goals: profile?.career?.goals ?? example.goals ?? null,
         appearances: profile?.career?.appearances ?? example.appearances ?? null,
         trophies: profile?.trophies || null,
@@ -388,7 +421,10 @@ export default function DreamXI() {
         goals: player.career?.goals ?? null,
         appearances: player.career?.appearances ?? null,
         careerGoals: player.career?.goals ?? null,
+        careerAssists: player.career?.assists ?? null,
         careerAppearances: player.career?.appearances ?? null,
+        internationalGoals: player.international?.goals ?? null,
+        internationalAppearances: player.international?.appearances ?? null,
         photo: LOCAL_PLAYER_PORTRAITS[playerNameKey(player.name)] || fallbackPlayerPortrait,
         trophies: player.trophies || null,
         trophyStatus: player.trophyStatus || 'unverified',
@@ -405,7 +441,7 @@ export default function DreamXI() {
   const [selectedRole, setSelectedRole] = useState('Unknown')
   const [search, setSearch] = useState('')
   const [trophyTeam, setTrophyTeam] = useState(null)
-  const sourceMessage = 'Includes the curated striker records, all-time position groups and historical examples.'
+  const sourceMessage = 'Choose from the striker catalogue, all-time position groups and featured examples.'
 
   const currentLineup = activeTeam === 'A' ? teamA : teamB
 
@@ -488,7 +524,7 @@ export default function DreamXI() {
           <p className="xi-eyebrow">FAD / SQUAD LAB</p>
           <h1>Dream XI Builder</h1>
           <p className="xi-subtitle">
-            Build two football XIs, choose formations, and compare all-time squads.
+            Build two football XIs, choose formations, and compare goals, assists, international records and honours.
           </p>
         </div>
         <span className="xi-badge">⚽ INTERACTIVE BUILDER</span>
@@ -569,6 +605,7 @@ export default function DreamXI() {
             onViewTrophies={() => setTrophyTeam({ name: nameB, lineup: teamB })}
           />
         </div>
+        <p className="xi-footnote">Assists are totaled only where the profile has a sourced career figure. Historical assist records are incomplete, so missing values are excluded rather than counted as zero. Goals per appearance uses each squad’s available career totals.</p>
       </section>
 
       {selectedSlot !== null && (
@@ -616,6 +653,7 @@ export default function DreamXI() {
                       </span>
                       <span className="xi-option-stats">
                         <span>{displayNumber(player.careerGoals)} goals</span>
+                        <span>{displayNumber(player.careerAssists)} assists</span>
                         <span>{displayNumber(player.careerAppearances)} appearances</span>
                         <span>{displayNumber(listedTrophyCount(player))} trophies</span>
                       </span>

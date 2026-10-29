@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
 import MatchCentre from './matchcentre.jsx'
 import DreamXI from './DreamXI.jsx'
@@ -314,6 +314,88 @@ const CLUB_RECORD_PHOTOS = Object.fromEntries(Object.entries(clubLegendPortraitM
   .filter(([, image]) => image))
 const playerNameKey = (name = '') => name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '')
 const NORMALIZED_CLUB_RECORD_PHOTOS = Object.fromEntries(Object.entries(CLUB_RECORD_PHOTOS).map(([name, image]) => [playerNameKey(name), image]))
+const WIKIPEDIA_PORTRAIT_CACHE = new Map()
+const WIKIPEDIA_PLAYER_PAGE_TITLES = {
+  Dida: 'Dida (footballer, born 1973)',
+  Pedro: 'Pedro (footballer, born 1987)',
+  'Júnior': 'Léo Júnior',
+  Julinho: 'Julinho (footballer, born 1929)',
+  Amancio: 'Amancio Amaro',
+  Falcão: 'Paulo Roberto Falcão',
+}
+
+const getPlayerPortrait = (player) => CLUB_RECORD_PHOTOS[player?.name]
+  || NORMALIZED_CLUB_RECORD_PHOTOS[playerNameKey(player?.name)]
+  || player?.image
+  || null
+
+const resolveWikipediaPortrait = (name) => {
+  if (!name) return Promise.resolve(null)
+  if (WIKIPEDIA_PORTRAIT_CACHE.has(name)) return WIKIPEDIA_PORTRAIT_CACHE.get(name)
+
+  const api = 'https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=pageimages&piprop=thumbnail&pithumbsize=640&redirects=1&'
+  const portraitFrom = (data) => {
+    const page = Object.values(data?.query?.pages || {})[0]
+    return typeof page?.thumbnail?.source === 'string' ? page.thumbnail.source : null
+  }
+  const title = WIKIPEDIA_PLAYER_PAGE_TITLES[name] || name
+  const request = fetch(`${api}titles=${encodeURIComponent(title)}`)
+    .then((response) => response.ok ? response.json() : null)
+    .then((data) => portraitFrom(data) || fetch(`https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=0&gsrlimit=5&gsrsearch=${encodeURIComponent(`\"${name}\" footballer`)}&prop=pageimages&piprop=thumbnail&pithumbsize=640`)
+      .then((response) => response.ok ? response.json() : null)
+      .then((data) => Object.values(data?.query?.pages || {}).find((page) => page.thumbnail?.source)?.thumbnail?.source || null))
+    .catch(() => null)
+
+  WIKIPEDIA_PORTRAIT_CACHE.set(name, request)
+  return request
+}
+
+function PlayerPortrait({ player, className, loading = 'lazy' }) {
+  const imageRef = useRef(null)
+  const localPortrait = getPlayerPortrait(player)
+  const [portrait, setPortrait] = useState(localPortrait)
+
+  useEffect(() => {
+    setPortrait(localPortrait)
+    if (localPortrait || !player?.name) return undefined
+
+    let cancelled = false
+    const loadPortrait = () => resolveWikipediaPortrait(player.name).then((image) => {
+      if (!cancelled && image) setPortrait(image)
+    })
+
+    const element = imageRef.current
+    if (!element || typeof IntersectionObserver === 'undefined') {
+      loadPortrait()
+      return () => { cancelled = true }
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return
+      observer.disconnect()
+      loadPortrait()
+    }, { rootMargin: '240px' })
+    observer.observe(element)
+    return () => {
+      cancelled = true
+      observer.disconnect()
+    }
+  }, [localPortrait, player?.name])
+
+  return (
+    <img
+      ref={imageRef}
+      className={className}
+      src={portrait || fallbackPlayerPortrait}
+      alt={player?.name || 'Player'}
+      loading={loading}
+      onError={(event) => {
+        event.currentTarget.onerror = null
+        event.currentTarget.src = fallbackPlayerPortrait
+      }}
+    />
+  )
+}
 
 const groupPlayerTrophies = (trophies = []) => trophies.reduce((groups, trophy) => {
   const category = trophy.category || 'Other major trophies'
@@ -849,29 +931,23 @@ function PlayerDirectory({ selectedPlayer, onSelect, onBack }) {
     const matchesQuery = `${player.name} ${player.country} ${player.role}`.toLowerCase().includes(query.toLowerCase())
     return matchesRole && matchesQuery
   })
-  const playerImage = (player) => CLUB_RECORD_PHOTOS[player.name] || NORMALIZED_CLUB_RECORD_PHOTOS[playerNameKey(player.name)] || player.image || fallbackPlayerPortrait
-  const useFallbackPortrait = (event) => {
-    event.currentTarget.onerror = null
-    event.currentTarget.src = fallbackPlayerPortrait
-  }
-
   if (selectedPlayer) {
     return (
       <section className="directory-page player-profile-page">
         <button className="back-link" onClick={onBack}>← All players</button>
         <div className="player-profile-hero">
-          <div className="profile-photo-wrap"><img src={playerImage(selectedPlayer)} alt={selectedPlayer.name} onError={useFallbackPortrait} /></div>
+          <div className="profile-photo-wrap"><PlayerPortrait player={selectedPlayer} loading="eager" /></div>
           <div className="profile-identity"><p className="eyebrow">PLAYER PROFILE · FEATURED ICON</p><h1>{selectedPlayer.name}</h1><p>{selectedPlayer.country} <span>·</span> {selectedPlayer.role}</p></div>
         </div>
         <div className="profile-data-grid"><article><small>CLUB APPEARANCES</small><strong>{selectedPlayer.career?.appearances?.toLocaleString() ?? 'Not verified'}</strong></article><article><small>CLUB GOALS</small><strong>{selectedPlayer.career?.goals?.toLocaleString() ?? 'Not verified'}</strong></article><article><small>{selectedPlayer.international?.team || 'NATIONAL TEAM'} APPEARANCES</small><strong>{selectedPlayer.international?.appearances?.toLocaleString() ?? 'Not verified'}</strong></article><article><small>NATIONAL GOALS</small><strong>{selectedPlayer.international?.goals?.toLocaleString() ?? 'Not verified'}</strong></article><article><small>TEAM TITLES LISTED</small><strong>{hasTrophyHistory(selectedPlayer) ? selectedPlayer.trophies.length : 'Not verified'}</strong></article></div>
         {selectedPlayer.careerHighlights?.length > 0 && <section className="player-stat-highlights"><p className="eyebrow">VERIFIED CLUB RECORDS</p>{selectedPlayer.careerHighlights.map((record) => <article key={record.club}><strong>{record.club}</strong><span>{record.appearances.toLocaleString()} appearances</span><span>{record.goals.toLocaleString()} goals</span></article>)}</section>}
         <section className="profile-story">
           <p className="eyebrow">TROPHY CABINET · {hasTrophyHistory(selectedPlayer) ? `${selectedPlayer.trophies.length} TITLES LISTED` : 'RECORD NOT VERIFIED'}</p>
-          {hasTrophyHistory(selectedPlayer) && selectedPlayer.trophies.length ? <div className="player-trophy-groups">{Object.entries(groupPlayerTrophies(selectedPlayer.trophies)).map(([category, trophies]) => <section key={category}><h3>{category}<span>{trophies.length}</span></h3><ul className="player-honours">{trophies.map((trophy, index) => <li key={`${trophy.name}-${trophy.season}-${index}`}><strong>{trophy.name}</strong><small>{trophy.season}{trophy.wonWith || trophy.club ? ` · ${trophy.wonWith || trophy.club}` : ''}</small></li>)}</ul></section>)}</div> : <p className="player-data-note">A season-by-season trophy record has not been verified for this profile yet, so no total is shown.</p>}
+          {hasTrophyHistory(selectedPlayer) && selectedPlayer.trophies.length ? <div className="player-trophy-groups">{Object.entries(groupPlayerTrophies(selectedPlayer.trophies)).map(([category, trophies]) => <section key={category}><h3>{category}<span>{trophies.length}</span></h3><ul className="player-honours">{trophies.map((trophy, index) => <li key={`${trophy.name}-${trophy.season}-${index}`}><strong>{trophy.name}</strong><small>{trophy.season}{trophy.wonWith || trophy.club ? ` · ${trophy.wonWith || trophy.club}` : ''}</small></li>)}</ul></section>)}</div> : <p className="player-data-note">{selectedPlayer.trophyStatus === 'curated' ? 'No titles in the selected major categories are listed for this player.' : 'A season-by-season trophy record has not been verified for this profile yet, so no total is shown.'}</p>}
           {selectedPlayer.trophyStatus === 'partial' && <p className="player-data-note">This count lists verified winning editions available so far; the player’s full career total may be higher.</p>}
           <p className="eyebrow">CAREER & PLAYING STYLE</p><p className="player-biography">{selectedPlayer.detail}</p>
-          {selectedPlayer.clubs?.length > 0 && <><p className="eyebrow">CLUB HISTORY · ALL COMPETITIONS</p><div className="player-club-table-wrap"><table className="player-club-table"><thead><tr><th>Club</th><th>Years</th><th>Apps</th><th>Goals</th><th>Assists</th></tr></thead><tbody>{selectedPlayer.clubs.map((club) => <tr key={club.name}><td>{club.name}</td><td>{club.years || '—'}</td><td>{club.appearances?.toLocaleString() ?? '—'}</td><td>{club.goals?.toLocaleString() ?? '—'}</td><td>{club.assists?.toLocaleString() ?? '—'}</td></tr>)}</tbody><tfoot><tr><th>Club total</th><td>—</td><th>{selectedPlayer.career?.appearances?.toLocaleString() ?? '—'}</th><th>{selectedPlayer.career?.goals?.toLocaleString() ?? '—'}</th><th>{selectedPlayer.career?.assists?.toLocaleString() ?? '—'}</th></tr></tfoot></table></div></>}
-          <div className="player-assists-note">Assists: — means a dependable career-wide record wasn’t available. Historical assist tracking varies by competition and era.</div>
+          {selectedPlayer.clubs?.length > 0 && <><p className="eyebrow">CLUB HISTORY · ALL COMPETITIONS</p><div className="player-club-table-wrap"><table className="player-club-table"><thead><tr><th>Club</th><th>Years</th><th>Apps</th><th>Goals</th><th>Assists</th></tr></thead><tbody>{selectedPlayer.clubs.map((club) => <tr key={club.name}><td>{club.name}</td><td>{club.years || '—'}</td><td>{club.appearances?.toLocaleString() ?? '—'}</td><td>{club.goals?.toLocaleString() ?? '—'}</td><td>{club.assists?.toLocaleString() ?? '—'}</td></tr>)}</tbody><tfoot><tr><th>Career*</th><td>—</td><th>{selectedPlayer.career?.appearances?.toLocaleString() ?? '—'}</th><th>{selectedPlayer.career?.goals?.toLocaleString() ?? '—'}</th><th>{selectedPlayer.career?.assists?.toLocaleString() ?? '—'}</th></tr></tfoot></table></div></>}
+          <div className="player-assists-note">* Apps and goals are club totals. Career assists combine club and senior international figures when the linked source publishes a combined total; — means no dependable full-career figure was found.</div>
           <p className="player-data-note">{selectedPlayer.statNote}</p>
           {selectedPlayer.source && <div className="player-sources"><a className="player-source-link" href={selectedPlayer.source} target="_blank" rel="noreferrer">Player reference ↗</a>{selectedPlayer.secondarySources?.map((source) => <a className="player-source-link" key={source} href={source} target="_blank" rel="noreferrer">Additional source ↗</a>)}</div>}
         </section>
@@ -883,9 +959,9 @@ function PlayerDirectory({ selectedPlayer, onSelect, onBack }) {
     <section className="directory-page">
       <div className="directory-heading"><div><p className="eyebrow">THE PEOPLE WHO DEFINE THE GAME</p><h1>Player directory</h1><p className="subtitle">A hand-picked starting XI of football’s familiar faces. Search to explore a profile.</p></div><label className="directory-search"><span>⌕</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search players" aria-label="Search players" /></label></div>
       <nav className="player-position-filters" aria-label="Filter players by position">{playerFilters.map((role) => <button type="button" key={role} className={activePosition === role ? 'active' : ''} onClick={() => setActivePosition(role)}>{role}</button>)}</nav>
-      <div className="player-card-grid">{visiblePlayers.map((player, index) => <button className="featured-player-card" key={`${player.id || player.name}-${index}`} onClick={() => onSelect(player)}><div className="featured-player-image"><img src={playerImage(player)} alt={player.name} loading="lazy" onError={useFallbackPortrait} /><span>{String(index + 1).padStart(2, '0')}</span><i>↗</i></div><div><small>{player.country} · {player.role}</small><strong>{player.name}</strong><em className="player-card-trophy-count">{hasTrophyHistory(player) ? `${player.trophies.length} title${player.trophies.length === 1 ? '' : 's'} listed` : 'Trophy record not verified'}</em></div></button>)}</div>
+      <div className="player-card-grid">{visiblePlayers.map((player, index) => <button className="featured-player-card" key={`${player.id || player.name}-${index}`} onClick={() => onSelect(player)}><div className="featured-player-image"><PlayerPortrait player={player} /><span>{String(index + 1).padStart(2, '0')}</span><i>↗</i></div><div><small>{player.country} · {player.role}</small><strong>{player.name}</strong><em className="player-card-trophy-count">{hasTrophyHistory(player) ? `${player.trophies.length} title${player.trophies.length === 1 ? '' : 's'} listed` : 'Trophy record not verified'}</em></div></button>)}</div>
       {!visiblePlayers.length && <p className="directory-empty">No featured players match “{query}”.</p>}
-      <p className="directory-footnote">Profiles are stored locally. The new position groups are ready for verified statistics to be added as sources are confirmed.</p>
+      <p className="directory-footnote">Player records are curated in the project with references on each profile. Portraits use the local image library first, then look up a public Wikipedia portrait when one is missing.</p>
     </section>
   )
 }
