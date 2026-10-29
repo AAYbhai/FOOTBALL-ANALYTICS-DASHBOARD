@@ -156,6 +156,12 @@
   gap: 20px;
 }
 
+.xi-pitch-grid.has-three-lineups {
+  grid-template-columns: repeat(3, minmax(320px, 1fr));
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
 .xi-team-card {
   min-width: 0;
   overflow: hidden;
@@ -410,6 +416,12 @@
   gap: 16px;
 }
 
+.xi-metrics-grid.has-three-lineups {
+  grid-template-columns: repeat(3, minmax(280px, 1fr));
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
 .xi-metric-card {
   min-width: 0;
   padding: 17px;
@@ -620,6 +632,10 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .xi-pitch-grid.has-three-lineups {
+    grid-template-columns: repeat(3, minmax(320px, 1fr));
+  }
+
   .xi-pitch {
     height: 620px;
   }
@@ -672,6 +688,10 @@
 
   .xi-metrics-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .xi-metrics-grid.has-three-lineups {
+    grid-template-columns: repeat(3, minmax(280px, 1fr));
   }
 
   .xi-comparison {

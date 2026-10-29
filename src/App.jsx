@@ -3,6 +3,7 @@ import './App.css'
 import MatchCentre from './matchcentre.jsx'
 import DreamXI from './DreamXI.jsx'
 import clubLegendPortraitManifest from './assets/club-legends/manifest.json'
+import playerPortraitManifest from './assets/player-portraits/manifest.json'
 import { STRIKERS } from './data/strikers.js'
 import { ALL_TIME_POSITION_PLAYERS, FEATURED_PLAYER_RESEARCH } from './data/allTimePositionPlayers.js'
 import { hasTrophyHistory } from './utils/playerTrophies.js'
@@ -129,7 +130,7 @@ const FEATURED_PLAYERS = FEATURED_PLAYER_EXAMPLES.map((example) => {
   const profile = { ...(savedProfile || {}), ...example, ...(research || {}), ...(savedProfile || {}), ...(research || {}) }
   return {
     ...profile,
-    image: example.image,
+    image: null,
     role: example.role,
     detail: savedProfile?.detail || example.detail,
     secondarySources: [...(savedProfile?.secondarySources || []), ...(research?.secondarySources || [])].filter((url, index, all) => all.indexOf(url) === index),
@@ -306,6 +307,7 @@ const CLUB_HONOURS = {
 }
 
 const clubLegendPortraitAssets = import.meta.glob('./assets/club-legends/*.{jpg,jpeg,png,webp}', { eager: true, query: '?url', import: 'default' })
+const playerPortraitAssets = import.meta.glob('./assets/player-portraits/*.{jpg,jpeg,png,webp}', { eager: true, query: '?url', import: 'default' })
 const CLUB_RECORD_PHOTOS = Object.fromEntries(Object.entries(clubLegendPortraitManifest)
   .map(([name, entry]) => {
     const file = typeof entry === 'string' ? entry : entry.file
@@ -314,79 +316,21 @@ const CLUB_RECORD_PHOTOS = Object.fromEntries(Object.entries(clubLegendPortraitM
   .filter(([, image]) => image))
 const playerNameKey = (name = '') => name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '')
 const NORMALIZED_CLUB_RECORD_PHOTOS = Object.fromEntries(Object.entries(CLUB_RECORD_PHOTOS).map(([name, image]) => [playerNameKey(name), image]))
-const WIKIPEDIA_PORTRAIT_CACHE = new Map()
-const WIKIPEDIA_PLAYER_PAGE_TITLES = {
-  Dida: 'Dida (footballer, born 1973)',
-  Pedro: 'Pedro (footballer, born 1987)',
-  'Júnior': 'Léo Júnior',
-  Julinho: 'Julinho (footballer, born 1929)',
-  Amancio: 'Amancio Amaro',
-  Falcão: 'Paulo Roberto Falcão',
-}
-
+const PLAYER_DIRECTORY_PHOTOS = Object.fromEntries(Object.entries(playerPortraitManifest).flatMap(([name, entry]) => {
+  const image = playerPortraitAssets[`./assets/player-portraits/${entry.file.slice(2)}`]
+  return image ? [[playerNameKey(name), image]] : []
+}))
 const getPlayerPortrait = (player) => CLUB_RECORD_PHOTOS[player?.name]
   || NORMALIZED_CLUB_RECORD_PHOTOS[playerNameKey(player?.name)]
+  || PLAYER_DIRECTORY_PHOTOS[playerNameKey(player?.name)]
   || player?.image
   || null
 
-const resolveWikipediaPortrait = (name) => {
-  if (!name) return Promise.resolve(null)
-  if (WIKIPEDIA_PORTRAIT_CACHE.has(name)) return WIKIPEDIA_PORTRAIT_CACHE.get(name)
-
-  const api = 'https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=pageimages&piprop=thumbnail&pithumbsize=640&redirects=1&'
-  const portraitFrom = (data) => {
-    const page = Object.values(data?.query?.pages || {})[0]
-    return typeof page?.thumbnail?.source === 'string' ? page.thumbnail.source : null
-  }
-  const title = WIKIPEDIA_PLAYER_PAGE_TITLES[name] || name
-  const request = fetch(`${api}titles=${encodeURIComponent(title)}`)
-    .then((response) => response.ok ? response.json() : null)
-    .then((data) => portraitFrom(data) || fetch(`https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=0&gsrlimit=5&gsrsearch=${encodeURIComponent(`\"${name}\" footballer`)}&prop=pageimages&piprop=thumbnail&pithumbsize=640`)
-      .then((response) => response.ok ? response.json() : null)
-      .then((data) => Object.values(data?.query?.pages || {}).find((page) => page.thumbnail?.source)?.thumbnail?.source || null))
-    .catch(() => null)
-
-  WIKIPEDIA_PORTRAIT_CACHE.set(name, request)
-  return request
-}
-
 function PlayerPortrait({ player, className, loading = 'lazy' }) {
-  const imageRef = useRef(null)
-  const localPortrait = getPlayerPortrait(player)
-  const [portrait, setPortrait] = useState(localPortrait)
-
-  useEffect(() => {
-    setPortrait(localPortrait)
-    if (localPortrait || !player?.name) return undefined
-
-    let cancelled = false
-    const loadPortrait = () => resolveWikipediaPortrait(player.name).then((image) => {
-      if (!cancelled && image) setPortrait(image)
-    })
-
-    const element = imageRef.current
-    if (!element || typeof IntersectionObserver === 'undefined') {
-      loadPortrait()
-      return () => { cancelled = true }
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      if (!entries.some((entry) => entry.isIntersecting)) return
-      observer.disconnect()
-      loadPortrait()
-    }, { rootMargin: '240px' })
-    observer.observe(element)
-    return () => {
-      cancelled = true
-      observer.disconnect()
-    }
-  }, [localPortrait, player?.name])
-
   return (
     <img
-      ref={imageRef}
       className={className}
-      src={portrait || fallbackPlayerPortrait}
+      src={getPlayerPortrait(player) || fallbackPlayerPortrait}
       alt={player?.name || 'Player'}
       loading={loading}
       onError={(event) => {
@@ -961,7 +905,7 @@ function PlayerDirectory({ selectedPlayer, onSelect, onBack }) {
       <nav className="player-position-filters" aria-label="Filter players by position">{playerFilters.map((role) => <button type="button" key={role} className={activePosition === role ? 'active' : ''} onClick={() => setActivePosition(role)}>{role}</button>)}</nav>
       <div className="player-card-grid">{visiblePlayers.map((player, index) => <button className="featured-player-card" key={`${player.id || player.name}-${index}`} onClick={() => onSelect(player)}><div className="featured-player-image"><PlayerPortrait player={player} /><span>{String(index + 1).padStart(2, '0')}</span><i>↗</i></div><div><small>{player.country} · {player.role}</small><strong>{player.name}</strong><em className="player-card-assists">Career assists · {player.career?.assists?.toLocaleString() ?? 'Not verified'}</em><em className="player-card-trophy-count">{hasTrophyHistory(player) ? `${player.trophies.length} title${player.trophies.length === 1 ? '' : 's'} listed` : 'Trophy record not verified'}</em></div></button>)}</div>
       {!visiblePlayers.length && <p className="directory-empty">No featured players match “{query}”.</p>}
-      <p className="directory-footnote">Player records are curated in the project with references on each profile. Portraits use the local image library first, then look up a public Wikipedia portrait when one is missing.</p>
+      <p className="directory-footnote">Player records are curated in the project with references on each profile. Player portraits are bundled locally with their source references.</p>
     </section>
   )
 }

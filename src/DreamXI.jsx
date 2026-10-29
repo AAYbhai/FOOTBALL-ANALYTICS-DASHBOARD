@@ -4,10 +4,12 @@ import './DreamXI.css'
 import { STRIKERS } from './data/strikers.js'
 import { ALL_TIME_POSITION_PLAYERS } from './data/allTimePositionPlayers.js'
 import clubLegendPortraitManifest from './assets/club-legends/manifest.json'
+import playerPortraitManifest from './assets/player-portraits/manifest.json'
 import fallbackPlayerPortrait from './assets/player-portrait-fallback.svg'
 import { hasTrophyHistory } from './utils/playerTrophies.js'
 
 const clubLegendPortraitAssets = import.meta.glob('./assets/club-legends/*.{jpg,jpeg,png,webp}', { eager: true, query: '?url', import: 'default' })
+const playerPortraitAssets = import.meta.glob('./assets/player-portraits/*.{jpg,jpeg,png,webp}', { eager: true, query: '?url', import: 'default' })
 const playerNameKey = (name = '') => name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '')
 const playerProfileKey = (name = '') => playerNameKey(name.replace(/\s+Jr\.?$/i, ''))
 const LOCAL_PLAYER_PORTRAITS = Object.fromEntries(Object.entries(clubLegendPortraitManifest).flatMap(([name, entry]) => {
@@ -15,6 +17,10 @@ const LOCAL_PLAYER_PORTRAITS = Object.fromEntries(Object.entries(clubLegendPortr
   const image = clubLegendPortraitAssets[`./assets/club-legends/${file.slice(2)}`]
   return image ? [[playerNameKey(name), image]] : []
 }))
+Object.entries(playerPortraitManifest).forEach(([name, entry]) => {
+  const image = playerPortraitAssets[`./assets/player-portraits/${entry.file.slice(2)}`]
+  if (image) LOCAL_PLAYER_PORTRAITS[playerNameKey(name)] = image
+})
 
 const FORMATIONS = {
   '4-3-3': [1, 4, 3, 3],
@@ -574,7 +580,7 @@ export default function DreamXI() {
         </button>
       </div>
 
-      <div className="xi-pitch-grid">
+      <div className={`xi-pitch-grid ${lineups.length === 3 ? 'has-three-lineups' : ''}`}>
         {lineups.map((lineup, index) => (
           <TeamPitch
             key={lineup.id}
@@ -598,7 +604,7 @@ export default function DreamXI() {
           <button type="button" onClick={resetLineups}>Clear all lineups</button>
         </div>
 
-        <div className="xi-metrics-grid">
+        <div className={`xi-metrics-grid ${lineups.length === 3 ? 'has-three-lineups' : ''}`}>
           {lineups.map((lineup) => (
             <TeamMetrics
               key={lineup.id}

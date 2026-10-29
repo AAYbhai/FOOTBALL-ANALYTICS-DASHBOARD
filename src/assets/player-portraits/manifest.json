@@ -1,0 +1,892 @@
+{
+  "Ronaldo Nazário": {
+    "file": "./ronaldonazario.jpg",
+    "source": "https://www.strikerduel.com/players/ronaldo",
+    "image": null
+  },
+  "Ferenc Puskás": {
+    "file": "./ferencpuskas.jpg",
+    "source": "https://www.strikerduel.com/players/ferenc-puskas",
+    "image": null
+  },
+  "Romário": {
+    "file": "./romario.jpg",
+    "source": "https://www.strikerduel.com/players/romario",
+    "image": null
+  },
+  "Marco van Basten": {
+    "file": "./marcovanbasten.jpg",
+    "source": "https://www.strikerduel.com/players/marco-van-basten",
+    "image": null
+  },
+  "Alfredo Di Stéfano": {
+    "file": "./alfredodistefano.jpg",
+    "source": "https://www.strikerduel.com/players/alfredo-di-stefano",
+    "image": null
+  },
+  "Robert Lewandowski": {
+    "file": "./robertlewandowski.jpg",
+    "source": "https://www.fcbarcelona.com/en/news/4504409/robert-lewandowski-leaving-fc-barcelona-at-the-end-of-the-season",
+    "image": null
+  },
+  "Luis Suárez": {
+    "file": "./luissuarez.jpg",
+    "source": "https://www.strikerduel.com/players/luis-suarez",
+    "image": null
+  },
+  "Gabriel Batistuta": {
+    "file": "./gabrielbatistuta.jpg",
+    "source": "https://www.strikerduel.com/players/gabriel-batistuta",
+    "image": null
+  },
+  "Miroslav Klose": {
+    "file": "./miroslavklose.jpg",
+    "source": "https://www.strikerduel.com/players/miroslav-klose",
+    "image": null
+  },
+  "Andriy Shevchenko": {
+    "file": "./andriyshevchenko.png",
+    "source": "https://en.wikipedia.org/wiki/Andriy_Shevchenko",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c0/Andriy_Shevchenko_Volia_Space_03_%28cropped%29.png/500px-Andriy_Shevchenko_Volia_Space_03_%28cropped%29.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Samuel Eto’o": {
+    "file": "./samueletoo.jpg",
+    "source": "https://en.wikipedia.org/wiki/Samuel_Eto'o",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/Sammuel_Eto%27o_Fils_02.jpg/500px-Sammuel_Eto%27o_Fils_02.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Didier Drogba": {
+    "file": "./didierdrogba.jpg",
+    "source": "https://www.strikerduel.com/players/didier-drogba",
+    "image": null
+  },
+  "Zlatan Ibrahimović": {
+    "file": "./zlatanibrahimovic.jpg",
+    "source": "https://www.strikerduel.com/players/zlatan-ibrahimovic",
+    "image": null
+  },
+  "Ruud van Nistelrooy": {
+    "file": "./ruudvannistelrooy.jpg",
+    "source": "https://www.strikerduel.com/players/ruud-van-nistelrooy",
+    "image": null
+  },
+  "Gary Lineker": {
+    "file": "./garylineker.jpg",
+    "source": "https://www.strikerduel.com/players/gary-lineker",
+    "image": null
+  },
+  "Just Fontaine": {
+    "file": "./justfontaine.jpg",
+    "source": "https://www.zerozero.pt/jogador/just-fontaine",
+    "image": null
+  },
+  "David Villa": {
+    "file": "./davidvilla.jpg",
+    "source": "https://en.wikipedia.org/wiki/David_Villa",
+    "image": null
+  },
+  "Diego Maradona": {
+    "file": "./diegomaradona.jpg",
+    "source": "https://en.wikipedia.org/wiki/Diego_Maradona",
+    "image": null
+  },
+  "Zinedine Zidane": {
+    "file": "./zinedinezidane.jpg",
+    "source": "https://en.wikipedia.org/wiki/Zinedine_Zidane",
+    "image": null
+  },
+  "Michel Platini": {
+    "file": "./michelplatini.jpg",
+    "source": "https://www.fff.fr/equipe-nationale/joueur/9777-platini-michel/fiche.html",
+    "image": null
+  },
+  "Ronaldinho": {
+    "file": "./ronaldinho.jpg",
+    "source": "https://en.wikipedia.org/wiki/Ronaldinho",
+    "image": null
+  },
+  "Kaká": {
+    "file": "./kaka.jpg",
+    "source": "https://en.wikipedia.org/wiki/Kak%C3%A1",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Kak%C3%A1_visited_Stadium_St._Petersburg.jpg/500px-Kak%C3%A1_visited_Stadium_St._Petersburg.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Roberto Baggio": {
+    "file": "./robertobaggio.jpg",
+    "source": "https://en.wikipedia.org/wiki/Roberto_Baggio",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/4e/%D8%B1%D9%88%D8%A8%D8%B1%D8%AA%D9%88_%D8%A8%D8%A7%D8%AC%D9%88_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Johan Cruyff": {
+    "file": "./johancruyff.jpg",
+    "source": "https://en.wikipedia.org/wiki/Johan_Cruyff",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cb/Johan_Cruijff_%281974%29.jpg/500px-Johan_Cruijff_%281974%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Dennis Bergkamp": {
+    "file": "./dennisbergkamp.jpg",
+    "source": "https://en.wikipedia.org/wiki/Dennis_Bergkamp",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/75/Dennis_Bergkamp_2014_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Michael Laudrup": {
+    "file": "./michaellaudrup.jpg",
+    "source": "https://en.wikipedia.org/wiki/Michael_Laudrup",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ca/Michael_Laudrup_2016c_%28cropped%29.jpg/500px-Michael_Laudrup_2016c_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Gheorghe Hagi": {
+    "file": "./gheorghehagi.jpg",
+    "source": "https://en.wikipedia.org/wiki/Gheorghe_Hagi",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Lansarea_candidaturii_Gabrielei_Szabo_pentru_Camera_Deputatilor%2C_Voluntari_-_04.05_%2848%29_%2814270956179%29_%28cropped%29.jpg/500px-Lansarea_candidaturii_Gabrielei_Szabo_pentru_Camera_Deputatilor%2C_Voluntari_-_04.05_%2848%29_%2814270956179%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Juan Román Riquelme": {
+    "file": "./juanromanriquelme.jpg",
+    "source": "https://en.wikipedia.org/wiki/Juan_Rom%C3%A1n_Riquelme",
+    "image": null
+  },
+  "Sócrates": {
+    "file": "./socrates.jpg",
+    "source": "https://en.wikipedia.org/wiki/S%C3%B3crates",
+    "image": null
+  },
+  "Falcão": {
+    "file": "./falcao.jpg",
+    "source": "https://en.wikipedia.org/wiki/Paulo_Roberto_Falc%C3%A3o",
+    "image": null
+  },
+  "Rui Costa": {
+    "file": "./ruicosta.jpg",
+    "source": "https://en.wikipedia.org/wiki/Rui_Costa",
+    "image": null
+  },
+  "Wesley Sneijder": {
+    "file": "./wesleysneijder.jpg",
+    "source": "https://en.wikipedia.org/wiki/Wesley_Sneijder",
+    "image": null
+  },
+  "Mesut Özil": {
+    "file": "./mesutozil.jpg",
+    "source": "https://en.wikipedia.org/wiki/Mesut_%C3%96zil",
+    "image": null
+  },
+  "Kevin De Bruyne": {
+    "file": "./kevindebruyne.jpg",
+    "source": "https://en.wikipedia.org/wiki/Kevin_De_Bruyne",
+    "image": null
+  },
+  "Jay-Jay Okocha": {
+    "file": "./jayjayokocha.jpg",
+    "source": "https://en.wikipedia.org/wiki/Jay-Jay_Okocha",
+    "image": null
+  },
+  "Sergio Busquets": {
+    "file": "./sergiobusquets.jpg",
+    "source": "https://en.wikipedia.org/wiki/Sergio_Busquets",
+    "image": null
+  },
+  "Claude Makélélé": {
+    "file": "./claudemakelele.jpg",
+    "source": "https://en.wikipedia.org/wiki/Claude_Mak%C3%A9l%C3%A9l%C3%A9",
+    "image": null
+  },
+  "Frank Rijkaard": {
+    "file": "./frankrijkaard.jpg",
+    "source": "https://en.wikipedia.org/wiki/Frank_Rijkaard",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/4a/FrankRijkaard2.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Dunga": {
+    "file": "./dunga.jpg",
+    "source": "https://en.wikipedia.org/wiki/Dunga",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/Aecio_Neves_e_Dunga_-_17-06-2008_%288368243127%29_%28cropped%29.jpg/500px-Aecio_Neves_e_Dunga_-_17-06-2008_%288368243127%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Gennaro Gattuso": {
+    "file": "./gennarogattuso.jpg",
+    "source": "https://en.wikipedia.org/wiki/Gennaro_Gattuso",
+    "image": null
+  },
+  "Gilberto Silva": {
+    "file": "./gilbertosilva.jpg",
+    "source": "https://en.wikipedia.org/wiki/Gilberto_Silva",
+    "image": null
+  },
+  "Xabi Alonso": {
+    "file": "./xabialonso.jpg",
+    "source": "https://en.wikipedia.org/wiki/Xabi_Alonso",
+    "image": null
+  },
+  "Javier Mascherano": {
+    "file": "./javiermascherano.jpg",
+    "source": "https://en.wikipedia.org/wiki/Javier_Mascherano",
+    "image": null
+  },
+  "Fernandinho": {
+    "file": "./fernandinho.jpg",
+    "source": "https://en.wikipedia.org/wiki/Fernandinho_(footballer,_born_May_1985)",
+    "image": null
+  },
+  "N’Golo Kanté": {
+    "file": "./ngolokante.jpg",
+    "source": "https://en.wikipedia.org/wiki/N%27Golo_Kant%C3%A9",
+    "image": null
+  },
+  "Rodri": {
+    "file": "./rodri.jpg",
+    "source": "https://en.wikipedia.org/wiki/Rodri",
+    "image": null
+  },
+  "Casemiro": {
+    "file": "./casemiro.jpg",
+    "source": "https://en.wikipedia.org/wiki/Casemiro",
+    "image": null
+  },
+  "Daniele De Rossi": {
+    "file": "./danielederossi.jpg",
+    "source": "https://en.wikipedia.org/wiki/Daniele_De_Rossi",
+    "image": null
+  },
+  "Edgar Davids": {
+    "file": "./edgardavids.jpg",
+    "source": "https://en.wikipedia.org/wiki/Edgar_Davids",
+    "image": null
+  },
+  "Steven Gerrard": {
+    "file": "./stevengerrard.jpg",
+    "source": "https://en.wikipedia.org/wiki/Steven_Gerrard",
+    "image": null
+  },
+  "Paul Scholes": {
+    "file": "./paulscholes.jpg",
+    "source": "https://www.manunited.com/en/players/detail/paul-scholes",
+    "image": null
+  },
+  "Andrea Pirlo": {
+    "file": "./andreapirlo.jpg",
+    "source": "https://en.wikipedia.org/wiki/Andrea_Pirlo",
+    "image": null
+  },
+  "Toni Kroos": {
+    "file": "./tonikroos.jpg",
+    "source": "https://en.wikipedia.org/wiki/Toni_Kroos",
+    "image": null
+  },
+  "Clarence Seedorf": {
+    "file": "./clarenceseedorf.jpg",
+    "source": "https://en.wikipedia.org/wiki/Clarence_Seedorf",
+    "image": null
+  },
+  "Michael Ballack": {
+    "file": "./michaelballack.jpg",
+    "source": "https://en.wikipedia.org/wiki/Michael_Ballack",
+    "image": null
+  },
+  "David Beckham": {
+    "file": "./davidbeckham.jpg",
+    "source": "https://en.wikipedia.org/wiki/David_Beckham",
+    "image": null
+  },
+  "Didi": {
+    "file": "./didi.jpg",
+    "source": "https://en.wikipedia.org/wiki/Didi_(footballer,_born_1928)",
+    "image": null
+  },
+  "Bobby Charlton": {
+    "file": "./bobbycharlton.jpg",
+    "source": "https://www.englandfootball.com/articles/2023/Oct/21/sir-bobby-charlton-1937-2023-20232110",
+    "image": null
+  },
+  "Rivelino": {
+    "file": "./rivelino.jpg",
+    "source": "https://es.wikipedia.org/wiki/Roberto_Rivelino",
+    "image": null
+  },
+  "Giacinto Facchetti": {
+    "file": "./giacintofacchetti.jpg",
+    "source": "https://www.inter.it/en/news/giacinto-facchetti-2026-birth-anniversary",
+    "image": null
+  },
+  "Nílton Santos": {
+    "file": "./niltonsantos.jpg",
+    "source": "https://www.botafogo.com.br/idolos/nilton-santos",
+    "image": null
+  },
+  "Ashley Cole": {
+    "file": "./ashleycole.jpg",
+    "source": "https://en.wikipedia.org/wiki/Ashley_Cole",
+    "image": null
+  },
+  "Marcelo": {
+    "file": "./marcelo.jpg",
+    "source": "https://www.realmadrid.com/en-US/the-club/history/football-legends/marcelo-vieira",
+    "image": null
+  },
+  "Andreas Brehme": {
+    "file": "./andreasbrehme.jpg",
+    "source": "https://datencenter.dfb.de/personen/andreas-brehme/spieler",
+    "image": null
+  },
+  "Patrice Evra": {
+    "file": "./patriceevra.jpg",
+    "source": "https://en.wikipedia.org/wiki/Patrice_Evra",
+    "image": null
+  },
+  "Jordi Alba": {
+    "file": "./jordialba.jpg",
+    "source": "https://en.wikipedia.org/wiki/Jordi_Alba",
+    "image": null
+  },
+  "Philipp Lahm": {
+    "file": "./philipplahm.jpg",
+    "source": "https://en.wikipedia.org/wiki/Philipp_Lahm",
+    "image": null
+  },
+  "Denis Irwin": {
+    "file": "./denisirwin.jpg",
+    "source": "https://en.wikipedia.org/wiki/Denis_Irwin",
+    "image": null
+  },
+  "Gianluca Zambrotta": {
+    "file": "./gianlucazambrotta.jpg",
+    "source": "https://en.wikipedia.org/wiki/Gianluca_Zambrotta",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Gianluca_Zambrotta_2019_%28cropped%29.jpg/500px-Gianluca_Zambrotta_2019_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Bixente Lizarazu": {
+    "file": "./bixentelizarazu.jpg",
+    "source": "https://en.wikipedia.org/wiki/Bixente_Lizarazu",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Bixente_Lizarazu_%28cropped%29.jpg/500px-Bixente_Lizarazu_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Éric Abidal": {
+    "file": "./ericabidal.jpg",
+    "source": "https://en.wikipedia.org/wiki/Eric_Abidal",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/%C3%89ric_Abidal_-_001.jpg/500px-%C3%89ric_Abidal_-_001.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Andrew Robertson": {
+    "file": "./andrewrobertson.jpg",
+    "source": "https://en.wikipedia.org/wiki/Andy_Robertson",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Andy_Robertson_Scotland_v_Bolivia_6_June_2026-43.jpg/500px-Andy_Robertson_Scotland_v_Bolivia_6_June_2026-43.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "David Alaba": {
+    "file": "./davidalaba.jpg",
+    "source": "https://en.wikipedia.org/wiki/David_Alaba",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/20180610_FIFA_Friendly_Match_Austria_vs._Brazil_David_Alaba_850_1632.jpg/500px-20180610_FIFA_Friendly_Match_Austria_vs._Brazil_David_Alaba_850_1632.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Ruud Krol": {
+    "file": "./ruudkrol.jpg",
+    "source": "https://en.wikipedia.org/wiki/Ruud_Krol",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Ruud_Krol_2005.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Cafu": {
+    "file": "./cafu.jpg",
+    "source": "https://en.wikipedia.org/wiki/Cafu",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Cafu_-_26.02.2026_-_Cerim%C3%B4nia_de_apresenta%C3%A7%C3%A3o_das_ta%C3%A7as_da_Copa_do_Mundo_de_2026.jpg/500px-Cafu_-_26.02.2026_-_Cerim%C3%B4nia_de_apresenta%C3%A7%C3%A3o_das_ta%C3%A7as_da_Copa_do_Mundo_de_2026.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Dani Alves": {
+    "file": "./danialves.jpg",
+    "source": "https://en.wikipedia.org/wiki/Dani_Alves",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/d/dd/07_07_2019_Final_da_Copa_Am%C3%A9rica_2019_%2848226649586%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Carlos Alberto Torres": {
+    "file": "./carlosalbertotorres.jpg",
+    "source": "https://en.wikipedia.org/wiki/Carlos_Alberto_Torres",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Carlos_alberto_cosmos.jpg/500px-Carlos_alberto_cosmos.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Djalma Santos": {
+    "file": "./djalmasantos.jpg",
+    "source": "https://en.wikipedia.org/wiki/Djalma_Santos",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Djalma_Santos.jpg/500px-Djalma_Santos.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Amancio": {
+    "file": "./amancio.png",
+    "source": "https://en.wikipedia.org/wiki/Amancio",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7b/Coat_of_Arms_of_Amancio_Ortega.svg/500px-Coat_of_Arms_of_Amancio_Ortega.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Raymond Kopa": {
+    "file": "./raymondkopa.jpg",
+    "source": "https://en.wikipedia.org/wiki/Raymond_Kopa",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/6/68/Raymond_Kopa%2C_Estadio%2C_1962-03-01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Riyad Mahrez": {
+    "file": "./riyadmahrez.jpg",
+    "source": "https://en.wikipedia.org/wiki/Riyad_Mahrez",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/45/Mahrez_2021.jpg/500px-Mahrez_2021.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Nani": {
+    "file": "./nani.jpg",
+    "source": "https://en.wikipedia.org/wiki/Nani_(footballer)",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/New_Zealand-Portugal_Nani.jpg/500px-New_Zealand-Portugal_Nani.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Fernando Redondo": {
+    "file": "./fernandoredondo.png",
+    "source": "https://en.wikipedia.org/wiki/Fernando_Redondo",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/3e/%D0%A4%D0%B5%D1%80%D0%BD%D0%B0%D0%BD%D0%B4%D0%BE_%D0%A0%D0%B5%D0%B4%D0%BE%D0%BD%D0%B4%D0%BE_2019.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Roy Keane": {
+    "file": "./roykeane.jpg",
+    "source": "https://en.wikipedia.org/wiki/Roy_Keane",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Roy_keane_2014.jpg/500px-Roy_keane_2014.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Yaya Touré": {
+    "file": "./yayatoure.jpg",
+    "source": "https://en.wikipedia.org/wiki/Yaya_Tour%C3%A9",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Yaya_Tour%C3%A9_%28cropped%29.jpg/500px-Yaya_Tour%C3%A9_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "José Leandro Andrade": {
+    "file": "./joseleandroandrade.jpg",
+    "source": "https://en.wikipedia.org/wiki/Jos%C3%A9_Leandro_Andrade",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Andrade_urug.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Obdulio Varela": {
+    "file": "./obduliovarela.jpg",
+    "source": "https://en.wikipedia.org/wiki/Obdulio_Varela",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Obdulio_varela_uruguay.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Luka Modrić": {
+    "file": "./lukamodric.jpg",
+    "source": "https://en.wikipedia.org/wiki/Luka_Modri%C4%87",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/Luka_Modric_Croatia_v_Portugal_2_July_2026-055.jpg/500px-Luka_Modric_Croatia_v_Portugal_2_July_2026-055.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Andrés Iniesta": {
+    "file": "./andresiniesta.jpg",
+    "source": "https://en.wikipedia.org/wiki/Andr%C3%A9s_Iniesta",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ac/Andr%C3%A9s_Iniesta_Argentina_v_Spain_19_July_2026-034_%28cropped%29.jpg/500px-Andr%C3%A9s_Iniesta_Argentina_v_Spain_19_July_2026-034_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Lothar Matthäus": {
+    "file": "./lotharmatthaus.jpg",
+    "source": "https://en.wikipedia.org/wiki/Lothar_Matth%C3%A4us",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/2019_Lothar_Matth%C3%A4us.jpg/500px-2019_Lothar_Matth%C3%A4us.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Paul Breitner": {
+    "file": "./paulbreitner.jpg",
+    "source": "https://en.wikipedia.org/wiki/Paul_Breitner",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/55/Paul_Breitner.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Gerson": {
+    "file": "./gerson.jpg",
+    "source": "https://en.wikipedia.org/wiki/G%C3%A9rson",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/G%C3%A9rson_1970.jpg/500px-G%C3%A9rson_1970.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Cesc Fàbregas": {
+    "file": "./cescfabregas.jpg",
+    "source": "https://en.wikipedia.org/wiki/Cesc_F%C3%A0bregas",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/2023_-_Cesc_Fabregas_%28cropped%29.jpg/500px-2023_-_Cesc_Fabregas_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Bastian Schweinsteiger": {
+    "file": "./bastianschweinsteiger.jpg",
+    "source": "https://en.wikipedia.org/wiki/Bastian_Schweinsteiger",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ac/Re-publica_23_-_Tag_3_%2852957826298%29_%28cropped%29.jpg/500px-Re-publica_23_-_Tag_3_%2852957826298%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Johan Neeskens": {
+    "file": "./johanneeskens.jpg",
+    "source": "https://en.wikipedia.org/wiki/Johan_Neeskens",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7b/Johan_Neeskens_1974.jpg/500px-Johan_Neeskens_1974.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Phil Neal": {
+    "file": "./philneal.jpg",
+    "source": "https://en.wikipedia.org/wiki/Phil_Neal",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Phil_Neal_in_2012.jpg/500px-Phil_Neal_in_2012.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Trent Alexander-Arnold": {
+    "file": "./trentalexanderarnold.jpg",
+    "source": "https://en.wikipedia.org/wiki/Trent_Alexander-Arnold",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Trent_Alexander-Arnold_2018_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Manfred Kaltz": {
+    "file": "./manfredkaltz.jpg",
+    "source": "https://en.wikipedia.org/wiki/Manfred_Kaltz",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d2/5860Manfred_Kaltz.JPG/500px-5860Manfred_Kaltz.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Branislav Ivanović": {
+    "file": "./branislavivanovic.jpg",
+    "source": "https://en.wikipedia.org/wiki/Branislav_Ivanovi%C4%87",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Branislav_Ivanovi%C4%87_FC_Chelsea_Captain.jpg/500px-Branislav_Ivanovi%C4%87_FC_Chelsea_Captain.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Dani Carvajal": {
+    "file": "./danicarvajal.jpg",
+    "source": "https://en.wikipedia.org/wiki/Dani_Carvajal",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b6/UEFA_EURO_qualifiers_Sweden_vs_Spain_20191015_Dani_Carvajal_10_%28cropped%29.jpg/500px-UEFA_EURO_qualifiers_Sweden_vs_Spain_20191015_Dani_Carvajal_10_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "César Azpilicueta": {
+    "file": "./cesarazpilicueta.jpg",
+    "source": "https://en.wikipedia.org/wiki/C%C3%A9sar_Azpilicueta",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/C%C3%A9sar_Azpilicueta%2C_Al_Hilal_SFC_vs_Chelsea_F.C.%2C_9_February_2022.jpg/500px-C%C3%A9sar_Azpilicueta%2C_Al_Hilal_SFC_vs_Chelsea_F.C.%2C_9_February_2022.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Franz Beckenbauer": {
+    "file": "./franzbeckenbauer.jpg",
+    "source": "https://en.wikipedia.org/wiki/Franz_Beckenbauer",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Franz_Beckenbauer_%281975%29.jpg/500px-Franz_Beckenbauer_%281975%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Franco Baresi": {
+    "file": "./francobaresi.jpg",
+    "source": "https://en.wikipedia.org/wiki/Franco_Baresi",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/2/28/Franco_baresi_panini_card_1979.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Alessandro Nesta": {
+    "file": "./alessandronesta.jpg",
+    "source": "https://en.wikipedia.org/wiki/Alessandro_Nesta",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Alessandro_Nesta_as_Miami_FC_Manager.jpg/500px-Alessandro_Nesta_as_Miami_FC_Manager.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Fabio Cannavaro": {
+    "file": "./fabiocannavaro.jpg",
+    "source": "https://en.wikipedia.org/wiki/Fabio_Cannavaro",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Fabio_Cannavaro_2011.jpg/500px-Fabio_Cannavaro_2011.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Virgil van Dijk": {
+    "file": "./virgilvandijk.jpg",
+    "source": "https://en.wikipedia.org/wiki/Virgil_van_Dijk",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/20160604_AUT_NED_8876_%28cropped%29.jpg/500px-20160604_AUT_NED_8876_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Marcel Desailly": {
+    "file": "./marceldesailly.jpg",
+    "source": "https://en.wikipedia.org/wiki/Marcel_Desailly",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/25th_Laureus_World_Sports_Awards_-_Red_Carpet_-_Marcel_Desailly_-_240422_192752-3_%28cropped%29.jpg/500px-25th_Laureus_World_Sports_Awards_-_Red_Carpet_-_Marcel_Desailly_-_240422_192752-3_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Ronald Koeman": {
+    "file": "./ronaldkoeman.jpg",
+    "source": "https://en.wikipedia.org/wiki/Ronald_Koeman",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/2/29/%D0%9C%D0%B0%D1%82%D1%87_%C2%AB%D0%94%D0%B8%D0%BD%D0%B0%D0%BC%D0%BE%C2%BB_-_%C2%AB%D0%91%D0%B0%D1%80%D1%81%D0%B5%D0%BB%D0%BE%D0%BD%D0%B0%C2%BB_0-4._24_%D0%BD%D0%BE%D1%8F%D0%B1%D1%80%D1%8F_2020_%D0%B3%D0%BE%D0%B4%D0%B0_%E2%80%94_1166990_%28Ronald_Koeman%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Daniel Passarella": {
+    "file": "./danielpassarella.jpg",
+    "source": "https://en.wikipedia.org/wiki/Daniel_Passarella",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d7/Passarella_copa_mundo.jpg/500px-Passarella_copa_mundo.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Gaetano Scirea": {
+    "file": "./gaetanoscirea.jpg",
+    "source": "https://en.wikipedia.org/wiki/Gaetano_Scirea",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5e/1975%E2%80%9376_Juventus_FC_-_Gaetano_Scirea.jpg/500px-1975%E2%80%9376_Juventus_FC_-_Gaetano_Scirea.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Fernando Hierro": {
+    "file": "./fernandohierro.jpg",
+    "source": "https://en.wikipedia.org/wiki/Fernando_Hierro",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/2/29/Fernando_Hierro_in_Spain-Iran_press_conference_2018-06-19.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Giorgio Chiellini": {
+    "file": "./giorgiochiellini.jpg",
+    "source": "https://en.wikipedia.org/wiki/Giorgio_Chiellini",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/30/Chiellini_Mancini_Gravina_Mattarella_2021_%28Giorgio_Chiellini%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Ricardo Carvalho": {
+    "file": "./ricardocarvalho.jpg",
+    "source": "https://en.wikipedia.org/wiki/Ricardo_Carvalho",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/74/Ricardo_Carvalho.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Gerard Piqué": {
+    "file": "./gerardpique.jpg",
+    "source": "https://en.wikipedia.org/wiki/Gerard_Piqu%C3%A9",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Gerard_Piqu%C3%A9_Euro_2012_vs_France_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Lev Yashin": {
+    "file": "./levyashin.jpg",
+    "source": "https://en.wikipedia.org/wiki/Lev_Yashin",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/LevYashin.JPG/500px-LevYashin.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Edwin van der Sar": {
+    "file": "./edwinvandersar.jpg",
+    "source": "https://en.wikipedia.org/wiki/Edwin_van_der_Sar",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/Edwin_van_der_Sar_2015.jpg/500px-Edwin_van_der_Sar_2015.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Petr Čech": {
+    "file": "./petrcech.jpg",
+    "source": "https://en.wikipedia.org/wiki/Petr_%C4%8Cech",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/75/Arsenal_players_training_before_2019_UEFA_Europa_League_final_07_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Thibaut Courtois": {
+    "file": "./thibautcourtois.jpg",
+    "source": "https://en.wikipedia.org/wiki/Thibaut_Courtois",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Thibaut_Courtois_Belgium_v_USA_6_July_2026-076_%28cropped%29.jpg/500px-Thibaut_Courtois_Belgium_v_USA_6_July_2026-076_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Peter Shilton": {
+    "file": "./petershilton.png",
+    "source": "https://en.wikipedia.org/wiki/Peter_Shilton",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/Peter_Shilton.png/500px-Peter_Shilton.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Rinat Dasayev": {
+    "file": "./rinatdasayev.jpg",
+    "source": "https://en.wikipedia.org/wiki/Rinat_Dasayev",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/Rinat_Dasaev.jpg/500px-Rinat_Dasaev.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "José Luis Chilavert": {
+    "file": "./joseluischilavert.jpg",
+    "source": "https://en.wikipedia.org/wiki/Jos%C3%A9_Luis_Chilavert",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Chilavert_sanlorenzo.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Dida": {
+    "file": "./dida.png",
+    "source": "https://en.wikipedia.org/wiki/Dida_(footballer%2C_born_1973)",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Dida-wikipedia_%28cropped_2%29.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Ricardo Zamora": {
+    "file": "./ricardozamora.jpg",
+    "source": "https://en.wikipedia.org/wiki/Ricardo_Zamora",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Ricardo_Zamora_%28arquero_espa%C3%B1ol%29_-_El_Gr%C3%A1fico_363.jpg/500px-Ricardo_Zamora_%28arquero_espa%C3%B1ol%29_-_El_Gr%C3%A1fico_363.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Amadeo Carrizo": {
+    "file": "./amadeocarrizo.jpg",
+    "source": "https://en.wikipedia.org/wiki/Amadeo_Carrizo",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/AmadeoCarrizo.jpg/500px-AmadeoCarrizo.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Cláudio Taffarel": {
+    "file": "./claudiotaffarel.png",
+    "source": "https://en.wikipedia.org/wiki/Cl%C3%A1udio_Taffarel",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Taffarel_2018.png/500px-Taffarel_2018.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "John Barnes": {
+    "file": "./johnbarnes.jpg",
+    "source": "https://en.wikipedia.org/wiki/John_Barnes",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/John_Barnes_in_Singapore%2C_2023_01.jpg/500px-John_Barnes_in_Singapore%2C_2023_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Robert Pirès": {
+    "file": "./robertpires.jpg",
+    "source": "https://en.wikipedia.org/wiki/Robert_Pires",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/Robert_Pires_2011.jpg/500px-Robert_Pires_2011.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Sadio Mané": {
+    "file": "./sadiomane.jpg",
+    "source": "https://en.wikipedia.org/wiki/Sadio_Man%C3%A9",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/92/Sadio_Mane_France_v_Senegal_16_June_2026-450.jpg/500px-Sadio_Mane_France_v_Senegal_16_June_2026-450.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Son Heung-min": {
+    "file": "./sonheungmin.jpg",
+    "source": "https://en.wikipedia.org/wiki/Son_Heung-min",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b0/BFA_2023_-2_Heung-Min_Son_%28cropped%29.jpg/500px-BFA_2023_-2_Heung-Min_Son_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Pavel Nedvěd": {
+    "file": "./pavelnedved.jpg",
+    "source": "https://en.wikipedia.org/wiki/Pavel_Nedv%C4%9Bd",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/46/Pavel_Nedv%C4%9Bd.jpg/500px-Pavel_Nedv%C4%9Bd.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Dragan Džajić": {
+    "file": "./dragandzajic.jpg",
+    "source": "https://en.wikipedia.org/wiki/Dragan_D%C5%BEaji%C4%87",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Dragan_D%C5%BEaji%C4%87_%28cropped%29.jpg/500px-Dragan_D%C5%BEaji%C4%87_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Marc Overmars": {
+    "file": "./marcovermars.jpg",
+    "source": "https://en.wikipedia.org/wiki/Marc_Overmars",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/2/20/Marc_Overmars.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "David Ginola": {
+    "file": "./davidginola.jpg",
+    "source": "https://en.wikipedia.org/wiki/David_Ginola",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/David_Ginola_Deauville_2014_2.jpg/500px-David_Ginola_Deauville_2014_2.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Oleg Blokhin": {
+    "file": "./olegblokhin.jpg",
+    "source": "https://en.wikipedia.org/wiki/Oleg_Blokhin",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/74/Oleg_Blokhin2013.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Harry Kewell": {
+    "file": "./harrykewell.jpg",
+    "source": "https://en.wikipedia.org/wiki/Harry_Kewell",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/HarryKewell.jpg/500px-HarryKewell.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Jairzinho": {
+    "file": "./jairzinho.jpg",
+    "source": "https://en.wikipedia.org/wiki/Jairzinho",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/Jairzinho_1970s.jpg/500px-Jairzinho_1970s.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Gareth Bale": {
+    "file": "./garethbale.jpg",
+    "source": "https://en.wikipedia.org/wiki/Gareth_Bale",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/1/1e/2022_FIFA_World_Cup_United_States_1%E2%80%931_Wales_-_%2832%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Tom Finney": {
+    "file": "./tomfinney.jpg",
+    "source": "https://en.wikipedia.org/wiki/Tom_Finney",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/33/Tom_finney_with_england_c1950.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Ángel Di María": {
+    "file": "./angeldimaria.jpg",
+    "source": "https://en.wikipedia.org/wiki/%C3%81ngel_Di_Mar%C3%ADa",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8c/NIG-ARG_%285%29.jpg/500px-NIG-ARG_%285%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Julinho": {
+    "file": "./julinho.jpg",
+    "source": "https://en.wikipedia.org/wiki/Julinho_(footballer%2C_born_1965)",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Julinho_2014-3.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Kurt Hamrin": {
+    "file": "./kurthamrin.jpg",
+    "source": "https://en.wikipedia.org/wiki/Kurt_Hamrin",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/88/Kurt_Hamrin_%281970%29.jpg/500px-Kurt_Hamrin_%281970%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Pedro": {
+    "file": "./pedro.jpg",
+    "source": "https://en.wikipedia.org/wiki/Pedro_Rocha_(Uruguayan_footballer)",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Pedro_Rocha_c1966b.jpg/500px-Pedro_Rocha_c1966b.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Roberto Donadoni": {
+    "file": "./robertodonadoni.jpg",
+    "source": "https://en.wikipedia.org/wiki/Roberto_Donadoni",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f2/Roberto_Donadoni_-_SSC_Neapel_%282%29_%28cropped%29.jpg/500px-Roberto_Donadoni_-_SSC_Neapel_%282%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Patrick Vieira": {
+    "file": "./patrickvieira.jpg",
+    "source": "https://en.wikipedia.org/wiki/Patrick_Vieira",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6c/Patrick_Vieira_NYCFC_%28cropped%29.JPG/500px-Patrick_Vieira_NYCFC_%28cropped%29.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Didier Deschamps": {
+    "file": "./didierdeschamps.jpg",
+    "source": "https://en.wikipedia.org/wiki/Didier_Deschamps",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Didier_Deschamps_France_v_Senegal_16_June_2026-294.jpg/500px-Didier_Deschamps_France_v_Senegal_16_June_2026-294.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Roberto Carlos": {
+    "file": "./robertocarlos.jpg",
+    "source": "https://en.wikipedia.org/wiki/Roberto_Carlos",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/LS3_1288_%2853332367864%29_%28cropped%29.jpg/500px-LS3_1288_%2853332367864%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "José Antonio Camacho": {
+    "file": "./joseantoniocamacho.jpg",
+    "source": "https://en.wikipedia.org/wiki/Jos%C3%A9_Antonio_Camacho",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ca/Jose_Antonio_Camacho.jpg/500px-Jose_Antonio_Camacho.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Lilian Thuram": {
+    "file": "./lilianthuram.jpg",
+    "source": "https://en.wikipedia.org/wiki/Lilian_Thuram",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Lilian_Thuram_-_F%C3%A9vrier_2013.jpg/500px-Lilian_Thuram_-_F%C3%A9vrier_2013.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Maicon": {
+    "file": "./maicon.jpg",
+    "source": "https://en.wikipedia.org/wiki/Maicon_(footballer%2C_born_1981)",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/Maicon_Douglas_Sisenando_-_Inter_Mailand_%282%29.jpg/500px-Maicon_Douglas_Sisenando_-_Inter_Mailand_%282%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Berti Vogts": {
+    "file": "./bertivogts.jpg",
+    "source": "https://en.wikipedia.org/wiki/Berti_Vogts",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Berti_Vogts_1_%28cropped%29.JPG/500px-Berti_Vogts_1_%28cropped%29.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Bobby Moore": {
+    "file": "./bobbymoore.jpg",
+    "source": "https://en.wikipedia.org/wiki/Bobby_Moore",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c6/Bobby_moore_elgrafico_1970.jpg/500px-Bobby_moore_elgrafico_1970.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Sergio Ramos": {
+    "file": "./sergioramos.jpg",
+    "source": "https://en.wikipedia.org/wiki/Sergio_Ramos",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Sergio_Ramos_Interview_2021_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Carles Puyol": {
+    "file": "./carlespuyol.jpg",
+    "source": "https://en.wikipedia.org/wiki/Carles_Puyol",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/Premios_Goya_2020_-_Carles_Pujol.jpg/500px-Premios_Goya_2020_-_Carles_Pujol.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Iker Casillas": {
+    "file": "./ikercasillas.jpg",
+    "source": "https://en.wikipedia.org/wiki/Iker_Casillas",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Iker-Casillas-SportsTrade-2021-cropped.jpg/500px-Iker-Casillas-SportsTrade-2021-cropped.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Gordon Banks": {
+    "file": "./gordonbanks.jpg",
+    "source": "https://en.wikipedia.org/wiki/Gordon_Banks",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Gordon_Banks_2007.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Peter Schmeichel": {
+    "file": "./peterschmeichel.jpg",
+    "source": "https://en.wikipedia.org/wiki/Peter_Schmeichel",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Peter_Schmeichel_2012-01-25_001.jpg/500px-Peter_Schmeichel_2012-01-25_001.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Oliver Kahn": {
+    "file": "./oliverkahn.jpg",
+    "source": "https://en.wikipedia.org/wiki/Oliver_Kahn",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4b/2022-07-30_Fu%C3%9Fball%2C_M%C3%A4nner%2C_DFL-Supercup%2C_RB_Leipzig_-_FC_Bayern_M%C3%BCnchen_1DX_3179_by_Stepro.jpg/500px-2022-07-30_Fu%C3%9Fball%2C_M%C3%A4nner%2C_DFL-Supercup%2C_RB_Leipzig_-_FC_Bayern_M%C3%BCnchen_1DX_3179_by_Stepro.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Dino Zoff": {
+    "file": "./dinozoff.jpg",
+    "source": "https://en.wikipedia.org/wiki/Dino_Zoff",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Dino_Zoff_%281974%29.jpg/500px-Dino_Zoff_%281974%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Hristo Stoichkov": {
+    "file": "./hristostoichkov.jpg",
+    "source": "https://en.wikipedia.org/wiki/Hristo_Stoichkov",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f3/Stoichkov_in_2016.jpg/500px-Stoichkov_in_2016.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Rivaldo": {
+    "file": "./rivaldo.jpg",
+    "source": "https://en.wikipedia.org/wiki/Rivaldo",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Rivaldo.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+  },
+  "Garrincha": {
+    "file": "./garrincha.jpg",
+    "source": "https://en.wikipedia.org/wiki/Garrincha",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Manoel_Francisco_dos_Santos-Garrincha.jpg/500px-Manoel_Francisco_dos_Santos-Garrincha.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "George Best": {
+    "file": "./georgebest.jpg",
+    "source": "https://en.wikipedia.org/wiki/George_Best",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/George_best_1976.jpg/500px-George_best_1976.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Arjen Robben": {
+    "file": "./arjenrobben.jpg",
+    "source": "https://en.wikipedia.org/wiki/Arjen_Robben",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/2019147183036_2019-05-27_Fussball_1.FC_Kaiserslautern_vs_FC_Bayern_M%C3%BCnchen_-_Sven_-_1D_X_MK_II_-_0196_-_B70I8495_%28cropped%29.jpg/500px-2019147183036_2019-05-27_Fussball_1.FC_Kaiserslautern_vs_FC_Bayern_M%C3%BCnchen_-_Sven_-_1D_X_MK_II_-_0196_-_B70I8495_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Gary Neville": {
+    "file": "./garyneville.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Gary_Neville.jpg",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/Gary_Neville.jpg/500px-Gary_Neville.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
+  "John Terry": {
+    "file": "./johnterry.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:John_Terry.jpg",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/John_Terry.jpg/500px-John_Terry.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
+  "Rio Ferdinand": {
+    "file": "./rioferdinand.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Rio_Ferdinand,_2004.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/32/Rio_Ferdinand%2C_2004.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+  },
+  "Nemanja Vidić": {
+    "file": "./nemanjavidic.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Nemanja_Vidi%C4%87.jpg",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/Nemanja_Vidi%C4%87.jpg/500px-Nemanja_Vidi%C4%87.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
+  "Manuel Neuer": {
+    "file": "./manuelneuer.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Manuel_Neuer,_Germany_national_football_team_(01).jpg",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/Manuel_Neuer%2C_Germany_national_football_team_%2801%29.jpg/500px-Manuel_Neuer%2C_Germany_national_football_team_%2801%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
+  "Alisson Becker": {
+    "file": "./alissonbecker.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Alisson_Becker_Brazil_V_Morocco_13_June_2026-65.jpg",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1e/Alisson_Becker_Brazil_V_Morocco_13_June_2026-65.jpg/500px-Alisson_Becker_Brazil_V_Morocco_13_June_2026-65.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
+  "Neymar": {
+    "file": "./neymar.jpg",
+    "source": "https://en.wikipedia.org/wiki/Neymar",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c0/Neymar_Junior_Brazil_V_Morocco_13_June_2026-40.jpg/500px-Neymar_Junior_Brazil_V_Morocco_13_June_2026-40.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  "Franck Ribéry": {
+    "file": "./franckribery.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Franck_Rib%C3%A9ry_20120611.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Franck_Rib%C3%A9ry_20120611.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+  },
+  "Eden Hazard": {
+    "file": "./edenhazard.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Eden_Hazard_2011.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/9/95/Eden_Hazard_2011.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+  },
+  "Luís Figo": {
+    "file": "./luisfigo.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Luis_Figo.jpg",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cd/Luis_Figo.jpg/500px-Luis_Figo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
+  "Stanley Matthews": {
+    "file": "./stanleymatthews.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Stanley_Matthews_statue1.jpg",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Stanley_Matthews_statue1.jpg/500px-Stanley_Matthews_statue1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
+  "Mohamed Salah": {
+    "file": "./mohamedsalah.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Mohamed_Salah.JPG",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Mohamed_Salah.JPG/500px-Mohamed_Salah.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
+  "Erling Haaland": {
+    "file": "./erlinghaaland.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Erling_Haaland_2023.jpg",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/Erling_Haaland_2023.jpg/500px-Erling_Haaland_2023.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
+  "Lamine Yamal": {
+    "file": "./lamineyamal.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Lamine_Yamal,_S%C3%A1nchez_se_reuni%C3%B3_con_los_futbolistas_de_la_selecci%C3%B3n_espa%C3%B1ola_tras_ganar_la_Eurocopa_2024_(3)_(cropped).jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Lamine_Yamal%2C_S%C3%A1nchez_se_reuni%C3%B3_con_los_futbolistas_de_la_selecci%C3%B3n_espa%C3%B1ola_tras_ganar_la_Eurocopa_2024_%283%29_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+  },
+  "Ousmane Dembélé": {
+    "file": "./ousmanedembele.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Saint-L%C3%B4_-_Rennes_CFA2_20150523_-_Ousmane_Demb%C3%A9l%C3%A9_1.JPG",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/Saint-L%C3%B4_-_Rennes_CFA2_20150523_-_Ousmane_Demb%C3%A9l%C3%A9_1.JPG/500px-Saint-L%C3%B4_-_Rennes_CFA2_20150523_-_Ousmane_Demb%C3%A9l%C3%A9_1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  }
+}
