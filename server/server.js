@@ -686,7 +686,7 @@ async function fetchApi(path, params) {
   }
 }
 
-async function fetchHighlightly(path, params = {}) {
+async function fetchHighlightly(path, params = {}, { includePagination = false } = {}) {
   const requestKey = JSON.stringify(['highlightly', path, Object.entries(params).sort()])
   const pendingRequest = pendingApiRequests.get(requestKey)
   if (pendingRequest) return pendingRequest
@@ -698,7 +698,10 @@ async function fetchHighlightly(path, params = {}) {
       error.status = response.status >= 400 ? response.status : 502
       throw error
     }
-    return payload?.data ?? payload
+    const data = payload?.data ?? payload
+    return includePagination
+      ? { data, pagination: payload?.pagination ?? null }
+      : data
   })
 
   pendingApiRequests.set(requestKey, request)
@@ -712,12 +715,33 @@ async function fetchHighlightly(path, params = {}) {
 }
 
 async function getHighlightlyFixtures(date) {
-  const payload = await fetchHighlightly('/matches', {
-    date,
-    timezone: 'Asia/Kolkata',
-    limit: 100,
-  })
-  return Array.isArray(payload) ? payload : []
+  const limit = 100
+  const maxPages = 20
+  const matches = []
+  let offset = 0
+
+  for (let page = 0; page < maxPages; page += 1) {
+    const payload = await fetchHighlightly('/matches', {
+      date,
+      timezone: 'Asia/Kolkata',
+      limit,
+      offset,
+    }, { includePagination: true })
+    const results = Array.isArray(payload.data) ? payload.data : []
+    matches.push(...results)
+
+    const totalCount = Number(payload.pagination?.totalCount)
+    const pageLimit = Number(payload.pagination?.limit) || limit
+    const nextOffset = Number(payload.pagination?.offset) + pageLimit
+    if (!results.length || !Number.isFinite(totalCount)
+      || matches.length >= totalCount || !Number.isFinite(nextOffset)
+      || nextOffset <= offset) {
+      break
+    }
+    offset = nextOffset
+  }
+
+  return matches
 }
 
 async function getHighlightlyDetails(fixtureId, include) {
