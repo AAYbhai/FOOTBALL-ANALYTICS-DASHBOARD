@@ -704,7 +704,7 @@ function MatchCentre({ initialMatch = null, competitions = [] }) {
       </div>
 
       <p className="mc-footnote">
-        Match information is supplied by API-Football. Availability varies by
+        Match information is supplied by the configured live-data provider. Availability varies by
         competition, fixture and subscription coverage. Missing statistics
         are shown as unavailable rather than estimated.
       </p>

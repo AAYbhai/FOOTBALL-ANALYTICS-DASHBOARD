@@ -19,6 +19,12 @@ const footballApi = axios.create({
   timeout: 15000,
 })
 
+const highlightlyApi = axios.create({
+  baseURL: 'https://soccer.highlightly.net',
+  headers: { 'x-rapidapi-key': process.env.HIGHLIGHTLY_API_KEY },
+  timeout: 15000,
+})
+
 const CLUB_LEAGUES = {
   '39': 'Premier League', '140': 'La Liga', '78': 'Bundesliga',
   '135': 'Serie A', '61': 'Ligue 1', '88': 'Eredivisie',
@@ -310,6 +316,20 @@ function requireApiKey(res) {
   return true
 }
 
+function matchProvider() {
+  if (process.env.HIGHLIGHTLY_API_KEY) return 'Highlightly'
+  if (process.env.API_FOOTBALL_KEY) return 'API-Football'
+  return null
+}
+
+function requireMatchProvider(res) {
+  if (matchProvider()) return true
+  res.status(500).json({
+    error: 'Add HIGHLIGHTLY_API_KEY or API_FOOTBALL_KEY to the server environment to enable match data.',
+  })
+  return false
+}
+
 function validateMatchCompetition(league) {
   return league === 'all' || MATCH_COMPETITION_IDS.has(league)
 }
@@ -387,6 +407,205 @@ function mapFixture(item) {
   }
 }
 
+const HIGHLIGHTLY_LEAGUE_IDS = new Map([
+  ['premier league', '39'], ['english premier league', '39'],
+  ['la liga', '140'], ['laliga', '140'], ['spanish la liga', '140'],
+  ['bundesliga', '78'], ['german bundesliga', '78'],
+  ['serie a', '135'], ['italian serie a', '135'],
+  ['ligue 1', '61'], ['french ligue 1', '61'],
+  ['uefa champions league', '2'], ['champions league', '2'],
+  ['uefa nations league', '5'], ['nations league', '5'],
+  ['fifa world cup', '1'], ['world cup', '1'],
+  ['uefa european championship', '4'], ['european championship', '4'], ['euros', '4'],
+  ['copa america', '9'], ['conmebol copa america', '9'],
+  ['saudi pro league', '307'], ['ros hn league', '307'],
+  ['major league soccer', '253'], ['mls', '253'],
+])
+
+function normalizeName(value) {
+  return String(value || '')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
+}
+
+function highlightlyLeagueId(item) {
+  const name = normalizeName(item.league?.name)
+  return HIGHLIGHTLY_LEAGUE_IDS.get(name) || null
+}
+
+function parseHighlightlyScore(value) {
+  const match = String(value || '').match(/(\d+)\s*[-–:]\s*(\d+)/)
+  return match ? [Number(match[1]), Number(match[2])] : [null, null]
+}
+
+function mapHighlightlyStatus(description) {
+  const status = normalizeName(description)
+  const statuses = {
+    'not started': 'NS', 'to be announced': 'TBD',
+    'first half': '1H', 'half time': 'HT', 'second half': '2H',
+    'extra time': 'ET', 'break time': 'BT', penalties: 'P',
+    finished: 'FT', 'finished after penalties': 'PEN',
+    'finished after extra time': 'AET', postponed: 'PST',
+    cancelled: 'CANC', abandoned: 'ABD', suspended: 'SUSP',
+    interrupted: 'INT', awarded: 'AWD', 'in progress': 'LIVE', unknown: 'TBD',
+  }
+  return statuses[status] || 'TBD'
+}
+
+function mapHighlightlyFixture(item) {
+  const leagueId = highlightlyLeagueId(item)
+  if (!leagueId) return null
+
+  const [homeGoals, awayGoals] = parseHighlightlyScore(item.state?.score?.current)
+  const date = item.date || null
+  const clock = item.state?.clock == null ? null : Number(item.state.clock)
+
+  return {
+    id: item.id ?? null,
+    date,
+    timestamp: date ? Math.floor(new Date(date).getTime() / 1000) : null,
+    venue: item.venue?.name ?? null,
+    referee: item.referee?.name ?? null,
+    elapsed: clock !== null && Number.isFinite(clock) ? clock : null,
+    status: mapHighlightlyStatus(item.state?.description),
+    statusLong: item.state?.description || 'Unknown',
+    league: {
+      id: Number(leagueId),
+      name: item.league?.name || ALL_LEAGUES[leagueId],
+      country: item.country?.name ?? null,
+      logo: item.league?.logo ?? null,
+      season: item.league?.season ?? null,
+      round: item.round ?? null,
+    },
+    home: {
+      id: item.homeTeam?.id ?? null,
+      name: item.homeTeam?.name || 'Home team',
+      logo: item.homeTeam?.logo ?? null,
+      goals: homeGoals,
+      winner: null,
+    },
+    away: {
+      id: item.awayTeam?.id ?? null,
+      name: item.awayTeam?.name || 'Away team',
+      logo: item.awayTeam?.logo ?? null,
+      goals: awayGoals,
+      winner: null,
+    },
+  }
+}
+
+function mapHighlightlyEvent(item, index) {
+  const rawType = item.type || 'Event'
+  const type = ['Goal', 'Own Goal', 'Penalty', 'Missed Penalty'].includes(rawType)
+    ? 'Goal'
+    : ['Yellow Card', 'Red Card'].includes(rawType)
+      ? 'Card'
+      : rawType === 'Substitution'
+        ? 'subst'
+        : rawType.startsWith('VAR ')
+          ? 'Var'
+          : rawType
+  const timeParts = String(item.time || '').match(/(\d+)(?:\s*\+\s*(\d+))?/)
+
+  return {
+    time: {
+      elapsed: timeParts ? Number(timeParts[1]) : null,
+      extra: timeParts?.[2] ? Number(timeParts[2]) : null,
+    },
+    team: item.team ? { id: item.team.id, name: item.team.name, logo: item.team.logo } : null,
+    player: item.player ? { id: item.playerId ?? null, name: item.player } : null,
+    assist: item.assist
+      ? { id: item.assistingPlayerId ?? null, name: item.assist }
+      : item.substituted
+        ? { id: null, name: item.substituted }
+        : null,
+    type,
+    detail: rawType,
+    comments: item.comments || '',
+    _highlightlyIndex: index,
+  }
+}
+
+function mapHighlightlyLineups(payload) {
+  return ['homeTeam', 'awayTeam'].flatMap((key) => {
+    const source = payload?.[key]
+    if (!source) return []
+    const startXI = (source.initialLineup || []).flatMap((row, rowIndex) =>
+      (Array.isArray(row) ? row : []).map((player, columnIndex) => ({
+        player: {
+          id: player.id ?? null,
+          name: player.name || 'Unknown player',
+          number: player.number ?? null,
+          pos: player.position ?? null,
+          grid: `${rowIndex + 1}:${columnIndex + 1}`,
+          photo: player.photo ?? player.logo ?? null,
+        },
+      })),
+    )
+    const substitutes = (source.substitutes || []).map((player) => ({
+      player: {
+        id: player.id ?? null,
+        name: player.name || 'Unknown player',
+        number: player.number ?? null,
+        pos: player.position ?? null,
+        photo: player.photo ?? player.logo ?? null,
+      },
+    }))
+    return [{
+      team: { id: source.id ?? null, name: source.name || 'Team', logo: source.logo ?? null },
+      formation: source.formation || '',
+      startXI,
+      substitutes,
+    }]
+  })
+}
+
+function mapHighlightlyStatistics(payload) {
+  const statisticNames = new Map([
+    ['shots on target', 'Shots on Goal'], ['shots on goal', 'Shots on Goal'],
+    ['shots off target', 'Shots off Goal'], ['shots off goal', 'Shots off Goal'],
+    ['total shots', 'Total Shots'], ['shots inside box', 'Shots insidebox'],
+    ['shots outside box', 'Shots outsidebox'], ['corners', 'Corner Kicks'],
+    ['corner kicks', 'Corner Kicks'], ['possession', 'Ball Possession'],
+    ['ball possession', 'Ball Possession'], ['saves', 'Goalkeeper Saves'],
+    ['goalkeeper saves', 'Goalkeeper Saves'], ['passes', 'Total passes'],
+    ['total passes', 'Total passes'], ['accurate passes', 'Passes accurate'],
+    ['passes accurate', 'Passes accurate'], ['pass accuracy', 'Passes %'],
+    ['passes percentage', 'Passes %'], ['yellow cards', 'Yellow Cards'],
+    ['red cards', 'Red Cards'], ['offsides', 'Offsides'], ['fouls', 'Fouls'],
+    ['blocked shots', 'Blocked Shots'],
+  ])
+
+  return (Array.isArray(payload) ? payload : []).map((team) => ({
+    team: team.team || {},
+    statistics: (team.statistics || []).map((stat) => ({
+      type: statisticNames.get(normalizeName(stat.displayName || stat.name)) || stat.displayName || stat.name || 'Statistic',
+      value: stat.value ?? null,
+    })),
+  }))
+}
+
+function mapHighlightlyPlayers(payload) {
+  return (Array.isArray(payload) ? payload : []).map((team) => ({
+    team: { id: team.team?.id ?? null, name: team.team?.name || 'Team', logo: team.team?.logo ?? null },
+    players: (team.players || []).map((player) => ({
+      player: {
+        id: player.id ?? null,
+        name: player.name || player.fullName || 'Unknown player',
+        number: player.shirtNumber ?? null,
+        photo: player.logo || null,
+      },
+      statistics: [{
+        games: { rating: player.matchRating ?? null, position: player.position ?? null },
+        goals: { total: player.statistics?.[0]?.goalsScored ?? 0, assists: player.statistics?.[0]?.assists ?? 0 },
+      }],
+    })),
+  }))
+}
+
 function todayInIndia() {
   const parts = new Intl.DateTimeFormat('en-CA', {
     timeZone: 'Asia/Kolkata',
@@ -437,6 +656,91 @@ async function fetchApi(path, params) {
   }
 }
 
+async function fetchHighlightly(path, params = {}) {
+  const requestKey = JSON.stringify(['highlightly', path, Object.entries(params).sort()])
+  const pendingRequest = pendingApiRequests.get(requestKey)
+  if (pendingRequest) return pendingRequest
+
+  const request = highlightlyApi.get(path, { params }).then((response) => {
+    const payload = response.data
+    if (payload?.error || payload?.errors) {
+      const error = new Error('Highlightly returned an API error.')
+      error.status = response.status >= 400 ? response.status : 502
+      throw error
+    }
+    return payload?.data ?? payload
+  })
+
+  pendingApiRequests.set(requestKey, request)
+  try {
+    return await request
+  } finally {
+    if (pendingApiRequests.get(requestKey) === request) {
+      pendingApiRequests.delete(requestKey)
+    }
+  }
+}
+
+async function getHighlightlyFixtures(date) {
+  const payload = await fetchHighlightly('/matches', {
+    date,
+    timezone: 'Asia/Kolkata',
+    limit: 100,
+  })
+  return Array.isArray(payload) ? payload : []
+}
+
+async function getHighlightlyDetails(fixtureId, include) {
+  const requested = include.filter((section) => section !== 'headtohead')
+  const needsMatchRecord = requested.includes('events') || requested.includes('statistics')
+  const tasks = []
+  if (needsMatchRecord) tasks.push(['matchRecord', fetchHighlightly(`/matches/${fixtureId}`)])
+  if (requested.includes('lineups')) tasks.push(['lineups', fetchHighlightly(`/lineups/${fixtureId}`)])
+  if (requested.includes('players')) tasks.push(['players', fetchHighlightly(`/box-score/${fixtureId}`)])
+  const settled = await Promise.allSettled(tasks.map(([, promise]) => promise))
+  const details = {}
+  const unavailable = []
+
+  settled.forEach((result, index) => {
+    const [task] = tasks[index]
+    if (result.status !== 'fulfilled') {
+      const failedSections = task === 'matchRecord'
+        ? requested.filter((section) => section === 'events' || section === 'statistics')
+        : [task]
+      for (const section of failedSections) {
+        details[section] = null
+        unavailable.push({ section, message: 'The provider could not supply this section for the selected match.' })
+      }
+      return
+    }
+    const value = result.value
+    if (task === 'matchRecord') {
+      const record = value?.match || value
+      if (requested.includes('events')) {
+        const list = Array.isArray(record?.events) ? record.events : []
+        details.events = list.map(mapHighlightlyEvent)
+      }
+      if (requested.includes('statistics')) {
+        details.statistics = mapHighlightlyStatistics(record?.statistics)
+      }
+    } else if (task === 'lineups') {
+      details.lineups = mapHighlightlyLineups(value)
+    } else if (task === 'players') {
+      details.players = mapHighlightlyPlayers(value)
+    }
+  })
+
+  if (include.includes('headtohead')) {
+    details.headtohead = null
+    unavailable.push({
+      section: 'headtohead',
+      message: 'Head-to-head is not included in the current match-centre view.',
+    })
+  }
+
+  return { details, unavailable }
+}
+
 function sendApiError(res, error, fallback) {
   console.error(
     `${fallback}:`,
@@ -468,7 +772,8 @@ app.get('/api/health', (_req, res) => {
       mongoose.connection.readyState === 1
         ? 'connected'
         : 'disconnected',
-    footballApiConfigured: Boolean(process.env.API_FOOTBALL_KEY),
+    footballApiConfigured: Boolean(matchProvider()),
+    matchProvider: matchProvider(),
   })
 })
 
@@ -722,7 +1027,7 @@ app.get('/api/standings', async (req, res) => {
 
 // Fixtures by date
 app.get('/api/matches', async (req, res) => {
-  if (!requireApiKey(res)) return
+  if (!requireMatchProvider(res)) return
 
   const date = String(req.query.date || todayInIndia())
   const league = String(req.query.league || 'all')
@@ -739,27 +1044,27 @@ app.get('/api/matches', async (req, res) => {
     })
   }
 
-  const key = `fixtures:${date}`
+  const provider = matchProvider()
+  const key = `fixtures:${provider}:${date}`
   let payload = getCached(key)
 
   if (!payload) {
     try {
-      const data = await fetchApi('/fixtures', {
-        date,
-        timezone: 'Asia/Kolkata',
-      })
+      const data = provider === 'Highlightly'
+        ? await getHighlightlyFixtures(date)
+        : await fetchApi('/fixtures', { date, timezone: 'Asia/Kolkata' })
 
-      const results = data
-        .map(mapFixture)
-        .filter((match) =>
+      const results = (provider === 'Highlightly'
+        ? data.map(mapHighlightlyFixture).filter(Boolean)
+        : data.map(mapFixture).filter((match) =>
           MATCH_COMPETITION_IDS.has(String(match.league.id)),
-        )
+        ))
 
       payload = {
         results,
         count: results.length,
         date,
-        source: 'API-Football',
+        source: provider,
         cached: false,
         updatedAt: new Date().toISOString(),
       }
@@ -769,7 +1074,7 @@ app.get('/api/matches', async (req, res) => {
       return sendApiError(
         res,
         error,
-        'Could not fetch fixtures from API-Football.',
+        `Could not fetch fixtures from ${provider}.`,
       )
     }
   }
@@ -786,7 +1091,7 @@ app.get('/api/matches', async (req, res) => {
 
 // Live scores
 app.get('/api/matches/live', async (req, res) => {
-  if (!requireApiKey(res)) return
+  if (!requireMatchProvider(res)) return
 
   const league = String(req.query.league || 'all')
 
@@ -796,26 +1101,28 @@ app.get('/api/matches/live', async (req, res) => {
     })
   }
 
-  const key = 'live:all'
+  const provider = matchProvider()
+  const key = `live:${provider}:all`
   let payload = getCached(key)
 
   if (!payload) {
     try {
-      const data = await fetchApi('/fixtures', {
-        live: 'all',
-        timezone: 'Asia/Kolkata',
-      })
+      const data = provider === 'Highlightly'
+        ? await getHighlightlyFixtures(todayInIndia())
+        : await fetchApi('/fixtures', { live: 'all', timezone: 'Asia/Kolkata' })
 
-      const results = data
-        .map(mapFixture)
-        .filter((match) =>
+      const results = (provider === 'Highlightly'
+        ? data.map(mapHighlightlyFixture).filter(Boolean)
+        : data.map(mapFixture).filter((match) =>
           MATCH_COMPETITION_IDS.has(String(match.league.id)),
+        )).filter((match) =>
+          provider !== 'Highlightly' || ['1H', 'HT', '2H', 'ET', 'BT', 'P', 'LIVE'].includes(match.status),
         )
 
       payload = {
         results,
         count: results.length,
-        source: 'API-Football',
+        source: provider,
         cached: false,
         updatedAt: new Date().toISOString(),
       }
@@ -825,7 +1132,7 @@ app.get('/api/matches/live', async (req, res) => {
       return sendApiError(
         res,
         error,
-        'Could not fetch live scores from API-Football.',
+        `Could not fetch live scores from ${provider}.`,
       )
     }
   }
@@ -842,7 +1149,7 @@ app.get('/api/matches/live', async (req, res) => {
 
 // Match centre details
 app.get('/api/matches/:id/details', async (req, res) => {
-  if (!requireApiKey(res)) return
+  if (!requireMatchProvider(res)) return
 
   const fixtureId = String(req.params.id)
 
@@ -883,6 +1190,26 @@ app.get('/api/matches/:id/details', async (req, res) => {
 
   if (cached) {
     return res.json({ ...cached, cached: true })
+  }
+
+  const provider = matchProvider()
+  if (provider === 'Highlightly') {
+    try {
+      const { details, unavailable } = await getHighlightlyDetails(fixtureId, include)
+      const payload = {
+        fixtureId: Number(fixtureId),
+        requested: include,
+        details,
+        unavailable,
+        source: provider,
+        cached: false,
+        updatedAt: new Date().toISOString(),
+      }
+      saveCache(key, payload, TTL.matchDetails)
+      return res.json(payload)
+    } catch (error) {
+      return sendApiError(res, error, 'Could not fetch match details from Highlightly.')
+    }
   }
 
   const endpoints = {
@@ -936,7 +1263,7 @@ app.get('/api/matches/:id/details', async (req, res) => {
       requested: include,
       details,
       unavailable,
-      source: 'API-Football',
+      source: provider,
       cached: false,
       updatedAt: new Date().toISOString(),
     }

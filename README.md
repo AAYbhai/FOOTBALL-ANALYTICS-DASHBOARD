@@ -2,9 +2,13 @@
 
 ## Football data sources
 
-API-Football remains the source for live scores, today's fixtures, and match
-details. League tables use football-data.org for the competitions covered by
-its free plan. Add your football-data.org token as `FOOTBALL_DATA_TOKEN` in
+Highlightly is used for live scores, today's fixtures, and match details when
+`HIGHLIGHTLY_API_KEY` is set in the backend environment. Its key stays on the
+server and is never sent to the browser. API-Football remains a fallback for
+match data and is still used by existing player and team endpoints when its key
+is configured. League tables use football-data.org for the competitions
+covered by its free plan. Add your football-data.org token as
+`FOOTBALL_DATA_TOKEN` in
 `server/.env` (see `server/.env.example`). The backend refreshes each supported
 table on the first request of each day in India time and saves the last
 successful table in `server/data/standings-cache.json` for use during outages.
