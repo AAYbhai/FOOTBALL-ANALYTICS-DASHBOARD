@@ -618,16 +618,18 @@ function App() {
                 )}
               </div>
 
-              <div className="notice">
-                <span>ℹ</span>
-                <p>
-                  Live scores and today’s fixtures come from the match feed.
-                  League tables refresh once daily from their configured data
-                  source. Player data will be added in a later phase.
-                </p>
-              </div>
+              {activePage !== 'Competition' && (
+                <div className="notice">
+                  <span>ℹ</span>
+                  <p>
+                    Live scores and today’s fixtures come from the match feed.
+                    League tables refresh once daily from their configured data
+                    source. Player data will be added in a later phase.
+                  </p>
+                </div>
+              )}
 
-              {(competitionError || footballError) && (
+              {activePage !== 'Competition' && (competitionError || footballError) && (
                 <div className="notice" role="status">
                   <span>⚠</span>
                   <p>
