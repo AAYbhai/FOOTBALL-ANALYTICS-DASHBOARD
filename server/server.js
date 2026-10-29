@@ -407,19 +407,45 @@ function mapFixture(item) {
   }
 }
 
-const HIGHLIGHTLY_LEAGUE_IDS = new Map([
-  ['premier league', '39'], ['english premier league', '39'],
-  ['la liga', '140'], ['laliga', '140'], ['spanish la liga', '140'],
-  ['bundesliga', '78'], ['german bundesliga', '78'],
-  ['serie a', '135'], ['italian serie a', '135'],
-  ['ligue 1', '61'], ['french ligue 1', '61'],
-  ['uefa champions league', '2'], ['champions league', '2'],
-  ['uefa nations league', '5'], ['nations league', '5'],
-  ['fifa world cup', '1'], ['world cup', '1'],
-  ['uefa european championship', '4'], ['european championship', '4'], ['euros', '4'],
-  ['copa america', '9'], ['conmebol copa america', '9'],
-  ['saudi pro league', '307'], ['ros hn league', '307'],
-  ['major league soccer', '253'], ['mls', '253'],
+const HIGHLIGHTLY_CLUB_LEAGUES = new Map([
+  ['england', new Map([
+    ['premier league', '39'], ['english premier league', '39'],
+  ])],
+  ['spain', new Map([
+    ['la liga', '140'], ['laliga', '140'], ['spanish la liga', '140'],
+  ])],
+  ['germany', new Map([
+    ['bundesliga', '78'], ['german bundesliga', '78'],
+  ])],
+  ['italy', new Map([
+    ['serie a', '135'], ['italian serie a', '135'],
+  ])],
+  ['france', new Map([
+    ['ligue 1', '61'], ['french ligue 1', '61'],
+  ])],
+  ['saudi arabia', new Map([
+    ['saudi pro league', '307'], ['roshn saudi league', '307'],
+    ['ros hn league', '307'],
+  ])],
+  ['united states', new Map([
+    ['major league soccer', '253'], ['mls', '253'],
+  ])],
+  ['united states of america', new Map([
+    ['major league soccer', '253'], ['mls', '253'],
+  ])],
+  ['usa', new Map([
+    ['major league soccer', '253'], ['mls', '253'],
+  ])],
+])
+
+const HIGHLIGHTLY_INTERNATIONAL_LEAGUES = new Map([
+  ['uefa champions league', '2'],
+  ['uefa nations league', '5'],
+  ['fifa world cup', '1'],
+  ['uefa european championship', '4'],
+  ['uefa euro', '4'],
+  ['conmebol copa america', '9'],
+  ['copa america', '9'],
 ])
 
 function normalizeName(value) {
@@ -433,7 +459,11 @@ function normalizeName(value) {
 
 function highlightlyLeagueId(item) {
   const name = normalizeName(item.league?.name)
-  return HIGHLIGHTLY_LEAGUE_IDS.get(name) || null
+  const country = normalizeName(item.country?.name)
+  const clubLeagueId = HIGHLIGHTLY_CLUB_LEAGUES.get(country)?.get(name)
+  if (clubLeagueId) return clubLeagueId
+
+  return HIGHLIGHTLY_INTERNATIONAL_LEAGUES.get(name) || null
 }
 
 function parseHighlightlyScore(value) {
@@ -474,7 +504,7 @@ function mapHighlightlyFixture(item) {
     statusLong: item.state?.description || 'Unknown',
     league: {
       id: Number(leagueId),
-      name: item.league?.name || ALL_LEAGUES[leagueId],
+      name: ALL_LEAGUES[leagueId] || item.league?.name || 'Unknown competition',
       country: item.country?.name ?? null,
       logo: item.league?.logo ?? null,
       season: item.league?.season ?? null,
